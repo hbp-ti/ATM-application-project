@@ -10,6 +10,10 @@ public class conn {
 
         System.out.println("URL da base de dados: ");
         String url = sc.nextLine();
+        
+        System.out.println("Porta: ");
+        int porta = sc.nextInt();
+        sc.nextLine();
 
         System.out.println("Schema da base de dados: ");
         String schema = sc.nextLine();
@@ -22,18 +26,18 @@ public class conn {
 
         try {
             conn connection = new conn();
-            connection.connect(url, schema, user, pass);
+            connection.connect(url, porta, schema, user, pass);
         } catch(Exception e) {
             System.out.println("Erro ao conectar: " + e.getMessage());
         }
     }
-    public void connect(String url, String schema, String user, String password) {
+    public void connect(String url, int porta, String schema, String user, String password) {
         Connection c;
         Statement s;
 
         try  {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            c = DriverManager.getConnection("jdbc:mysql://" + url + ":3306/" + schema + "", user, password);
+            c = DriverManager.getConnection("jdbc:mysql://" + url + ":" + porta + "/" + schema + "", user, password);
             s = c.createStatement();
             System.out.println("Conexão bem-sucedida!");
         } catch (SQLException | ClassNotFoundException e) {
