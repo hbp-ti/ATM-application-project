@@ -17,7 +17,7 @@ public class conn {
         System.out.println("Nome de utilizador: ");
         String user = sc.nextLine();
 
-        System.out.println("Passwoerd: ");
+        System.out.println("Password: ");
         String pass = sc.nextLine();
 
         try {
