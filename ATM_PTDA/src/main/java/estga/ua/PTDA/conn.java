@@ -10,25 +10,25 @@ public class conn {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("URL da base de dados: ");
+        System.out.println("Host da base de dados:");
         String url = sc.nextLine();
 
-        System.out.println("Porta: ");
-        int porta = sc.nextInt();
+        System.out.println("Porta:");
+        int port = sc.nextInt();
         sc.nextLine();
 
-        System.out.println("Schema da base de dados: ");
+        System.out.println("Schema da base de dados:");
         String schema = sc.nextLine();
 
-        System.out.println("Nome de utilizador: ");
+        System.out.println("Nome de utilizador:");
         String user = sc.nextLine();
 
-        System.out.println("Password: ");
+        System.out.println("Password:");
         String pass = sc.nextLine();
 
         try {
             conn connection = new conn();
-            connection.connect(url, porta, schema, user, pass);
+            connection.connect(url, port, schema, user, pass);
 
             if (connection.isConnected()) {
                 String query = "SELECT clientName FROM BankAccount WHERE accountNumber = 12345678";
@@ -53,10 +53,10 @@ public class conn {
         }
     }
 
-    public void connect(String url, int porta, String schema, String user, String password) {
+    public void connect(String url, int port, String schema, String user, String password) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            c = DriverManager.getConnection("jdbc:mysql://" + url + ":" + porta + "/" + schema, user, password);
+            c = DriverManager.getConnection("jdbc:mysql://" + url + ":" + port + "/" + schema, user, password);
             s = c.createStatement();
             System.out.println("Conexão bem-sucedida!");
         } catch (SQLException | ClassNotFoundException e) {
