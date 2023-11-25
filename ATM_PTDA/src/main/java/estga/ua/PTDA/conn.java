@@ -37,7 +37,7 @@ public class conn {
 
         try  {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            c = DriverManager.getConnection("jdbc:mysql://" + url + ":" + porta + "/" + schema + "", user, password);
+            c = DriverManager.getConnection("jdbc:mysql://" + url + ":" + porta + "/" + schema, user, password);
             s = c.createStatement();
             System.out.println("Conexão bem-sucedida!");
         } catch (SQLException | ClassNotFoundException e) {
