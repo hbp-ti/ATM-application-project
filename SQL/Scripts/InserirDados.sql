@@ -10,13 +10,13 @@ INSERT INTO BankAccount (accountNumber, accountBalance, clientName, NIF, address
 		   (98765313, 90000.67, 'Carlos Pereira', 654321098, 'Rua dos Pássaros, 234', '45678-901', 432109876, 'carlos.pereira@email.com', '1980-04-25', 'Casado', 'Masculino'),
 		   (65432109, 763.88, 'Mariana Costa', 765432109, 'Avenida das Flores, 876', '56789-012', 321098765, 'mariana.costa@email.com', '2002-10-30', 'Solteiro', 'Feminino'),
 		   (78901234, 6725.50, 'Jorge Ferreira', 321098765, 'Praça da Paz, 345', '67890-123', 210987654, 'jorge.ferreira@email.com', '1995-02-14', 'Casado', 'Masculino');
-           
+
 
 INSERT INTO Card (cardNumber, accountNumber, cardPIN)
-SELECT 
+SELECT
     FLOOR(RAND() * 100000000) AS cardNumber, accountNumber, LPAD(FLOOR(RAND() * 10000), 4, '0') AS cardPIN
 FROM BankAccount;
-		
+
 INSERT INTO Movement (movementID, cardNumber, movementDate, movementType, movementValue)
 	SELECT FLOOR(RAND() * 100000000) AS movementID,
 	       cardNumber,
