@@ -1,10 +1,8 @@
 DELIMITER //
 CREATE PROCEDURE criarTabelas()
     BEGIN
-        CREATE TABLE HolderAccount (
+        CREATE TABLE Holder (
             holderNIF INT(9) NOT NULL PRIMARY KEY,
-            accountNumber INT(20) NOT NULL,
-            holderType INT(1) NOT NULL,
             holderClientName VARCHAR(40) NOT NULL,
             holderAddress VARCHAR(50) NOT NULL,
             holderZipCode VARCHAR(10) NOT NULL,
@@ -12,10 +10,7 @@ CREATE PROCEDURE criarTabelas()
             holderEmail VARCHAR(50),
             holderBirthDate DATE NOT NULL,
             holderMaritalStatus VARCHAR(10) NOT NULL,
-            holderGender VARCHAR(10) NOT NULL,
-
-            FOREIGN KEY (accountNumber) REFERENCES BankAccount(accountNumber),
-            CHECK (holderType BETWEEN 1 AND 3)
+            holderGender VARCHAR(10) NOT NULL
             );
 
         CREATE TABLE BankAccount (
@@ -29,12 +24,25 @@ CREATE PROCEDURE criarTabelas()
             email VARCHAR(50),
             birthDate DATE NOT NULL,
             maritalStatus VARCHAR(10) NOT NULL,
-            gender VARCHAR(10) NOT NULL,
-            secHolderNIF INT(9),
-            thirdHolderNIF INT(9),
+            gender VARCHAR(10) NOT NULL
+            );
 
-            FOREIGN KEY (secHolderNIF) REFERENCES HolderAccount (holderNIF),
-            FOREIGN KEY (thirdHolderNIF) REFERENCES HolderAccount (holderNIF)
+        CREATE TABLE HolderAccount (
+            NIFholder INT(9),
+            accountNumberHolder INT(20),
+            holderType VARCHAR(10),
+
+            PRIMARY KEY (NIFholder, accountNumberHolder),
+            FOREIGN KEY (NIFholder) REFERENCES Holder(holderNIF),
+            FOREIGN KEY (accountNumberHolder) REFERENCES BankAccount(accountNumber)
+        );
+
+        CREATE TABLE Card (
+            cardNumber INT(10) UNIQUE NOT NULL PRIMARY KEY,
+            accountNumber INT(20) UNIQUE NOT NULL,
+            cardPIN VARCHAR(100) NOT NULL,
+
+            FOREIGN KEY (accountNumber) REFERENCES BankAccount(accountNumber)
             );
 
         CREATE TABLE Movement (
@@ -46,13 +54,7 @@ CREATE PROCEDURE criarTabelas()
 
             FOREIGN KEY (cardNumber) REFERENCES Card(cardNumber)
             );
-
-        CREATE TABLE Card (
-            cardNumber INT(10) UNIQUE NOT NULL PRIMARY KEY,
-            accountNumber INT(20) UNIQUE NOT NULL,
-            cardPIN VARCHAR(100) NOT NULL,
-
-            FOREIGN KEY (accountNumber) REFERENCES BankAccount(accountNumber)
-            );
     END //
 DELIMITER ;
+
+CALL criarTabelas();
