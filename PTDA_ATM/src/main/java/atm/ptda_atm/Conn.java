@@ -4,33 +4,36 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Conn {
-    private Connection c;
+    private static Connection c;
     private Statement s;
 
-    public Connection doConnection() {
-        Scanner sc = new Scanner(System.in);
+    public void doConnection() {
+        if (!isConnected()) {
+            Scanner sc = new Scanner(System.in);
 
-        System.out.println("Host da base de dados:");
-        String url = sc.nextLine();
+            System.out.println("Host da base de dados:");
+            String url = sc.nextLine();
 
-        System.out.println("Porta:");
-        int port = sc.nextInt();
-        sc.nextLine();
+            System.out.println("Porta:");
+            int port = sc.nextInt();
+            sc.nextLine();
 
-        System.out.println("Schema da base de dados:");
-        String schema = sc.nextLine();
+            System.out.println("Schema da base de dados:");
+            String schema = sc.nextLine();
 
-        System.out.println("Nome de utilizador:");
-        String user = sc.nextLine();
+            System.out.println("Nome de utilizador:");
+            String user = sc.nextLine();
 
-        System.out.println("Password:");
-        String pass = sc.nextLine();
+            System.out.println("Password:");
+            String pass = sc.nextLine();
 
-        connect(url, port, schema, user, pass);
-        return c;
+            connect(url, port, schema, user, pass);
+        } else {
+            System.out.println("Já existe uma conexão estabelecida.");
+        }
     }
 
-    public void connect(String url, int port, String schema, String user, String password) {
+    private void connect(String url, int port, String schema, String user, String password) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             c = DriverManager.getConnection("jdbc:mysql://" + url + ":" + port + "/" + schema, user, password);
@@ -41,7 +44,7 @@ public class Conn {
         }
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return c;
     }
 

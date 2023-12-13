@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.ptda_atm.ControllerSignUp">
    <children>
       <ImageView fitHeight="600.0" fitWidth="850.0" opacity="0.9">
@@ -45,6 +44,11 @@
             <Label layoutX="78.0" layoutY="179.0" text="NIF: " />
             <TextField fx:id="textNIF" layoutX="69.0" layoutY="196.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: 123456789" style="-fx-background-radius: 8;" />
             <Button fx:id="buttonRegister" layoutX="161.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToLogIn" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #53A9EE; -fx-background-radius: 8;" text="Register" textFill="WHITE" />
+            <Label fx:id="labelRegisto" layoutX="283.0" layoutY="503.0" prefHeight="20.0" prefWidth="137.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

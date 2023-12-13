@@ -48,43 +48,45 @@ public class ControllerLogIn {
 
     public void switchToMainPage(ActionEvent event) throws IOException {
         Conn con = new Conn();
-        try (Connection connection = con.doConnection();
+        con.doConnection();
+
+        try (Connection connection = Conn.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT cardNumber, cardPIN FROM Card WHERE cardNumber = ? AND cardPIN = ?")) {
 
             preparedStatement.setInt(1, Integer.parseInt(this.cardNumberInput.getText()));
-            preparedStatement.setInt(2, Integer.parseInt(this.passwordInput.getText()));
-
+            preparedStatement.setString(2, this.passwordInput.getText());
 
             ResultSet rs = preparedStatement.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 labelValidacao.setTextFill(Color.GREEN);
                 labelValidacao.setText("Dados válidos!");
 
                 PauseTransition pause = new PauseTransition(Duration.seconds(3));
                 pause.setOnFinished(events -> {
-                    pause.play();
                     Parent root = null;
                     try {
                         root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
-                        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                        scene = new Scene(root);
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        Scene scene = new Scene(root);
                         stage.setScene(scene);
                         stage.show();
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        e.printStackTrace();
                     }
                 });
+                pause.play();
 
             } else {
                 labelValidacao.setTextFill(Color.RED);
                 labelValidacao.setText("Dados inválidos!");
             }
 
+            preparedStatement.close();
+            rs.close();
         } catch (SQLException e) {
             System.err.println("Erro de conexão: " + e.getMessage());
         }
-
     }
 
     public void switchToSignUp(ActionEvent event) throws IOException {

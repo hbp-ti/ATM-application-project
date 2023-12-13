@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/estga/ua/PTDA/Conn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/Conn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/Conn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerLogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerLogIn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/SignUp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/SignUp.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,11 +80,62 @@
       <option name="presentableId" value="Default" />
       <updated>1702406447106</updated>
       <workItem from="1702406448152" duration="11199000" />
-      <workItem from="1702422683930" duration="2674000" />
+      <workItem from="1702422683930" duration="8570000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java</url>
+          <line>105</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java</url>
+          <line>106</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java</url>
+          <line>107</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java</url>
+          <line>108</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java</url>
+          <line>109</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java</url>
+          <line>112</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java</url>
+          <line>122</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java</url>
+          <line>124</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
