@@ -18,32 +18,62 @@
             <Image url="@../../background.jpg" />
          </image>
       </ImageView>
-      <Pane layoutX="219.0" layoutY="31.0" prefHeight="539.0" prefWidth="434.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 15;">
+      <Pane layoutX="250.0" layoutY="31.0" prefHeight="539.0" prefWidth="351.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 8;">
          <children>
-            <TextField fx:id="textName" layoutX="67.0" layoutY="58.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: Cristiano Ronaldo" style="-fx-background-radius: 8;" />
-            <Label layoutX="75.0" layoutY="39.0" text="Name: " />
-            <TextField fx:id="textEmail" layoutX="67.0" layoutY="103.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: estgaptda@ua.pt" style="-fx-background-radius: 8;" />
-            <Label layoutX="77.0" layoutY="83.0" text="Email: " />
-            <DatePicker fx:id="textDate" layoutX="69.0" layoutY="248.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: 23/11/2000" style="-fx-background-radius: 5;" />
-            <Label layoutX="78.0" layoutY="231.0" text="Date of Birth:" />
-            <Label layoutX="75.0" layoutY="395.0" text="Address: " />
-            <TextField fx:id="textAddress" layoutX="67.0" layoutY="412.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: Street 9 March nº123" style="-fx-background-radius: 8;" />
-            <TextField fx:id="textZipCode" layoutX="67.0" layoutY="461.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: 4500-234" style="-fx-background-radius: 8;" />
-            <Label layoutX="74.0" layoutY="444.0" text="ZipCode: " />
-            <Label layoutX="75.0" layoutY="132.0" text="Phone: " />
-            <TextField fx:id="textPhone" layoutX="67.0" layoutY="149.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: 912345678" style="-fx-background-radius: 8;" />
-            <Label alignment="CENTER" layoutX="122.0" prefHeight="44.0" prefWidth="189.0" text="REGISTER" textFill="#2497e7">
+            <TextField fx:id="textName" layoutX="28.0" layoutY="55.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: Cristiano Ronaldo" style="-fx-background-radius: 6;" />
+            <Label layoutX="29.0" layoutY="41.0" text="NAME">
                <font>
-                  <Font name="Arial Bold" size="25.0" />
+                  <Font name="Calibri Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="textEmail" layoutX="28.0" layoutY="100.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: estgaptda@ua.pt" style="-fx-background-radius: 6;" />
+            <Label layoutX="29.0" layoutY="86.0" text="EMAIL">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font></Label>
+            <DatePicker fx:id="textDate" layoutX="28.0" layoutY="243.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: 23/11/2000" style="-fx-background-radius: 6;" />
+            <Label layoutX="29.0" layoutY="229.0" text="DATE OF BIRTH">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="29.0" layoutY="389.0" text="ADDRESS">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="textAddress" layoutX="28.0" layoutY="403.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: Street 9 March nº123" style="-fx-background-radius: 6;" />
+            <TextField fx:id="textZipCode" layoutX="28.0" layoutY="451.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: 4500-234" style="-fx-background-radius: 6;" />
+            <Label layoutX="29.0" layoutY="437.0" text="ZIP CODE">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="29.0" layoutY="132.0" text="PHONE">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="textPhone" layoutX="28.0" layoutY="146.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: 912345678" style="-fx-background-radius: 6;" />
+            <Label alignment="CENTER" layoutX="81.0" layoutY="4.0" prefHeight="44.0" prefWidth="189.0" text="REGISTER" textFill="#1464b4">
+               <font>
+                  <Font name="Calibri Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="76.0" layoutY="279.0" text="Gender:" />
-            <ComboBox fx:id="textGender" layoutX="69.0" layoutY="296.0" prefHeight="25.0" prefWidth="295.0" promptText="Select Gender..." style="-fx-background-radius: 8;" />
-            <Label layoutX="76.0" layoutY="327.0" text="Marital Status: " />
-            <ComboBox fx:id="textMarital" layoutX="69.0" layoutY="344.0" prefHeight="25.0" prefWidth="295.0" promptText="Select Marital Status..." style="-fx-background-radius: 8;" />
-            <Label layoutX="78.0" layoutY="179.0" text="NIF: " />
-            <TextField fx:id="textNIF" layoutX="69.0" layoutY="196.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: 123456789" style="-fx-background-radius: 8;" />
-            <Button fx:id="buttonRegister" layoutX="161.0" layoutY="500.0" mnemonicParsing="false" onAction="#switchToLogIn" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #53A9EE; -fx-background-radius: 8;" text="Register" textFill="WHITE" />
+            <Label layoutX="29.0" layoutY="279.0" text="GENDER">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font></Label>
+            <ComboBox fx:id="textGender" layoutX="28.0" layoutY="293.0" prefHeight="25.0" prefWidth="295.0" promptText="Select Gender..." style="-fx-background-radius: 6;" />
+            <Label layoutX="29.0" layoutY="332.0" text="MARITAL STATUS">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font></Label>
+            <ComboBox fx:id="textMarital" layoutX="28.0" layoutY="346.0" prefHeight="25.0" prefWidth="295.0" promptText="Select Marital Status..." style="-fx-background-radius: 6;" />
+            <Label layoutX="29.0" layoutY="179.0" text="NIF">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font></Label>
+            <TextField fx:id="textNIF" layoutX="28.0" layoutY="193.0" prefHeight="25.0" prefWidth="295.0" promptText="Ex: 123456789" style="-fx-background-radius: 6;" />
+            <Button fx:id="buttonRegister" layoutX="28.0" layoutY="491.0" mnemonicParsing="false" onAction="#switchToLogIn" prefHeight="25.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="REGISTER" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font></Button>
             <Label fx:id="labelRegisto" layoutX="283.0" layoutY="503.0" prefHeight="20.0" prefWidth="137.0">
                <font>
                   <Font size="14.0" />
