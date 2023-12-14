@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
@@ -15,9 +16,9 @@
             <Image url="@../../background.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="labelWelcome" layoutX="101.0" layoutY="37.0" prefHeight="34.0" prefWidth="500.0" textFill="WHITE">
+      <Label fx:id="labelWelcome" layoutX="101.0" layoutY="37.0" prefHeight="34.0" prefWidth="563.0" textFill="WHITE">
          <font>
-            <Font name="Calibri Bold" size="20.0" />
+            <Font name="SansSerif Bold" size="20.0" />
          </font>
       </Label>
       <ImageView fx:id="otherAvatar" layoutX="51.0" layoutY="34.0">
@@ -35,27 +36,13 @@
             <Image url="@../../avatar_female.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="buttonLogOut" layoutX="669.0" layoutY="29.0" onMouseClicked="#switchToLogIn" prefHeight="45.0" prefWidth="137.0">
-         <children>
-            <Label layoutX="40.0" layoutY="7.0" prefHeight="34.0" prefWidth="92.0" text="LOG OUT" textFill="#f50000">
-               <font>
-                  <Font name="Calibri" size="24.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="26.0" fitWidth="28.0" layoutX="12.0" layoutY="11.0">
-               <image>
-                  <Image url="@../../leftArrow.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
       <Pane layoutX="49.0" layoutY="102.0" prefHeight="426.0" prefWidth="755.0">
          <children>
             <Pane fx:id="buttonWithdraw" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #0C72D7; -fx-background-radius: 15;">
                <children>
                   <Label layoutX="25.0" layoutY="75.0" text="Withdraw Cash" textFill="WHITE">
                      <font>
-                        <Font name="Calibri Bold" size="22.0" />
+                        <Font name="SansSerif Bold" size="22.0" />
                      </font>
                   </Label>
                   <ImageView layoutX="27.0" layoutY="30.0">
@@ -70,9 +57,9 @@
             </Pane>
             <Pane fx:id="buttonDeposit" layoutY="147.0" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #1948A4; -fx-background-radius: 15;">
                <children>
-                  <Label layoutX="24.0" layoutY="79.0" prefHeight="26.0" prefWidth="146.0" text="Deposit Money" textFill="WHITE">
+                  <Label layoutX="24.0" layoutY="79.0" prefHeight="26.0" prefWidth="172.0" text="Deposit Money" textFill="WHITE">
                      <font>
-                        <Font name="Calibri Bold" size="22.0" />
+                        <Font name="SansSerif Bold" size="22.0" />
                      </font>
                   </Label>
                   <ImageView layoutX="24.0" layoutY="37.0">
@@ -89,7 +76,7 @@
                <children>
                   <Label layoutX="25.0" layoutY="75.0" text="Check Balance" textFill="WHITE">
                      <font>
-                        <Font name="Calibri Bold" size="22.0" />
+                        <Font name="SansSerif Bold" size="22.0" />
                      </font>
                   </Label>
                   <ImageView fitHeight="34.0" fitWidth="39.0" layoutX="25.0" layoutY="29.0">
@@ -106,7 +93,7 @@
                <children>
                   <Label layoutX="26.0" layoutY="75.0" text="Fund Transfer" textFill="WHITE">
                      <font>
-                        <Font name="Calibri Bold" size="22.0" />
+                        <Font name="SansSerif Bold" size="22.0" />
                      </font>
                   </Label>
                   <ImageView layoutX="26.0" layoutY="32.0">
@@ -119,28 +106,28 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="buttonChangePIN" layoutX="258.0" layoutY="147.0" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #179981; -fx-background-radius: 15;">
+            <Pane fx:id="buttonChargePhone" layoutX="258.0" layoutY="147.0" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #179981; -fx-background-radius: 15;">
                <children>
-                  <Label layoutX="24.0" layoutY="80.0" prefHeight="26.0" prefWidth="146.0" text="Change PIN" textFill="WHITE">
-                     <font>
-                        <Font name="Calibri Bold" size="22.0" />
-                     </font>
-                  </Label>
-                  <ImageView layoutX="24.0" layoutY="37.0">
+                  <ImageView fitHeight="40.0" fitWidth="39.0" layoutX="23.0" layoutY="27.0">
                      <image>
-                        <Image url="@../../changePin.png" />
+                        <Image url="@../../chargePhone.jpg" />
                      </image>
                      <effect>
                         <ColorAdjust brightness="1.0" />
                      </effect>
                   </ImageView>
+                  <Label layoutX="28.0" layoutY="82.0" prefHeight="26.0" prefWidth="172.0" text="Charge Phone" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Bold" size="22.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Pane fx:id="buttonPayment" layoutX="516.0" layoutY="147.0" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #A84913; -fx-background-radius: 15;">
                <children>
                   <Label layoutX="25.0" layoutY="78.0" prefHeight="26.0" prefWidth="146.0" text="Bill Payments" textFill="WHITE">
                      <font>
-                        <Font name="Calibri Bold" size="22.0" />
+                        <Font name="SansSerif Bold" size="22.0" />
                      </font>
                   </Label>
                   <ImageView fitHeight="34.0" fitWidth="39.0" layoutX="25.0" layoutY="33.0">
@@ -155,9 +142,9 @@
             </Pane>
             <Pane fx:id="buttonMiniStatement" layoutX="516.0" layoutY="293.0" prefHeight="133.0" prefWidth="239.0" style="-fx-border-color: #6B1A2A; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 15;">
                <children>
-                  <Label layoutX="24.0" layoutY="80.0" prefHeight="26.0" prefWidth="146.0" text="Mini Statement" textFill="WHITE">
+                  <Label layoutX="24.0" layoutY="80.0" prefHeight="26.0" prefWidth="159.0" text="Mini Statement" textFill="WHITE">
                      <font>
-                        <Font name="Calibri Bold" size="22.0" />
+                        <Font name="SansSerif Bold" size="22.0" />
                      </font>
                   </Label>
                   <ImageView fitHeight="34.0" fitWidth="39.0" layoutX="24.0" layoutY="33.0">
@@ -170,19 +157,65 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane layoutX="258.0" layoutY="293.0" prefHeight="133.0" prefWidth="239.0" style="-fx-border-color: #372170; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 15;" />
-            <Pane layoutY="293.0" prefHeight="133.0" prefWidth="239.0" style="-fx-border-color: #302C2B; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 15;" />
+            <Pane fx:id="buttonChangePIN" layoutX="258.0" layoutY="293.0" prefHeight="133.0" prefWidth="239.0" style="-fx-border-color: #302C2B; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 15;">
+               <children>
+                  <Label layoutX="24.0" layoutY="81.0" prefHeight="26.0" prefWidth="146.0" text="Change PIN" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <ImageView layoutX="24.0" layoutY="38.0">
+                     <image>
+                        <Image url="@../../changePin.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
+                  </ImageView>
+               </children></Pane>
+            <Pane fx:id="buttonOptions" layoutY="293.0" prefHeight="133.0" prefWidth="239.0" style="-fx-border-color: #372170; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 15;">
+               <children>
+                  <Label layoutX="25.0" layoutY="82.0" prefHeight="26.0" prefWidth="187.0" text="Banking Options" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="25.0" layoutY="30.0">
+                     <image>
+                        <Image url="@../../options.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </Pane>
-      <ImageView fitHeight="51.0" fitWidth="52.0" layoutX="48.0" layoutY="543.0">
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="51.0" layoutY="549.0">
          <image>
             <Image url="@../../logo2.png" />
          </image>
       </ImageView>
       <Label layoutX="107.0" layoutY="552.0" prefHeight="34.0" prefWidth="216.0" text="ByteBank" textFill="WHITE">
          <font>
-            <Font name="Calibri Bold" size="24.0" />
+            <Font name="SansSerif Bold" size="24.0" />
          </font>
       </Label>
+      <Button fx:id="buttonLogOut" layoutX="686.0" layoutY="37.0" mnemonicParsing="false" onAction="#switchToLogIn" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: #B01B1F; -fx-background-radius: 8;" text="LOG OUT" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="26.0" fitWidth="28.0">
+               <image>
+                  <Image url="@../../leftArrow.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="SansSerif Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

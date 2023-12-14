@@ -3,6 +3,7 @@ package atm.ptda_atm;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.*;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
 public class ControllerMenu {
 
     @FXML
-    private AnchorPane buttonLogOut;
+    private Button buttonLogOut;
 
     @FXML
     private Pane buttonWithdraw;
@@ -31,13 +32,19 @@ public class ControllerMenu {
     private Pane buttonDeposit;
 
     @FXML
-    private Pane buttonChangePIN;
+    private Pane buttonChargePhone;
 
     @FXML
     private Pane buttonPayment;
 
     @FXML
     private Pane buttonMiniStatement;
+
+    @FXML
+    private Pane buttonChangePIN;
+
+    @FXML
+    private Pane buttonOptions;
 
     @FXML
     private Label labelWelcome;
@@ -68,19 +75,6 @@ public class ControllerMenu {
             labelWelcome.setText("Welcome");
         }
 
-        buttonLogOut.setOnMouseClicked(mouseEvent -> {
-            try {
-                // Criando um ActionEvent vazio
-                ActionEvent actionEvent = new ActionEvent();
-                switchToLogIn(actionEvent);
-            } catch (IOException e) {
-                e.printStackTrace(); // Lida com exceções, você pode modificar conforme necessário
-            }
-        });
-
-        buttonLogOut.setOnMouseEntered(e -> buttonLogOut.setCursor(javafx.scene.Cursor.HAND));
-        buttonLogOut.setOnMouseExited(e -> buttonLogOut.setCursor(javafx.scene.Cursor.DEFAULT));
-
         buttonLogOut.setOnMouseEntered(e -> buttonLogOut.setCursor(javafx.scene.Cursor.HAND));
         buttonLogOut.setOnMouseExited(e -> buttonLogOut.setCursor(javafx.scene.Cursor.DEFAULT));
 
@@ -96,14 +90,20 @@ public class ControllerMenu {
         buttonDeposit.setOnMouseEntered(e -> buttonDeposit.setCursor(javafx.scene.Cursor.HAND));
         buttonDeposit.setOnMouseExited(e -> buttonDeposit.setCursor(javafx.scene.Cursor.DEFAULT));
 
-        buttonChangePIN.setOnMouseEntered(e -> buttonChangePIN.setCursor(javafx.scene.Cursor.HAND));
-        buttonChangePIN.setOnMouseExited(e -> buttonChangePIN.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonChargePhone.setOnMouseEntered(e -> buttonChargePhone.setCursor(javafx.scene.Cursor.HAND));
+        buttonChargePhone.setOnMouseExited(e -> buttonChargePhone.setCursor(javafx.scene.Cursor.DEFAULT));
 
         buttonPayment.setOnMouseEntered(e -> buttonPayment.setCursor(javafx.scene.Cursor.HAND));
         buttonPayment.setOnMouseExited(e -> buttonPayment.setCursor(javafx.scene.Cursor.DEFAULT));
 
         buttonMiniStatement.setOnMouseEntered(e -> buttonMiniStatement.setCursor(javafx.scene.Cursor.HAND));
         buttonMiniStatement.setOnMouseExited(e -> buttonMiniStatement.setCursor(javafx.scene.Cursor.DEFAULT));
+
+        buttonChangePIN.setOnMouseEntered(e -> buttonChangePIN.setCursor(javafx.scene.Cursor.HAND));
+        buttonChangePIN.setOnMouseExited(e -> buttonChangePIN.setCursor(javafx.scene.Cursor.DEFAULT));
+
+        buttonOptions.setOnMouseEntered(e -> buttonOptions.setCursor(javafx.scene.Cursor.HAND));
+        buttonOptions.setOnMouseExited(e -> buttonOptions.setCursor(javafx.scene.Cursor.DEFAULT));
 
         String gender = getGenderFromDatabase(clientName);
 
@@ -147,6 +147,78 @@ public class ControllerMenu {
     public void switchToLogIn(ActionEvent event) throws IOException {
         Stage stage = (Stage) buttonLogOut.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToChangePIN(ActionEvent event) throws IOException {
+        Stage stage = (Stage) buttonChangePIN.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("ChangePIN.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToChargePhone(ActionEvent event) throws IOException {
+        Stage stage = (Stage) buttonChargePhone.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("ChargePhone.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToCheckBalance(ActionEvent event) throws IOException {
+        Stage stage = (Stage) buttonBalance.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("CheckBalance.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToDeposit(ActionEvent event) throws IOException {
+        Stage stage = (Stage) buttonDeposit.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("Deposit.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToFundTransfer(ActionEvent event) throws IOException {
+        Stage stage = (Stage) buttonTransfer.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("FundTransfer.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToMenuPayment(ActionEvent event) throws IOException {
+        Stage stage = (Stage) buttonPayment.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("MenuPayment.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToMiniStatement(ActionEvent event) throws IOException {
+        Stage stage = (Stage) buttonMiniStatement.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("MiniStatement.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToOptions(ActionEvent event) throws IOException {
+        Stage stage = (Stage) buttonOptions.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("Options.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void switchToWithdraw(ActionEvent event) throws IOException {
+        Stage stage = (Stage) buttonWithdraw.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("Withdraw.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

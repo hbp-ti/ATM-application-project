@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Diagramas/DiagramaClassesBD_PTDA.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Diagramas/DiagramaClassesBD_PTDA.vpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/LogIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/LogIn.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/Menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/Menu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/SignUp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/SignUp.fxml" afterDir="false" />
     </list>
     <list id="999a1962-b642-4633-abe9-0d79c9e8123e" name="Changes by goncalo farias" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,8 +39,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -129,6 +133,7 @@
       <workItem from="1702422683930" duration="8570000" />
       <workItem from="1702476455185" duration="824000" />
       <workItem from="1702477447013" duration="34709000" />
+      <workItem from="1702569132593" duration="5470000" />
     </task>
     <servers />
   </component>

@@ -22,14 +22,14 @@
          <children>
             <Label alignment="CENTER" layoutX="39.0" layoutY="27.0" prefHeight="49.0" prefWidth="266.0" text="ByteBank ATM">
                <font>
-                  <Font name="Calibri Bold" size="30.0" />
+                  <Font name="SansSerif Bold" size="30.0" />
                </font>
             </Label>
             <TextField fx:id="cardNumberInput" layoutX="25.0" layoutY="281.0" prefHeight="32.0" prefWidth="295.0" promptText="Card Number..." style="-fx-background-radius: 6;" />
             <PasswordField fx:id="passwordInput" layoutX="25.0" layoutY="332.0" prefHeight="32.0" prefWidth="295.0" promptText="Password..." style="-fx-background-radius: 6;" />
             <Button fx:id="loginButton" layoutX="25.0" layoutY="383.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="LOG IN" textFill="WHITE">
                <font>
-                  <Font name="Calibri Bold" size="12.0" />
+                  <Font name="SansSerif Bold" size="12.0" />
                </font>
             </Button>
             <Label fx:id="labelValidacao" layoutX="25.0" layoutY="250.0" prefHeight="20.0" prefWidth="237.0" textFill="WHITE">
@@ -42,15 +42,16 @@
                   <Image url="@../../logo2.png" />
                </image>
             </ImageView>
+            <Hyperlink fx:id="signupLink" layoutX="217.0" layoutY="470.0" onAction="#switchToSignUp" text="Sign up" textFill="#1464b4">
+               <font>
+                  <Font name="SansSerif Bold" size="12.0" />
+               </font>
+            </Hyperlink>
          </children>
       </Pane>
       <Label layoutX="340.0" layoutY="519.0" text="Dont have an account? ">
          <font>
-            <Font name="Calibri Bold" size="12.0" />
+            <Font name="SansSerif Bold" size="12.0" />
          </font></Label>
-      <Hyperlink fx:id="signupLink" layoutX="464.0" layoutY="516.0" onAction="#switchToSignUp" text="Sign up" textFill="#1464b4">
-         <font>
-            <Font name="Calibri Bold" size="12.0" />
-         </font></Hyperlink>
    </children>
 </AnchorPane>
