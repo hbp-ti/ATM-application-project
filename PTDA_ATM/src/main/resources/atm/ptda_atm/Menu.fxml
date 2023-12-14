@@ -20,6 +20,11 @@
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Label>
+      <ImageView fx:id="otherAvatar" layoutX="51.0" layoutY="34.0">
+         <image>
+            <Image url="@../../avatar_other.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="maleAvatar" layoutX="47.0" layoutY="30.0">
          <image>
             <Image url="@../../avatar_male.png" />

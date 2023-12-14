@@ -48,6 +48,9 @@ public class ControllerMenu {
     @FXML
     private ImageView femaleAvatar;
 
+    @FXML
+    private ImageView otherAvatar;
+
 
     private String clientName;
     private PreparedStatement preparedStatement;
@@ -107,13 +110,15 @@ public class ControllerMenu {
         if ("Male".equals(gender)) {
             maleAvatar.setVisible(true);
             femaleAvatar.setVisible(false);
+            otherAvatar.setVisible(false);
         } else if ("Female".equals(gender)) {
             maleAvatar.setVisible(false);
             femaleAvatar.setVisible(true);
+            otherAvatar.setVisible(false);
         } else {
-            // Se o gênero não for especificado, talvez você queira ocultar ambos ou tomar alguma outra ação
             maleAvatar.setVisible(false);
             femaleAvatar.setVisible(false);
+            otherAvatar.setVisible(true);
         }
     }
 
