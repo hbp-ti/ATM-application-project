@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.ptda_atm.ControllerSignUp">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="850.0" opacity="0.9">
+      <ImageView fitHeight="607.0" fitWidth="850.0" layoutY="-6.0">
          <image>
             <Image url="@../../background.jpg" />
          </image>
@@ -74,11 +74,11 @@
                <font>
                   <Font name="Calibri Bold" size="12.0" />
                </font></Button>
-            <Label fx:id="labelRegisto" layoutX="283.0" layoutY="503.0" prefHeight="20.0" prefWidth="137.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+            <ImageView fx:id="goBackArrow" fitHeight="34.0" fitWidth="36.0" layoutX="24.0" layoutY="4.0" onMouseClicked="#switchLogInArrow">
+               <image>
+                  <Image url="@../../gobackArrow.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

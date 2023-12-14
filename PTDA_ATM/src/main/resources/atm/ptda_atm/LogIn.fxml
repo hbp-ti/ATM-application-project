@@ -20,13 +20,28 @@
       </ImageView>
       <Pane layoutX="257.0" layoutY="46.0" prefHeight="519.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
          <children>
-            <Label alignment="CENTER" layoutX="39.0" layoutY="21.0" prefHeight="49.0" prefWidth="266.0" text="RODRIGO'S BANK">
+            <Label alignment="CENTER" layoutX="39.0" layoutY="27.0" prefHeight="49.0" prefWidth="266.0" text="ByteBank ATM">
                <font>
                   <Font name="Calibri Bold" size="30.0" />
                </font>
             </Label>
             <TextField fx:id="cardNumberInput" layoutX="25.0" layoutY="281.0" prefHeight="32.0" prefWidth="295.0" promptText="Card Number..." style="-fx-background-radius: 6;" />
             <PasswordField fx:id="passwordInput" layoutX="25.0" layoutY="332.0" prefHeight="32.0" prefWidth="295.0" promptText="Password..." style="-fx-background-radius: 6;" />
+            <Button fx:id="loginButton" layoutX="25.0" layoutY="383.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="LOG IN" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="labelValidacao" layoutX="25.0" layoutY="250.0" prefHeight="20.0" prefWidth="237.0" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="bankLogo" fitHeight="175.0" fitWidth="175.0" layoutX="84.0" layoutY="69.0">
+               <image>
+                  <Image url="@../../logo2.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Label layoutX="340.0" layoutY="519.0" text="Dont have an account? ">
@@ -37,20 +52,5 @@
          <font>
             <Font name="Calibri Bold" size="12.0" />
          </font></Hyperlink>
-      <ImageView fx:id="bankLogo" fitHeight="160.0" fitWidth="173.0" layoutX="342.0" layoutY="128.0">
-         <image>
-            <Image url="@../../bankLogo.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="labelValidacao" layoutX="312.0" layoutY="425.0" prefHeight="20.0" prefWidth="237.0" textFill="WHITE">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Button fx:id="loginButton" layoutX="283.0" layoutY="429.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="LOG IN" textFill="WHITE">
-         <font>
-            <Font name="Calibri Bold" size="12.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
