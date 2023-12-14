@@ -391,16 +391,13 @@ public class ControllerSignUp implements Initializable {
             System.out.println("SQLState: " + e.getSQLState());
             System.out.println("VendorError: " + e.getErrorCode());
         } finally {
-//            try {
-//                if (rs != null) {
-//                    rs.close();
-//                }
-//                if (connection != null && !connection.isClosed()) {
-//                    connection.close();
-//                }
-//            } catch (SQLException e) {
-//                System.err.println("Error closing resources: " + e.getMessage());
-//            }
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error closing resources: " + e.getMessage());
+            }
         }
     }
 

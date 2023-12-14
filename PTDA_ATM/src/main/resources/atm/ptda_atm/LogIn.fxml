@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.ptda_atm.ControllerLogIn">
    <children>
-      <ImageView fitHeight="615.0" fitWidth="865.0" layoutX="-9.0" layoutY="-8.0" opacity="0.9">
+      <ImageView fitHeight="600.0" fitWidth="850.0">
          <image>
             <Image url="@../../background.jpg" />
          </image>
@@ -37,7 +37,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <ImageView fx:id="bankLogo" fitHeight="175.0" fitWidth="175.0" layoutX="84.0" layoutY="69.0">
+            <ImageView fx:id="bankLogo" fitHeight="175.0" fitWidth="175.0" layoutX="84.0" layoutY="82.0">
                <image>
                   <Image url="@../../logo2.png" />
                </image>

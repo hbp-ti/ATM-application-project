@@ -6,7 +6,12 @@ import javafx.scene.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.*;
+import javafx.scene.image.ImageView;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ControllerMenu {
 
@@ -37,7 +42,16 @@ public class ControllerMenu {
     @FXML
     private Label labelWelcome;
 
+    @FXML
+    private ImageView maleAvatar;
+
+    @FXML
+    private ImageView femaleAvatar;
+
+
     private String clientName;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
 
     public void setClientName(String name) {
         this.clientName = name;
@@ -88,7 +102,42 @@ public class ControllerMenu {
         buttonMiniStatement.setOnMouseEntered(e -> buttonMiniStatement.setCursor(javafx.scene.Cursor.HAND));
         buttonMiniStatement.setOnMouseExited(e -> buttonMiniStatement.setCursor(javafx.scene.Cursor.DEFAULT));
 
+        String gender = getGenderFromDatabase(clientName);
+
+        if ("Male".equals(gender)) {
+            maleAvatar.setVisible(true);
+            femaleAvatar.setVisible(false);
+        } else if ("Female".equals(gender)) {
+            maleAvatar.setVisible(false);
+            femaleAvatar.setVisible(true);
+        } else {
+            // Se o gênero não for especificado, talvez você queira ocultar ambos ou tomar alguma outra ação
+            maleAvatar.setVisible(false);
+            femaleAvatar.setVisible(false);
+        }
     }
+
+    // Método que obtém o género da conta ssociada
+    private String getGenderFromDatabase(String clientName) {
+        String gender = null;
+
+        Connection connection = Conn.getConnection();
+        String query = "SELECT gender FROM BankAccount WHERE clientName = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, clientName);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    gender = resultSet.getString("gender");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro a obter género da base de dados: " + e.getMessage());
+        }
+
+        return gender;
+    }
+
 
     public void switchToLogIn(ActionEvent event) throws IOException {
         Stage stage = (Stage) buttonLogOut.getScene().getWindow();

@@ -67,7 +67,7 @@ public class ControllerLogIn {
         passwordInput.setBorder(null);
     }
 
-    public void switchToMainPage(ActionEvent event) throws IOException, SQLException {
+    public void switchToMainPage(ActionEvent event) throws IOException {
         try {
             connection = Conn.getConnection();
             preparedStatement = connection.prepareStatement("SELECT cardNumber, cardPIN FROM Card WHERE cardNumber = ? AND cardPIN = ?");
@@ -136,9 +136,7 @@ public class ControllerLogIn {
                 if (preparedStatement2 != null) {
                     preparedStatement2.close();
                 }
-                if (connection != null) {
-                    connection.close();
-                }
+
             } catch (SQLException e) {
                 System.err.println("Erro ao fechar recursos: " + e.getMessage());
             }

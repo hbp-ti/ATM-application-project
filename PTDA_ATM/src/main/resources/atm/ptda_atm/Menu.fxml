@@ -15,11 +15,21 @@
             <Image url="@../../background.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="labelWelcome" layoutX="48.0" layoutY="34.0" prefHeight="34.0" prefWidth="500.0" textFill="WHITE">
+      <Label fx:id="labelWelcome" layoutX="101.0" layoutY="37.0" prefHeight="34.0" prefWidth="500.0" textFill="WHITE">
          <font>
-            <Font name="Calibri Bold" size="24.0" />
+            <Font name="Calibri Bold" size="20.0" />
          </font>
       </Label>
+      <ImageView fx:id="maleAvatar" layoutX="47.0" layoutY="30.0">
+         <image>
+            <Image url="@../../avatar_male.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="femaleAvatar" layoutX="47.0" layoutY="30.0">
+         <image>
+            <Image url="@../../avatar_female.png" />
+         </image>
+      </ImageView>
       <AnchorPane fx:id="buttonLogOut" layoutX="669.0" layoutY="29.0" onMouseClicked="#switchToLogIn" prefHeight="45.0" prefWidth="137.0">
          <children>
             <Label layoutX="40.0" layoutY="7.0" prefHeight="34.0" prefWidth="92.0" text="LOG OUT" textFill="#f50000">
