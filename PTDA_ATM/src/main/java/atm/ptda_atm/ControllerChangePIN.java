@@ -10,9 +10,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -57,7 +59,6 @@ public class ControllerChangePIN {
 
 
     public void initialize() {
-
         currentPINInput.setOnKeyTyped(event -> clearValidationErrors());
         newPINInput.setOnKeyTyped(event -> clearValidationErrors());
         newPINInput2.setOnKeyTyped(event -> clearValidationErrors());
@@ -67,7 +68,6 @@ public class ControllerChangePIN {
 
         buttonConfirm.setOnMouseEntered(e -> buttonConfirm.setCursor(javafx.scene.Cursor.HAND));
         buttonConfirm.setOnMouseExited(e -> buttonConfirm.setCursor(javafx.scene.Cursor.DEFAULT));
-
     }
 
     private void clearValidationErrors() {
@@ -82,93 +82,94 @@ public class ControllerChangePIN {
     }
 
     public void changePIN(ActionEvent event) throws IOException {
-
         try {
             connection = Conn.getConnection();
             preparedStatement = connection.prepareStatement("SELECT cardPIN FROM Card WHERE cardNumber = ?");
             preparedStatement.setString(1, this.clientCardNumber);
 
             ResultSet rs = preparedStatement.executeQuery();
-            String cardPIN = rs.getString("cardNumber");
+            if (rs.next()) {
+                String cardPIN = rs.getString("cardPIN");
 
-            if (cardPIN.equals(currentPINInput)) {
-                if (newPINInput.getText().equals(newPINInput2)) {
+                if (cardPIN.equals(currentPINInput.getText())) {
+                    if (newPINInput.getText().equals(newPINInput2.getText())) {
+                        preparedStatement2 = connection.prepareStatement("UPDATE Card SET cardPIN = ? WHERE cardNumber = ?");
+                        preparedStatement2.setString(1, newPINInput.getText());
+                        preparedStatement2.setString(2, clientCardNumber);
 
-                    preparedStatement2 = connection.prepareStatement("UPDATE Card SET cardPIN = ? WHERE cardNumber = ?");
-                    preparedStatement2.setString(1, cardPIN);
-                    preparedStatement2.setString(2, clientCardNumber);
+                        int linhasAfetadas = preparedStatement2.executeUpdate();
 
-                    int linhasAfetadas = preparedStatement2.executeUpdate();
+                        if (linhasAfetadas > 0) {
+                            labelValidacao.setTextFill(Color.GREEN);
+                            labelValidacao.setText("PIN successfully changed!");
+                            Border border = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
+                            currentPINInput.setBorder(border);
+                            newPINInput.setBorder(border);
+                            newPINInput2.setBorder(border);
 
-                    if (linhasAfetadas > 0) {
-                        labelValidacao.setTextFill(Color.GREEN);
-                        labelValidacao.setText("PIN sucessfully changed!");
-                        Border border = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
-                        currentPINInput.setBorder(border);
-                        newPINInput.setBorder(border);
-                        newPINInput2.setBorder(border);
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+                            Parent root = loader.load();
 
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-                        Parent root = loader.load();
-                        ControllerMenu menuController = loader.getController();
+                            preparedStatement3 = connection.prepareStatement("SELECT email, clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)");
+                            preparedStatement3.setString(1, this.clientCardNumber);
 
-                        preparedStatement3 = connection.prepareStatement("SELECT email, clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)");
-                        preparedStatement3.setString(1, this.clientCardNumber);
+                            rsEmailName = preparedStatement3.executeQuery();
 
-                        rsEmailName = preparedStatement3.executeQuery();
-                        String clientEmail = rsEmailName.getString("email");
-                        String clientName = rsEmailName.getString("clientName");
+                            if (rsEmailName.next()) {
+                                String clientEmail = rsEmailName.getString("email");
+                                String clientName = rsEmailName.getString("clientName");
 
+                                String emailText = "Dear " + clientName + " ,\n" +
+                                        "We would like to inform you that the PIN associated with your bank account's card has been successfully changed.\n" +
+                                        "If you made this change, you may disregard this message. However, if you did not initiate this alteration or if you are unsure about this update, please contact our bank immediately. We will investigate and resolve this matter promptly.\n" +
+                                        "The security and protection of your data are paramount to us. We are here to assist and ensure the security of your account.\n" +
+                                        "Best regards,\n" +
+                                        "ByteBank\n";
 
+                                sendEmail(clientEmail, "Account PIN Change", emailText);
 
-                        String emailText = "Dear "+clientName+" ,\n" +
-                                "We would like to inform you that the PIN associated to your bank account's card has been successfully changed.\n" +
-                                "If you made this change, you may disregard this message. However, if you did not initiate this alteration or if you are unsure about this update, please contact our bank immediately. We will investigate and resolve this matter promptly.\n" +
-                                "The security and protection of your data are paramount to us. We are here to assist and ensure the security of your account.\n" +
-                                "Best regards,\n" +
-                                "ByteBank\n";
-
-
-                        sendEmail(clientEmail, "Account creation", emailText);
-
-
-                        PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                        pause.setOnFinished(events -> {
-                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                            Scene scene = new Scene(root);
-                            stage.setScene(scene);
-                            stage.setResizable(false);
-                            stage.show();
-                            stage.centerOnScreen();
-                        });
-                        pause.play();
-
+                                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                                pause.setOnFinished(events -> {
+                                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                    Scene scene = new Scene(root);
+                                    stage.setScene(scene);
+                                    stage.setResizable(false);
+                                    stage.show();
+                                    stage.centerOnScreen();
+                                });
+                                pause.play();
+                            } else {
+                                // Tratar se não houver resultados
+                            }
+                        } else {
+                            labelValidacao.setTextFill(Color.RED);
+                            labelValidacao.setText("Update Failed!!");
+                            currentPINInput.setText("");
+                            newPINInput.setText("");
+                            newPINInput2.setText("");
+                            Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
+                            newPINInput.setBorder(border);
+                            newPINInput2.setBorder(border);
+                            currentPINInput.setBorder(border);
+                        }
                     } else {
                         labelValidacao.setTextFill(Color.RED);
-                        labelValidacao.setText("Update Failed!!");
-                        currentPINInput.setText("");
+                        labelValidacao.setText("The new PIN does not match in both boxes!");
                         newPINInput.setText("");
                         newPINInput2.setText("");
                         Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
                         newPINInput.setBorder(border);
                         newPINInput2.setBorder(border);
-                        currentPINInput.setBorder(border);
                     }
                 } else {
                     labelValidacao.setTextFill(Color.RED);
-                    labelValidacao.setText("The new PIN does not match in both boxes!");
-                    newPINInput.setText("");
-                    newPINInput2.setText("");
+                    labelValidacao.setText("The current PIN is incorrect!");
+                    currentPINInput.setText("");
                     Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
-                    newPINInput.setBorder(border);
-                    newPINInput2.setBorder(border);
+                    currentPINInput.setBorder(border);
                 }
-            } else{
-                labelValidacao.setTextFill(Color.RED);
-                labelValidacao.setText("The current PIN is incorrect!");
-                currentPINInput.setText("");
-                Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
-                currentPINInput.setBorder(border);
+            } else {
+                // Tratar se não houver resultados
             }
         } catch (SQLException e) {
             System.out.println("SQLExeption: " + e.getMessage());
@@ -195,15 +196,6 @@ public class ControllerChangePIN {
                 System.err.println("Erro ao fechar recursos: " + e.getMessage());
             }
         }
-
-
-
-
-        Stage stage = (Stage) buttonGoBack.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 
     public void switchToMenu(ActionEvent event) throws IOException {
