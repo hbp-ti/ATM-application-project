@@ -107,8 +107,7 @@ public class ControllerChangePIN {
                             newPINInput.setBorder(border);
                             newPINInput2.setBorder(border);
 
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-                            Parent root = loader.load();
+
 
                             preparedStatement3 = connection.prepareStatement("SELECT email, clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)");
                             preparedStatement3.setString(1, this.clientCardNumber);
@@ -130,6 +129,13 @@ public class ControllerChangePIN {
 
                                 PauseTransition pause = new PauseTransition(Duration.seconds(1));
                                 pause.setOnFinished(events -> {
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+                                    Parent root = null;
+                                    try {
+                                        root = loader.load();
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
                                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                     Scene scene = new Scene(root);
                                     stage.setScene(scene);
