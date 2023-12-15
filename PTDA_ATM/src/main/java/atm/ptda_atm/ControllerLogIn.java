@@ -26,7 +26,7 @@ public class ControllerLogIn {
     private TextField cardNumberInput;
 
     @FXML
-    private TextField passwordInput;
+    private PasswordField passwordInput;
 
     @FXML
     private Button loginButton;

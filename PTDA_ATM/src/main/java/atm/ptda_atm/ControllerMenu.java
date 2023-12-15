@@ -5,9 +5,11 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.scene.image.ImageView;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -60,6 +62,7 @@ public class ControllerMenu {
 
 
     private String clientName;
+    private String clientCardNumber;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
@@ -68,12 +71,90 @@ public class ControllerMenu {
         initialize();
     }
 
+    public void setClintCardNumber(String cardNumber) {
+        this.clientCardNumber = cardNumber;
+    }
+
     public void initialize() {
         if (clientName != null) {
             labelWelcome.setText("Welcome " + clientName);
         } else {
             labelWelcome.setText("Welcome");
         }
+
+        buttonWithdraw.setOnMouseClicked(mouseEvent -> {
+            try {
+                switchToWithdraw(mouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonBalance.setOnMouseClicked(mouseEvent -> {
+            try {
+                switchToCheckBalance(mouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonTransfer.setOnMouseClicked(mouseEvent -> {
+            try {
+                switchToFundTransfer(mouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonDeposit.setOnMouseClicked(mouseEvent -> {
+            try {
+                switchToDeposit(mouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonChargePhone.setOnMouseClicked(mouseEvent -> {
+            try {
+                switchToChargePhone(mouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonPayment.setOnMouseClicked(mouseEvent -> {
+            try {
+                switchToMenuPayment(mouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonMiniStatement.setOnMouseClicked(mouseEvent -> {
+            try {
+                switchToMiniStatement(mouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        buttonChangePIN.setOnMouseClicked(mouseEvent -> {
+            try {
+                switchToChangePIN(mouseEvent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+
+        buttonOptions.setOnMouseClicked(mouseEvent -> {
+            try {
+                switchToOptions(mouseEvent);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         buttonLogOut.setOnMouseEntered(e -> buttonLogOut.setCursor(javafx.scene.Cursor.HAND));
         buttonLogOut.setOnMouseExited(e -> buttonLogOut.setCursor(javafx.scene.Cursor.DEFAULT));
@@ -152,15 +233,22 @@ public class ControllerMenu {
         stage.show();
     }
 
-    public void switchToChangePIN(ActionEvent event) throws IOException {
-        Stage stage = (Stage) buttonChangePIN.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("ChangePIN.fxml"));
+    public void switchToChangePIN(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangePIN.fxml"));
+        Parent root = loader.load();
+        ControllerChangePIN changePINController = loader.getController();
+        changePINController.setClintCardNumber(clientCardNumber);
+
         Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
+        stage.centerOnScreen();
     }
 
-    public void switchToChargePhone(ActionEvent event) throws IOException {
+
+    public void switchToChargePhone(MouseEvent event) throws IOException {
         Stage stage = (Stage) buttonChargePhone.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("ChargePhone.fxml"));
         Scene scene = new Scene(root);
@@ -168,7 +256,7 @@ public class ControllerMenu {
         stage.show();
     }
 
-    public void switchToCheckBalance(ActionEvent event) throws IOException {
+    public void switchToCheckBalance(MouseEvent event) throws IOException {
         Stage stage = (Stage) buttonBalance.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("CheckBalance.fxml"));
         Scene scene = new Scene(root);
@@ -176,7 +264,7 @@ public class ControllerMenu {
         stage.show();
     }
 
-    public void switchToDeposit(ActionEvent event) throws IOException {
+    public void switchToDeposit(MouseEvent event) throws IOException {
         Stage stage = (Stage) buttonDeposit.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("Deposit.fxml"));
         Scene scene = new Scene(root);
@@ -184,7 +272,7 @@ public class ControllerMenu {
         stage.show();
     }
 
-    public void switchToFundTransfer(ActionEvent event) throws IOException {
+    public void switchToFundTransfer(MouseEvent event) throws IOException {
         Stage stage = (Stage) buttonTransfer.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("FundTransfer.fxml"));
         Scene scene = new Scene(root);
@@ -192,7 +280,7 @@ public class ControllerMenu {
         stage.show();
     }
 
-    public void switchToMenuPayment(ActionEvent event) throws IOException {
+    public void switchToMenuPayment(MouseEvent event) throws IOException {
         Stage stage = (Stage) buttonPayment.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("MenuPayment.fxml"));
         Scene scene = new Scene(root);
@@ -200,7 +288,7 @@ public class ControllerMenu {
         stage.show();
     }
 
-    public void switchToMiniStatement(ActionEvent event) throws IOException {
+    public void switchToMiniStatement(MouseEvent event) throws IOException {
         Stage stage = (Stage) buttonMiniStatement.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("MiniStatement.fxml"));
         Scene scene = new Scene(root);
@@ -208,7 +296,7 @@ public class ControllerMenu {
         stage.show();
     }
 
-    public void switchToOptions(ActionEvent event) throws IOException {
+    public void switchToOptions(MouseEvent event) throws IOException {
         Stage stage = (Stage) buttonOptions.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("Options.fxml"));
         Scene scene = new Scene(root);
@@ -216,7 +304,7 @@ public class ControllerMenu {
         stage.show();
     }
 
-    public void switchToWithdraw(ActionEvent event) throws IOException {
+    public void switchToWithdraw(MouseEvent event) throws IOException {
         Stage stage = (Stage) buttonWithdraw.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("Withdraw.fxml"));
         Scene scene = new Scene(root);
