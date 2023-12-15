@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="598.0" prefWidth="851.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.ptda_atm.ControllerMenuPayment">
+<AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.ptda_atm.ControllerMenuPayment">
    <children>
-      <ImageView fitHeight="608.0" fitWidth="851.0">
+      <ImageView fitHeight="600.0" fitWidth="850.0">
          <image>
             <Image url="@../../background.jpg" />
          </image>
@@ -31,9 +31,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Pane layoutX="58.0" layoutY="101.0" prefHeight="426.0" prefWidth="755.0">
+      <Pane layoutX="48.0" layoutY="99.0" prefHeight="426.0" prefWidth="755.0">
          <children>
-            <Pane fx:id="buttonServicePay" layoutX="100.0" layoutY="147.0" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #0C72D7; -fx-background-radius: 15;">
+            <Pane fx:id="buttonServicePay" layoutX="119.0" layoutY="147.0" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #0C72D7; -fx-background-radius: 15;">
                <children>
                   <Label layoutX="25.0" layoutY="78.0" prefHeight="26.0" prefWidth="146.0" text="Service" textFill="WHITE">
                      <font>
@@ -50,7 +50,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="buttonStatePay" layoutX="378.0" layoutY="147.0" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #973528; -fx-background-radius: 15;">
+            <Pane fx:id="buttonStatePay" layoutX="397.0" layoutY="147.0" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #973528; -fx-background-radius: 15;">
                <children>
                   <Label layoutX="25.0" layoutY="78.0" prefHeight="26.0" prefWidth="146.0" text="The State" textFill="WHITE">
                      <font>

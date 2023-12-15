@@ -49,6 +49,8 @@ public class ControllerLogIn {
     private ResultSet rs;
     private ResultSet rsName;
     private Connection connection;
+    private String clientCardNumber;
+    private String clientName;
 
     public void initialize() {
         cardNumberInput.setOnKeyTyped(event -> clearValidationErrors());
@@ -83,7 +85,10 @@ public class ControllerLogIn {
                 rsName = preparedStatement2.executeQuery();
 
                 if (rsName.next()) {
-                    String nomeCliente = rsName.getString("clientName");
+                    clientName = rsName.getString("clientName");
+
+                    // Armazena o número do cartão no campo de membro
+                    clientCardNumber = cardNumberInput.getText();
 
                     labelValidacao.setTextFill(Color.GREEN);
                     labelValidacao.setText("Dados válidos!");
@@ -94,7 +99,10 @@ public class ControllerLogIn {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
                     Parent root = loader.load();
                     ControllerMenu menuController = loader.getController();
-                    menuController.setClientName(nomeCliente);
+
+                    // Passa o número e cartão e nome de cliente para o controlador de menu
+                    menuController.setClientCardNumber(clientCardNumber);
+                    menuController.setClientName(clientName);
 
                     PauseTransition pause = new PauseTransition(Duration.seconds(1));
                     pause.setOnFinished(events -> {
@@ -141,6 +149,14 @@ public class ControllerLogIn {
                 System.err.println("Erro ao fechar recursos: " + e.getMessage());
             }
         }
+    }
+
+    public String getClientCardNumber() {
+        return clientCardNumber;
+    }
+
+    public String getClientName() {
+        return clientName;
     }
 
     public void switchToSignUp(ActionEvent event) throws IOException {

@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.ptda_atm.ControllerMenu">
    <children>
-      <ImageView fitHeight="622.0" fitWidth="851.0">
+      <ImageView fitHeight="600.0" fitWidth="850.0">
          <image>
             <Image url="@../../background.jpg" />
          </image>
@@ -157,7 +157,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="buttonChangePIN" layoutX="258.0" layoutY="293.0" prefHeight="133.0" prefWidth="239.0" style="-fx-border-color: #302C2B; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 15;">
+            <Pane fx:id="buttonChangePIN" layoutX="258.0" layoutY="293.0" onMouseClicked="#switchToChangePIN" prefHeight="133.0" prefWidth="239.0" style="-fx-border-color: #302C2B; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 15;">
                <children>
                   <Label layoutX="24.0" layoutY="81.0" prefHeight="26.0" prefWidth="146.0" text="Change PIN" textFill="WHITE">
                      <font>

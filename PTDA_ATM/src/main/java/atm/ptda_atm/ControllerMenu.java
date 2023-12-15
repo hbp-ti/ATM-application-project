@@ -65,19 +65,37 @@ public class ControllerMenu {
     private String clientCardNumber;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    private Connection connection;
 
-    public void setClientName(String name) {
-        this.clientName = name;
+    public void setClientCardNumber(String cardNumber) {
+        this.clientCardNumber = cardNumber;
         initialize();
     }
 
-    public void setClintCardNumber(String cardNumber) {
-        this.clientCardNumber = cardNumber;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+        initialize();
     }
 
     public void initialize() {
         if (clientName != null) {
             labelWelcome.setText("Welcome " + clientName);
+
+            String gender = getGenderFromDatabase(clientCardNumber);
+
+            if ("Male".equals(gender)) {
+                maleAvatar.setVisible(true);
+                femaleAvatar.setVisible(false);
+                otherAvatar.setVisible(false);
+            } else if ("Female".equals(gender)) {
+                maleAvatar.setVisible(false);
+                femaleAvatar.setVisible(true);
+                otherAvatar.setVisible(false);
+            } else {
+                maleAvatar.setVisible(false);
+                femaleAvatar.setVisible(false);
+                otherAvatar.setVisible(true);
+            }
         } else {
             labelWelcome.setText("Welcome");
         }
@@ -186,44 +204,39 @@ public class ControllerMenu {
         buttonOptions.setOnMouseEntered(e -> buttonOptions.setCursor(javafx.scene.Cursor.HAND));
         buttonOptions.setOnMouseExited(e -> buttonOptions.setCursor(javafx.scene.Cursor.DEFAULT));
 
-        String gender = getGenderFromDatabase(clientName);
-
-        if ("Male".equals(gender)) {
-            maleAvatar.setVisible(true);
-            femaleAvatar.setVisible(false);
-            otherAvatar.setVisible(false);
-        } else if ("Female".equals(gender)) {
-            maleAvatar.setVisible(false);
-            femaleAvatar.setVisible(true);
-            otherAvatar.setVisible(false);
-        } else {
-            maleAvatar.setVisible(false);
-            femaleAvatar.setVisible(false);
-            otherAvatar.setVisible(true);
-        }
     }
 
     // Método que obtém o género da conta ssociada
-    private String getGenderFromDatabase(String clientName) {
+    private String getGenderFromDatabase(String cardNumber) {
         String gender = null;
 
-        Connection connection = Conn.getConnection();
-        String query = "SELECT gender FROM BankAccount WHERE clientName = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, clientName);
+        connection = Conn.getConnection();
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    gender = resultSet.getString("gender");
+        // Obtém o número da conta associado ao número do cartão
+        String getAccountNumberQuery = "SELECT accountNumber FROM Card WHERE cardNumber = ?";
+        try (PreparedStatement accountNumberStatement = connection.prepareStatement(getAccountNumberQuery)) {
+            accountNumberStatement.setString(1, cardNumber);
+            ResultSet accountNumberResultSet = accountNumberStatement.executeQuery();
+
+            if (accountNumberResultSet.next()) {
+                String accountNumber = accountNumberResultSet.getString("accountNumber");
+
+                // Obtém o gênero usando o número da conta
+                String getGenderQuery = "SELECT gender FROM BankAccount WHERE accountNumber = ?";
+                try (PreparedStatement genderStatement = connection.prepareStatement(getGenderQuery)) {
+                    genderStatement.setString(1, accountNumber);
+                    ResultSet genderResultSet = genderStatement.executeQuery();
+
+                    if (genderResultSet.next()) {
+                        gender = genderResultSet.getString("gender");
+                    }
                 }
             }
         } catch (SQLException e) {
             System.out.println("Erro a obter género da base de dados: " + e.getMessage());
         }
-
         return gender;
     }
-
 
     public void switchToLogIn(ActionEvent event) throws IOException {
         Stage stage = (Stage) buttonLogOut.getScene().getWindow();
@@ -236,17 +249,14 @@ public class ControllerMenu {
     public void switchToChangePIN(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangePIN.fxml"));
         Parent root = loader.load();
-        ControllerChangePIN changePINController = loader.getController();
-        changePINController.setClintCardNumber(clientCardNumber);
-
+        ControllerChangePIN controller = loader.getController();
+        controller.setClientCardNumber(clientCardNumber);  // Passa as informações do cliente para o controlador de mudança de PIN
+        controller.initialize(connection);  // Inicializa o controlador de mudança de PIN com a conexão
+        Stage stage = (Stage) buttonChargePhone.getScene().getWindow();
         Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
-        stage.setResizable(false);
         stage.show();
-        stage.centerOnScreen();
     }
-
 
     public void switchToChargePhone(MouseEvent event) throws IOException {
         Stage stage = (Stage) buttonChargePhone.getScene().getWindow();

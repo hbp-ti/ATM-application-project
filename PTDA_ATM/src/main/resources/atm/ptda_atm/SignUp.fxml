@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.ptda_atm.ControllerSignUp">
    <children>
-      <ImageView fitHeight="622.0" fitWidth="851.0" layoutY="-6.0">
+      <ImageView fitHeight="607.0" fitWidth="850.0" layoutY="-6.0">
          <image>
             <Image url="@../../background.jpg" />
          </image>
