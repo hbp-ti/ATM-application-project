@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class ControllerMenuPayment {
@@ -26,7 +30,12 @@ public class ControllerMenuPayment {
     @FXML
     private Button buttonGoBack;
 
-    public void initialize() {
+    private Connection connection;
+    private PreparedStatement preparedStatement;
+    private ResultSet rsName;
+    private String clientCardNumber;
+
+    public void initialize(Connection connection) {
 
         buttonServicePay.setOnMouseClicked(mouseEvent -> {
             try {
@@ -52,12 +61,23 @@ public class ControllerMenuPayment {
 
         buttonStatePay.setOnMouseEntered(e -> buttonStatePay.setCursor(javafx.scene.Cursor.HAND));
         buttonStatePay.setOnMouseExited(e -> buttonStatePay.setCursor(javafx.scene.Cursor.DEFAULT));
+
+        this.connection = connection;
     }
 
+    public void setClientCardNumber(String clientCardNumber) {
+        this.clientCardNumber = clientCardNumber;
+        initialize(connection);
+    }
 
     public void switchToMenu(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        Parent root = loader.load();
+        ControllerMenu menuController = loader.getController();
+        String clientName = getClientName(clientCardNumber);
+        menuController.setClientName(clientName);
+        menuController.setClientCardNumber(clientCardNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -77,5 +97,32 @@ public class ControllerMenuPayment {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public String getClientName(String clientCardNumber) {
+        try {
+            String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, clientCardNumber);
+            rsName = preparedStatement.executeQuery();
+
+            if (rsName.next()) {
+                return rsName.getString("clientName");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rsName != null) {
+                    rsName.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error closing resources: " + e.getMessage());
+            }
+        }
+        return null;  // Retorna null se não conseguir obter o clientName
     }
 }

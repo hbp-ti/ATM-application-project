@@ -66,11 +66,11 @@ public class ControllerChangePIN {
         newPINInput.setOnKeyTyped(event -> clearValidationStyles());
         newPINInput2.setOnKeyTyped(event -> clearValidationStyles());
 
-        buttonGoBack.setOnMouseEntered(e -> buttonGoBack.setCursor(javafx.scene.Cursor.HAND));
-        buttonGoBack.setOnMouseExited(e -> buttonGoBack.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonGoBack.setOnMouseEntered(e -> buttonGoBack.setCursor(Cursor.HAND));
+        buttonGoBack.setOnMouseExited(e -> buttonGoBack.setCursor(Cursor.DEFAULT));
 
-        buttonConfirm.setOnMouseEntered(e -> buttonConfirm.setCursor(javafx.scene.Cursor.HAND));
-        buttonConfirm.setOnMouseExited(e -> buttonConfirm.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonConfirm.setOnMouseEntered(e -> buttonConfirm.setCursor(Cursor.HAND));
+        buttonConfirm.setOnMouseExited(e -> buttonConfirm.setCursor(Cursor.DEFAULT));
 
         this.connection = connection;
     }
@@ -92,29 +92,40 @@ public class ControllerChangePIN {
             labelValidacao.setText("Invalid PIN's. Check and try again.");
             applyValidationStyle();
         } else {
-            // Lógica para alterar o PIN no banco de dados
-            boolean success = changePINInDatabase(clientCardNumber, currentPIN, newPIN);
-
-            if (success) {
-                // Se a mudança de PIN for bem-sucedida, mostra uma mensagem de sucesso
-                showSuccessPopup("PIN changed successfully!");
-                // Envia email informativo
-                String recipientEmail = getClientEmail(clientCardNumber);
-                String subject = "PIN Change Completed";
-                String messageBody = "Your PIN has been changed successfully.";
-                sendEmail(recipientEmail, subject, messageBody);
-
-                // Retorna ao menu
-                switchToMenu(event);
-            } else {
-                // Se a mudança de PIN falhar, mostra uma mensagem de erro
+            if (newPIN.equals(getStoredPIN(clientCardNumber))) {
                 labelValidacao.setTextFill(Color.RED);
-                labelValidacao.setText("Current PIN is invalid! Try again.");
+                labelValidacao.setText("The current PIN matches the new PIN!");
                 applyValidationStyle();
+            } else {
+                // Lógica para alterar o PIN no banco de dados
+                boolean success = changePINInDatabase(clientCardNumber, currentPIN, newPIN);
+
+                if (success) {
+                    // Se a mudança de PIN for bem-sucedida, mostra uma mensagem de sucesso
+                    showSuccessPopup("PIN changed successfully!");
+                    // Envia email informativo
+                    String recipientEmail = getClientEmail(clientCardNumber);
+                    String subject = "PIN Changed";
+                    String messageBody = "Subject: PIN Change Notification for Your Bank Account\n" +
+                            "Dear " + getClientName(clientCardNumber) + ",\n" +
+                            "We would like to inform you that the PIN associated with your bank account's card has been successfully changed.\n" +
+                            "If you initiated this change, you can disregard this message. However, if you did not authorize this alteration or if you have any concerns about this update, please contact our bank immediately. We will investigate and resolve this matter promptly.\n" +
+                            "The security and protection of your data are of utmost importance to us. We are here to assist and ensure the security of your account.\n" +
+                            "Best regards,\n" +
+                            "ByteBank\n";
+                    sendEmail(recipientEmail, subject, messageBody);
+
+                    // Retorna ao menu
+                    switchToMenu(event);
+                } else {
+                    // Se a mudança de PIN falhar, mostra uma mensagem de erro
+                    labelValidacao.setTextFill(Color.RED);
+                    labelValidacao.setText("Current PIN is invalid! Try again.");
+                    applyValidationStyle();
+                }
             }
         }
     }
-
     private boolean validatePINs(String currentPIN, String newPIN, String newPIN2) {
         // Verifica se os PINs têm o formato correto (por exemplo, contêm apenas números)
         if (!currentPIN.matches("\\d{4}") || !newPIN.matches("\\d{4}") || !newPIN2.matches("\\d{4}")) {
@@ -130,25 +141,16 @@ public class ControllerChangePIN {
 
     private boolean changePINInDatabase(String cardNumber, String currentPIN, String newPIN) {
         try {
-            String query = "SELECT cardPIN FROM Card WHERE cardNumber = ?";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, cardNumber);
-            rs = preparedStatement.executeQuery();
+            // Verifica se o PIN atual corresponde
+            if (currentPIN.equals(getStoredPIN(cardNumber))) {
+                // Atualiza o PIN no banco de dados
+                String updateQuery = "UPDATE Card SET cardPIN = ? WHERE cardNumber = ?";
+                preparedStatement2 = connection.prepareStatement(updateQuery);
+                preparedStatement2.setString(1, newPIN);
+                preparedStatement2.setString(2, cardNumber);
+                preparedStatement2.executeUpdate();
 
-            if (rs.next()) {
-                String storedPIN = rs.getString("cardPIN").trim();
-
-                // Verifica se o PIN atual corresponde
-                if (currentPIN.equals(storedPIN)) {
-                    // Atualiza o PIN no banco de dados
-                    String updateQuery = "UPDATE Card SET cardPIN = ? WHERE cardNumber = ?";
-                    preparedStatement2 = connection.prepareStatement(updateQuery);
-                    preparedStatement2.setString(1, newPIN);
-                    preparedStatement2.setString(2, cardNumber);
-                    preparedStatement2.executeUpdate();
-
-                    return true;
-                }
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -172,6 +174,41 @@ public class ControllerChangePIN {
         }
         return false;
     }
+
+    public String getStoredPIN(String cardNumber) {
+        String storedPIN = "";
+        try {
+            String query = "SELECT cardPIN FROM Card WHERE cardNumber = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, cardNumber);
+            rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                storedPIN = rs.getString("cardPIN").trim();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (preparedStatement2 != null) {
+                    preparedStatement2.close();
+                }
+                if (preparedStatement3 != null) {
+                    preparedStatement3.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error closing resources: " + e.getMessage());
+            }
+        }
+        return storedPIN;
+    }
+
 
     public String getClientName(String clientCardNumber) {
         try {
@@ -224,7 +261,7 @@ public class ControllerChangePIN {
         props.put("mail.smtp.port", "587");
 
         Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
+                new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(username, password);
                     }

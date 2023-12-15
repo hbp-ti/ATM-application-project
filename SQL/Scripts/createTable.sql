@@ -14,7 +14,7 @@ CREATE PROCEDURE criarTabelas()
             );
 
         CREATE TABLE BankAccount (
-            accountNumber INT(20) NOT NULL PRIMARY KEY,
+            accountNumber VARCHAR(20) NOT NULL PRIMARY KEY,
             accountBalance DECIMAL(15,2),
             clientName VARCHAR(40) NOT NULL,
             NIF INT(9) NOT NULL,
@@ -29,25 +29,27 @@ CREATE PROCEDURE criarTabelas()
 
         CREATE TABLE HolderAccount (
             NIFholder INT(9),
-            accountNumberHolder INT(20),
+            accountNumberHolder VARCHAR(20),
             holderType VARCHAR(10),
+            cardNumber VARCHAR(10),
 
-            PRIMARY KEY (NIFholder, accountNumberHolder),
+            PRIMARY KEY (NIFholder, accountNumberHolder, holderType),
+            FOREIGN KEY (cardNumber) REFERENCES Card(cardPIN),
             FOREIGN KEY (NIFholder) REFERENCES Holder(holderNIF),
             FOREIGN KEY (accountNumberHolder) REFERENCES BankAccount(accountNumber)
         );
 
         CREATE TABLE Card (
-            cardNumber INT(10) UNIQUE NOT NULL PRIMARY KEY,
-            accountNumber INT(20) UNIQUE NOT NULL,
-            cardPIN VARCHAR(100) NOT NULL,
+            cardNumber VARCHAR(10) UNIQUE NOT NULL PRIMARY KEY,
+            accountNumber VARCHAR(20) UNIQUE NOT NULL,
+            cardPIN VARCHAR(4) NOT NULL,
 
             FOREIGN KEY (accountNumber) REFERENCES BankAccount(accountNumber)
             );
 
         CREATE TABLE Movement (
             movementID INT(8) UNIQUE NOT NULL PRIMARY KEY,
-            cardNumber INT(10) UNIQUE NOT NULL,
+            cardNumber VARCHAR(10) UNIQUE NOT NULL,
             movementDate DATETIME NOT NULL,
             movementType VARCHAR(30) NOT NULL,
             movementValue DECIMAL(8,2),

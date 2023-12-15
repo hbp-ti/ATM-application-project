@@ -252,7 +252,7 @@ public class ControllerMenu {
         ControllerChangePIN controller = loader.getController();
         controller.setClientCardNumber(clientCardNumber);  // Passa as informações do cliente para o controlador de mudança de PIN
         controller.initialize(connection);  // Inicializa o controlador de mudança de PIN com a conexão
-        Stage stage = (Stage) buttonChargePhone.getScene().getWindow();
+        Stage stage = (Stage) buttonChangePIN.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -291,8 +291,12 @@ public class ControllerMenu {
     }
 
     public void switchToMenuPayment(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuPayment.fxml"));
+        Parent root = loader.load();
+        ControllerMenuPayment controller = loader.getController();
+        controller.setClientCardNumber(clientCardNumber);  // Passa as informações do cliente para o controlador de mudança de PIN
+        controller.initialize(connection);  // Inicializa o controlador de mudança de PIN com a conexão
         Stage stage = (Stage) buttonPayment.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("MenuPayment.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
