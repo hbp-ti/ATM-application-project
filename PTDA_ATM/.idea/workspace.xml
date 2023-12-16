@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChangePIN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChangePIN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerDeposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerDeposit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerFundTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerFundTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/FundTransfer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/FundTransfer.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/Menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/Menu.fxml" afterDir="false" />
     </list>
     <list id="999a1962-b642-4633-abe9-0d79c9e8123e" name="Changes by goncalo farias" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -122,8 +116,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.9-jbrsdk-17.0.9-3183f394aec4-8d7b1619" />
-        <option value="jdk-20.0.2-azul-20.0.2-8336523bb0d9-ce1e98ff" />
+        <option value="jdk-20.0.2-azul-20.0.2-3183f394aec4-4edb7f01" />
       </set>
     </attachedChunks>
   </component>
@@ -148,6 +141,8 @@
       <workItem from="1702665087744" duration="15176000" />
       <workItem from="1702687981783" duration="456000" />
       <workItem from="1702688460311" duration="131000" />
+      <workItem from="1702739599386" duration="79000" />
+      <workItem from="1702739689702" duration="178000" />
     </task>
     <servers />
   </component>
