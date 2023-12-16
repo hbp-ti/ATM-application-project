@@ -250,8 +250,8 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangePIN.fxml"));
         Parent root = loader.load();
         ControllerChangePIN controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);  // Passa as informações do cliente para o controlador de mudança de PIN
-        controller.initialize(connection);  // Inicializa o controlador de mudança de PIN com a conexão
+        controller.setClientCardNumber(clientCardNumber);
+        controller.initialize(connection);
         Stage stage = (Stage) buttonChangePIN.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -267,16 +267,25 @@ public class ControllerMenu {
     }
 
     public void switchToCheckBalance(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("CheckBalance.fxml"));
+        Parent root = loader.load();
+        ControllerCheckBalance controller = loader.getController();
+        controller.setClientCardNumber(clientCardNumber);
+        controller.initialize(connection);
+        controller.checkBalance();
         Stage stage = (Stage) buttonBalance.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("CheckBalance.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     public void switchToDeposit(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Deposit.fxml"));
+        Parent root = loader.load();
+        ControllerDeposit controller = loader.getController();
+        controller.setClientCardNumber(clientCardNumber);
+        controller.initialize(connection);
         Stage stage = (Stage) buttonDeposit.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("Deposit.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -294,8 +303,8 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuPayment.fxml"));
         Parent root = loader.load();
         ControllerMenuPayment controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);  // Passa as informações do cliente para o controlador de mudança de PIN
-        controller.initialize(connection);  // Inicializa o controlador de mudança de PIN com a conexão
+        controller.setClientCardNumber(clientCardNumber);
+        controller.initialize(connection);
         Stage stage = (Stage) buttonPayment.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -319,8 +328,12 @@ public class ControllerMenu {
     }
 
     public void switchToWithdraw(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Withdraw.fxml"));
+        Parent root = loader.load();
+        ControllerWithdraw controller = loader.getController();
+        controller.setClientCardNumber(clientCardNumber);
+        controller.initialize(connection);
         Stage stage = (Stage) buttonWithdraw.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("Withdraw.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
