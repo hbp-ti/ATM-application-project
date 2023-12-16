@@ -292,8 +292,12 @@ public class ControllerMenu {
     }
 
     public void switchToFundTransfer(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("FundTransfer.fxml"));
+        Parent root = loader.load();
+        ControllerFundTransfer controller = loader.getController();
+        controller.setClientCardNumber(clientCardNumber);
+        controller.initialize(connection);
         Stage stage = (Stage) buttonTransfer.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("FundTransfer.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

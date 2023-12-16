@@ -89,7 +89,7 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="buttonTransfer" layoutX="516.0" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #973528; -fx-background-radius: 15;">
+            <Pane fx:id="buttonTransfer" layoutX="516.0" onMouseClicked="#switchToFundTransfer" prefHeight="133.0" prefWidth="239.0" style="-fx-background-color: #973528; -fx-background-radius: 15;">
                <children>
                   <Label layoutX="26.0" layoutY="75.0" text="Fund Transfer" textFill="WHITE">
                      <font>

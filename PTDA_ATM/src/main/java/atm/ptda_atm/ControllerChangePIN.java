@@ -103,9 +103,8 @@ public class ControllerChangePIN {
                 boolean success = changePINInDatabase(clientCardNumber, currentPIN, newPIN);
 
                 if (success) {
-                    LocalDateTime dt = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-DD HH:MM:SS");
-                    String DateTime = dt.format(formatter);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
 
                     // Se a mudança de PIN for bem-sucedida, mostra uma mensagem de sucesso
                     showSuccessPopup("PIN changed successfully!");
@@ -114,7 +113,7 @@ public class ControllerChangePIN {
                     String subject = "PIN Changed";
                     String messageBody = "Subject: PIN Change Notification for Your Bank Account\n" +
                             "Dear " + getClientName(clientCardNumber) + ",\n" +
-                            "We would like to inform you that the PIN associated with your bank account's card has been successfully changed processed on "+DateTime+".\n" +
+                            "We would like to inform you that the PIN associated with your bank account's card has been successfully changed processed on "+ formatter.format(now) +".\n" +
                             "If you initiated this change, you can disregard this message. However, if you did not authorize this alteration or if you have any concerns about this update, please contact our bank immediately. We will investigate and resolve this matter promptly.\n" +
                             "The security and protection of your data are of utmost importance to us. We are here to assist and ensure the security of your account.\n" +
                             "Best regards,\n" +

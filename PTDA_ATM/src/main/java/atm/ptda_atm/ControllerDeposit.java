@@ -87,9 +87,8 @@ public class ControllerDeposit {
                 success = depositMoney(clientCardNumber, Float.parseFloat(amount.getText()));
 
                 if (success) {
-                    LocalDateTime dt = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-DD HH:MM:SS");
-                    String DateTime = dt.format(formatter);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
 
                     labelValidacao.setText(amount.getText() + "€ has been credited to your account!");
                     labelValidacao.setTextFill(Color.GREEN);
@@ -98,7 +97,7 @@ public class ControllerDeposit {
                     String subject = "Deposit";
                     String message = "Subject: Deposit Notification\n" +
                             "Dear "+getClientEmail(clientCardNumber)+",\n" +
-                            "We are pleased to inform you that a deposit of "+amount.getText()+"€ has been successfully credited to your account. This deposit was processed on "+DateTime+" and is now available for your use.\n" +
+                            "We are pleased to inform you that a deposit of "+amount.getText()+"€ has been successfully credited to your account. This deposit was processed on "+ formatter.format(now) +" and is now available for your use.\n" +
                             "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                             "Best regards,\n" +
                             "ByteBank";
