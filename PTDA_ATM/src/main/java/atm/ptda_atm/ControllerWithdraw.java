@@ -73,46 +73,82 @@ public class ControllerWithdraw {
             labelValidacao.setText("Invalid amount");
             applyValidationStyle();
         } else {
-            progressWithdraw.setProgress(0.0);
-            Duration duration = Duration.seconds(3);
-            KeyFrame keyFrame = new KeyFrame(duration, new KeyValue(progressWithdraw.progressProperty(), 1.0));
-            Timeline timeline = new Timeline(keyFrame);
-            timeline.setCycleCount(1);
-            timeline.play();
-            timeline.setOnFinished(e -> {
-                success = withdrawMoney(clientCardNumber, Float.parseFloat(amount.getText()));
-                if (success) {
-                    LocalDateTime dt = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-DD HH:MM:SS");
-                    String DateTime = dt.format(formatter);
+            float withdrawalAmount = Float.parseFloat(amount.getText());
 
-                    labelValidacao.setText(amount.getText() + "€ has been withdrawn from your account!");
-                    labelValidacao.setTextFill(Color.GREEN);
+            // Check if the withdrawal amount is greater than the available balance
+            float availableBalance = getAvailableBalance(clientCardNumber);
+            if (withdrawalAmount > availableBalance) {
+                labelValidacao.setText("Insufficient funds");
+                applyValidationStyle();
+            } else {
+                progressWithdraw.setProgress(0.0);
+                Duration duration = Duration.seconds(3);
+                KeyFrame keyFrame = new KeyFrame(duration, new KeyValue(progressWithdraw.progressProperty(), 1.0));
+                Timeline timeline = new Timeline(keyFrame);
+                timeline.setCycleCount(1);
+                timeline.play();
+                timeline.setOnFinished(e -> {
+                    success = withdrawMoney(clientCardNumber, Float.parseFloat(amount.getText()));
+                    if (success) {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                        LocalDateTime now = LocalDateTime.now();
 
-                    String recipientEmail = getClientEmail(clientCardNumber);
-                    String subject = "Withdraw";
-                    String message = "Subject: Withdraw Notification\n" +
-                            "Dear "+getClientEmail(clientCardNumber)+",\n" +
-                            "We are pleased to inform you that a withdraw of "+amount.getText()+"€ has been successfully withdrawn from your account. This withdraw was processed on "+DateTime+".\n" +
-                            "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
-                            "Best regards,\n" +
-                            "ByteBank";
-                    sendEmail(recipientEmail, subject, message);
+                        labelValidacao.setText(amount.getText() + "€ has been withdrawn from your account!");
+                        labelValidacao.setTextFill(Color.GREEN);
 
-                    PauseTransition pause = new PauseTransition(Duration.seconds(3));
-                    pause.setOnFinished(events -> {
-                        try {
-                            switchToMenu(event);
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                    });
-                    pause.play();
-                } else {
-                    showError("Withdraw unsuccessful!");
-                }
-            });
+                        String recipientEmail = getClientEmail(clientCardNumber);
+                        String subject = "Withdraw";
+                        String message = "Subject: Withdraw Notification\n" +
+                                "Dear " + getClientEmail(clientCardNumber) + ",\n" +
+                                "We are pleased to inform you that a withdraw of " + amount.getText() + "€ has been successfully withdrawn from your account. This withdraw was processed on " + formatter.format(now) + ".\n" +
+                                "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
+                                "Best regards,\n" +
+                                "ByteBank";
+                        sendEmail(recipientEmail, subject, message);
+
+                        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+                        pause.setOnFinished(events -> {
+                            try {
+                                switchToMenu(event);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        });
+                        pause.play();
+                    } else {
+                        showError("Withdraw unsuccessful!");
+                    }
+                });
+            }
         }
+    }
+
+    // Method to get the available balance in the account
+    private float getAvailableBalance(String clientCardNumber) {
+        try {
+            String query = "SELECT accountBalance FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber  = ?)";
+            preparedStatement3 = connection.prepareStatement(query);
+            preparedStatement3.setString(1, clientCardNumber);
+            rs = preparedStatement3.executeQuery();
+
+            if (rs.next()) {
+                return rs.getFloat("accountBalance");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (preparedStatement3 != null) {
+                    preparedStatement3.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error closing resources: " + e.getMessage());
+            }
+        }
+        return 0.0f;  // Return 0.0 in case of an error
     }
 
     private boolean withdrawMoney(String clientCardNumber, float amountWithdraw) {
