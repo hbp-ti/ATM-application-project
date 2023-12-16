@@ -96,7 +96,7 @@ public class ControllerDeposit {
                     String recipientEmail = getClientEmail(clientCardNumber);
                     String subject = "Deposit";
                     String message = "Subject: Deposit Notification\n" +
-                            "Dear "+getClientEmail(clientCardNumber)+",\n" +
+                            "Dear "+getClientName(clientCardNumber)+",\n" +
                             "We are pleased to inform you that a deposit of "+amount.getText()+"€ has been successfully credited to your account. This deposit was processed on "+ formatter.format(now) +" and is now available for your use.\n" +
                             "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                             "Best regards,\n" +

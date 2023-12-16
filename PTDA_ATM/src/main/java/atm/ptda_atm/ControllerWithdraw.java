@@ -99,7 +99,7 @@ public class ControllerWithdraw {
                         String recipientEmail = getClientEmail(clientCardNumber);
                         String subject = "Withdraw";
                         String message = "Subject: Withdraw Notification\n" +
-                                "Dear " + getClientEmail(clientCardNumber) + ",\n" +
+                                "Dear " + getClientName(clientCardNumber) + ",\n" +
                                 "We are pleased to inform you that a withdraw of " + amount.getText() + "€ has been successfully withdrawn from your account. This withdraw was processed on " + formatter.format(now) + ".\n" +
                                 "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                                 "Best regards,\n" +

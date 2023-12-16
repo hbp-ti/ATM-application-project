@@ -117,8 +117,8 @@ public class ControllerFundTransfer {
                         String recipientEmail = getClientEmail(sourceCardNumber);
                         String subject = "Transfer";
                         String message = "Subject: Transfer Notification\n" +
-                                "Dear "+getClientEmail(sourceCardNumber)+",\n" +
-                                "We are pleased to inform you that a transfer of "+ amount +"€ has been successfully made from your account. This deposit was processed on "+ formatter.format(now) +".\n" +
+                                "Dear "+getClientName(sourceCardNumber)+",\n" +
+                                "We are pleased to inform you that a transfer of "+ amount +"€ has been successfully made from your account. This transfer was processed on "+ formatter.format(now) +".\n" +
                                 "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                                 "Best regards,\n" +
                                 "ByteBank";
