@@ -259,8 +259,12 @@ public class ControllerMenu {
     }
 
     public void switchToChargePhone(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargePhone.fxml"));
+        Parent root = loader.load();
+        ControllerChargePhone controller = loader.getController();
+        controller.setClientCardNumber(clientCardNumber);
+        controller.initialize(connection);
         Stage stage = (Stage) buttonChargePhone.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("ChargePhone.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -316,8 +320,12 @@ public class ControllerMenu {
     }
 
     public void switchToMiniStatement(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MiniStatement.fxml"));
+        Parent root = loader.load();
+        ControllerMiniStatement controller = loader.getController();
+        controller.setClientCardNumber(clientCardNumber);
+        controller.initialize(connection);
         Stage stage = (Stage) buttonMiniStatement.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("MiniStatement.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

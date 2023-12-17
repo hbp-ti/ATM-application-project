@@ -6,9 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerDeposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerDeposit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChargePhone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChargePhone.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerFundTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerFundTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerWithdraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerWithdraw.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMiniStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMiniStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/ChargePhone.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/ChargePhone.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/MiniStatement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/MiniStatement.fxml" afterDir="false" />
     </list>
     <list id="999a1962-b642-4633-abe9-0d79c9e8123e" name="Changes by goncalo farias" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,8 +50,10 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/Conn.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChangePIN.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChargePhone.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerCheckBalance.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerDeposit.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerFundTransfer.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerLogIn.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMenu.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMenuPayment.java" root0="SKIP_INSPECTION" />
@@ -147,6 +152,7 @@
       <workItem from="1702739599386" duration="79000" />
       <workItem from="1702739689702" duration="178000" />
       <workItem from="1702740399404" duration="533000" />
+      <workItem from="1702772304476" duration="5628000" />
     </task>
     <servers />
   </component>

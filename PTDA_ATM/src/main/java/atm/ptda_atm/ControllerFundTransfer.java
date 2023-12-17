@@ -124,6 +124,18 @@ public class ControllerFundTransfer {
                                 "ByteBank";
                         sendEmail(recipientEmail, subject, message);
 
+
+                        String recipientEmailTarget = getClientEmail(targetCard);
+                        String subjectTarget = "Transfer";
+
+                        String messageTarge = "Subject: Transfer Notification\n"+
+                                "Dear "+getClientName(targetCard)+",\n" +
+                                "We are pleased to inform you that a transfer of "+ amount +"€ has been successfully made to your account. This transfer was processed on "+ formatter.format(now) +".\n" +
+                                "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
+                                "Best regards,\n" +
+                                "ByteBank";
+                        sendEmail(recipientEmailTarget, subjectTarget, messageTarge);
+
                         PauseTransition pause = new PauseTransition(Duration.seconds(3));
                         pause.setOnFinished(events -> {
                             try {

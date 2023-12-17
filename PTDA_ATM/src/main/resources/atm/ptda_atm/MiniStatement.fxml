@@ -1,16 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.ptda_atm.ControllerMiniStatement">
+<AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="atm.ptda_atm.ControllerLogIn">
    <children>
-      <ImageView fitHeight="622.0" fitWidth="851.0">
+      <ImageView fitHeight="600.0" fitWidth="850.0">
          <image>
             <Image url="@../../background.jpg" />
          </image>
       </ImageView>
+      <Pane layoutX="107.0" layoutY="93.0" prefHeight="457.0" prefWidth="624.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
+         <children>
+            <Label alignment="CENTER" layoutX="179.0" layoutY="14.0" prefHeight="49.0" prefWidth="266.0" text="Mini Statement">
+               <font>
+                  <Font name="SansSerif Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelValidacao" layoutX="25.0" layoutY="250.0" prefHeight="20.0" prefWidth="237.0" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Pane layoutX="24.0" layoutY="68.0" prefHeight="365.0" prefWidth="577.0" style="-fx-background-radius: 8; -fx-background-color: ffffff; -fx-border-width: 0.5; -fx-border-color: 303030; -fx-border-style: solid; -fx-border-radius: 8;" />
+         </children>
+      </Pane>
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="51.0" layoutY="550.0">
+         <image>
+            <Image url="@../../logo2.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="107.0" layoutY="553.0" prefHeight="34.0" prefWidth="216.0" text="ByteBank" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="buttonGoBack" layoutX="686.0" layoutY="38.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: #B01B1F; -fx-background-radius: 8;" text="GO BACK" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Bold" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="27.0" fitWidth="27.0">
+               <image>
+                  <Image url="@../../gobackArrow.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
