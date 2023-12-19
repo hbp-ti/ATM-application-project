@@ -244,7 +244,7 @@ public class ControllerSignUp implements Initializable {
 
                 connection = Conn.getConnection();
                 // Inserção na tabela BankAccount
-                PreparedStatement preparedStatementBankAccount = connection.prepareStatement("INSERT INTO BankAccount (accountNumber, accountBalance, clientName, NIF, address, zipcode, phoneNumber, email, birthDate, maritalStatus, gender) VALUES (?, 0.00, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement preparedStatementBankAccount = connection.prepareStatement("INSERT INTO BankAccount (accountNumber, clientName, NIF, address, zipcode, phoneNumber, email, birthDate, maritalStatus, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
                 //Numero conta
                 for (int i = 0; i < 20; i++) {

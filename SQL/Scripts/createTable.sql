@@ -15,7 +15,7 @@ CREATE PROCEDURE criarTabelas()
 
         CREATE TABLE BankAccount (
             accountNumber VARCHAR(20) NOT NULL PRIMARY KEY,
-            accountBalance DECIMAL(15,2),
+            accountBalance DECIMAL(15,2) DEFAULT 0,
             clientName VARCHAR(40) NOT NULL,
             NIF INT(9) NOT NULL,
             address VARCHAR(50) NOT NULL,
@@ -48,7 +48,7 @@ CREATE PROCEDURE criarTabelas()
             );
 
         CREATE TABLE Movement (
-            movementID INT(8) UNIQUE NOT NULL PRIMARY KEY,
+            movementID VARCHAR(5) UNIQUE NOT NULL PRIMARY KEY,
             cardNumber VARCHAR(10) UNIQUE NOT NULL,
             movementDate DATETIME NOT NULL,
             movementType VARCHAR(30) NOT NULL,
@@ -56,7 +56,7 @@ CREATE PROCEDURE criarTabelas()
 
             FOREIGN KEY (cardNumber) REFERENCES Card(cardNumber)
             );
-    END //
+    END; //
 DELIMITER ;
 
 CALL criarTabelas();

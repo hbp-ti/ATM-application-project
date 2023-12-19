@@ -226,7 +226,7 @@ public class ControllerWithdraw {
     private boolean validateInput(String withdrawAmount) {
         // Verifica se o valor do depósito é um número float válido
         if (!withdrawAmount.matches("^\\d+(\\.\\d+)?$")) {
-            return false; // Não é um número float válido
+            return false;
         }
         return true;
     }
