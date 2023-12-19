@@ -118,7 +118,7 @@ public class ControllerFundTransfer {
                         labelValidation.setTextFill(Color.GREEN);
 
                         try {
-                            movement(sourceCardNumber,formatter.format(now),"Fund transfer", Float.parseFloat(amount));
+                            movement(sourceCardNumber,formatter.format(now),"Debit", Float.parseFloat(amount),"Transfer");
                         } catch (SQLException ex) {
                             showError("Error saving the movement!");
                         }
@@ -133,6 +133,11 @@ public class ControllerFundTransfer {
                                 "ByteBank";
                         sendEmail(recipientEmail, subject, message);
 
+                        try {
+                            movement(targetCard,formatter.format(now),"Credit", Float.parseFloat(amount),"Transfer");
+                        } catch (SQLException ex) {
+                            showError("Error saving the movement!");
+                        }
 
                         String recipientEmailTarget = getClientEmail(targetCard);
                         String subjectTarget = "Transfer";
@@ -191,19 +196,20 @@ public class ControllerFundTransfer {
         }
     }
 
-    private boolean movement(String clientCardNumber, String date, String type, float value) throws SQLException {
+    private boolean movement(String clientCardNumber, String date, String type, float value, String description) throws SQLException {
         //ID do movimento
         for (int i = 0; i < 5; i++) {
             int digito = random.nextInt(10);
             movementID.append(digito);
         }
 
-        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?)");
+        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?,?)");
         preparedStatement3.setString(1, String.valueOf(movementID));
         preparedStatement3.setString(2, clientCardNumber);
         preparedStatement3.setString(3, date);
         preparedStatement3.setString(4, type);
         preparedStatement3.setFloat(5, value);
+        preparedStatement3.setString(6, description);
 
         ResultSet rs = preparedStatement3.executeQuery();
 

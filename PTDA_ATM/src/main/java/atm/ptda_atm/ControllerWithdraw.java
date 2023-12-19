@@ -99,7 +99,7 @@ public class ControllerWithdraw {
                         labelValidacao.setTextFill(Color.GREEN);
 
                         try {
-                            movement(clientCardNumber,formatter.format(now),"Withdraw", Float.parseFloat(amount.getText()));
+                            movement(clientCardNumber,formatter.format(now),"Debit", Float.parseFloat(amount.getText()),"Withdraw");
                         } catch (SQLException ex) {
                             showError("Error saving the movement!");
                         }
@@ -159,19 +159,20 @@ public class ControllerWithdraw {
         return 0.0f;  // Return 0.0 in case of an error
     }
 
-    private boolean movement(String clientCardNumber, String date, String type, float value) throws SQLException {
+    private boolean movement(String clientCardNumber, String date, String type, float value, String description) throws SQLException {
         //ID do movimento
         for (int i = 0; i < 5; i++) {
             int digito = random.nextInt(10);
             movementID.append(digito);
         }
 
-        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?)");
+        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?,?)");
         preparedStatement3.setString(1, String.valueOf(movementID));
         preparedStatement3.setString(2, clientCardNumber);
         preparedStatement3.setString(3, date);
         preparedStatement3.setString(4, type);
         preparedStatement3.setFloat(5, value);
+        preparedStatement3.setString(6, description);
 
         ResultSet rs = preparedStatement3.executeQuery();
 
