@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerWithdraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerWithdraw.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChangePIN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChangePIN.java" afterDir="false" />
     </list>
     <list id="999a1962-b642-4633-abe9-0d79c9e8123e" name="Changes by goncalo farias" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +151,7 @@
       <workItem from="1702978537293" duration="2214000" />
       <workItem from="1702981506710" duration="1320000" />
       <workItem from="1702999827332" duration="162000" />
-      <workItem from="1703000394838" duration="1204000" />
+      <workItem from="1703000394838" duration="1759000" />
     </task>
     <servers />
   </component>
