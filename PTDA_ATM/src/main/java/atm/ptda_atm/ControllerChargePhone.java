@@ -31,6 +31,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+import java.util.Random;
 
 public class ControllerChargePhone {
 
@@ -49,6 +50,8 @@ public class ControllerChargePhone {
     @FXML
     private TextField phoneNumber;
 
+    Random random =  new Random();
+    StringBuilder movementID = new StringBuilder();
     private String clientCardNumber;
     private PreparedStatement preparedStatement;
     private PreparedStatement preparedStatement2;
@@ -102,6 +105,12 @@ public class ControllerChargePhone {
 
                     labelValidacao.setText(amountt + "€ has been charged to "+phoneNumberr+"!");
                     labelValidacao.setTextFill(Color.GREEN);
+
+                    try {
+                        movement(clientCardNumber,formatter.format(now),"Phone charge", Float.parseFloat(amount.getText()));
+                    } catch (SQLException ex) {
+                        showError("Error saving the movement!");
+                    }
 
                     String recipientEmail = getClientEmail(clientCardNumber);
                     String subject = "Transfer";
@@ -165,6 +174,29 @@ public class ControllerChargePhone {
         return false;
     }
 
+    private boolean movement(String clientCardNumber, String date, String type, float value) throws SQLException {
+        //ID do movimento
+        for (int i = 0; i < 5; i++) {
+            int digito = random.nextInt(10);
+            movementID.append(digito);
+        }
+
+        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?)");
+        preparedStatement3.setString(1, String.valueOf(movementID));
+        preparedStatement3.setString(2, clientCardNumber);
+        preparedStatement3.setString(3, date);
+        preparedStatement3.setString(4, type);
+        preparedStatement3.setFloat(5, value);
+
+        ResultSet rs = preparedStatement3.executeQuery();
+
+        if(rs.next()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));

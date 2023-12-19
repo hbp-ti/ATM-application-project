@@ -53,6 +53,8 @@ public class ControllerChangePIN {
     @FXML
     private Button buttonConfirm;
 
+    Random random =  new Random();
+    StringBuilder movementID = new StringBuilder();
     private String clientCardNumber;
     private PreparedStatement preparedStatement;
     private PreparedStatement preparedStatement2;
@@ -105,6 +107,12 @@ public class ControllerChangePIN {
                 if (success) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
                     LocalDateTime now = LocalDateTime.now();
+
+                    try {
+                        movement(clientCardNumber,formatter.format(now),"Pin Change", 0);
+                    } catch (SQLException ex) {
+                        showError("Error saving the movement!");
+                    }
 
                     // Se a mudança de PIN for bem-sucedida, mostra uma mensagem de sucesso
                     showSuccessPopup("PIN changed successfully!");
@@ -212,6 +220,30 @@ public class ControllerChangePIN {
             }
         }
         return storedPIN;
+    }
+
+    private boolean movement(String clientCardNumber, String date, String type, float value) throws SQLException {
+        //ID do movimento
+        for (int i = 0; i < 5; i++) {
+            int digito = random.nextInt(10);
+            movementID.append(digito);
+        }
+
+        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?)");
+        preparedStatement3.setString(1, String.valueOf(movementID));
+        preparedStatement3.setString(2, clientCardNumber);
+        preparedStatement3.setString(3, date);
+        preparedStatement3.setString(4, type);
+        preparedStatement3.setFloat(5, value);
+
+        ResultSet rs = preparedStatement3.executeQuery();
+
+        if(rs.next()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 
@@ -353,6 +385,14 @@ public class ControllerChangePIN {
         popupStage.showAndWait();
     }
 
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        // Mostrar o Alert
+        alert.showAndWait();
+    }
 
     // Método para aplicar o estilo de borda vermelho
     private void applyValidationStyle() {

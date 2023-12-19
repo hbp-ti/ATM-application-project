@@ -31,11 +31,11 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+import java.util.Random;
 
 public class ControllerDeposit {
     @FXML
     private Button buttonDeposit;
-
     @FXML
     private ProgressBar progressDeposit;
     @FXML
@@ -45,7 +45,8 @@ public class ControllerDeposit {
     @FXML
     private Label labelValidacao;
 
-
+    Random random =  new Random();
+    StringBuilder movementID = new StringBuilder();
     private String clientCardNumber;
     private PreparedStatement preparedStatement3;
     private ResultSet rs;
@@ -92,6 +93,12 @@ public class ControllerDeposit {
 
                     labelValidacao.setText(amount.getText() + "€ has been credited to your account!");
                     labelValidacao.setTextFill(Color.GREEN);
+
+                    try {
+                        movement(clientCardNumber,formatter.format(now),"Deposit", Float.parseFloat(amount.getText()));
+                    } catch (SQLException ex) {
+                        showError("Error saving the movement!");
+                    }
 
                     String recipientEmail = getClientEmail(clientCardNumber);
                     String subject = "Deposit";
@@ -157,7 +164,29 @@ public class ControllerDeposit {
         stage.setScene(scene);
         stage.show();
     }
+    private boolean movement(String clientCardNumber, String date, String type, float value) throws SQLException {
+        //ID do movimento
+        for (int i = 0; i < 5; i++) {
+            int digito = random.nextInt(10);
+            movementID.append(digito);
+        }
 
+        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?)");
+        preparedStatement3.setString(1, String.valueOf(movementID));
+        preparedStatement3.setString(2, clientCardNumber);
+        preparedStatement3.setString(3, date);
+        preparedStatement3.setString(4, type);
+        preparedStatement3.setFloat(5, value);
+
+        ResultSet rs = preparedStatement3.executeQuery();
+
+        if(rs.next()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     private boolean validateInput(String depositAmount) {
         // Verifica se o valor do depósito é um número float válido

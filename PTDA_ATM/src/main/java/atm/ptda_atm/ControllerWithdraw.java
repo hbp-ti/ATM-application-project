@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.Random;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -41,7 +42,8 @@ public class ControllerWithdraw {
     @FXML
     private Label labelValidacao;
 
-
+    Random random =  new Random();
+    StringBuilder movementID = new StringBuilder();
     private String clientCardNumber;
     private PreparedStatement preparedStatement3;
     private ResultSet rs;
@@ -96,6 +98,12 @@ public class ControllerWithdraw {
                         labelValidacao.setText(amount.getText() + "€ has been withdrawn from your account!");
                         labelValidacao.setTextFill(Color.GREEN);
 
+                        try {
+                            movement(clientCardNumber,formatter.format(now),"Withdraw", Float.parseFloat(amount.getText()));
+                        } catch (SQLException ex) {
+                            showError("Error saving the movement!");
+                        }
+
                         String recipientEmail = getClientEmail(clientCardNumber);
                         String subject = "Withdraw";
                         String message = "Subject: Withdraw Notification\n" +
@@ -149,6 +157,30 @@ public class ControllerWithdraw {
             }
         }
         return 0.0f;  // Return 0.0 in case of an error
+    }
+
+    private boolean movement(String clientCardNumber, String date, String type, float value) throws SQLException {
+        //ID do movimento
+        for (int i = 0; i < 5; i++) {
+            int digito = random.nextInt(10);
+            movementID.append(digito);
+        }
+
+        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?)");
+        preparedStatement3.setString(1, String.valueOf(movementID));
+        preparedStatement3.setString(2, clientCardNumber);
+        preparedStatement3.setString(3, date);
+        preparedStatement3.setString(4, type);
+        preparedStatement3.setFloat(5, value);
+
+        ResultSet rs = preparedStatement3.executeQuery();
+
+        if(rs.next()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     private boolean withdrawMoney(String clientCardNumber, float amountWithdraw) {

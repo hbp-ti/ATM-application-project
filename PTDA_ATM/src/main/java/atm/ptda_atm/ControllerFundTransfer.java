@@ -33,6 +33,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.Random;
 
 public class ControllerFundTransfer {
     @FXML
@@ -53,6 +54,8 @@ public class ControllerFundTransfer {
     @FXML
     private Label labelValidation;
 
+    Random random =  new Random();
+    StringBuilder movementID = new StringBuilder();
     private String sourceCardNumber;
     private Connection connection;
     private PreparedStatement preparedStatement;
@@ -113,6 +116,12 @@ public class ControllerFundTransfer {
 
                         labelValidation.setText(amount + "€ has been withdrawn from your account!");
                         labelValidation.setTextFill(Color.GREEN);
+
+                        try {
+                            movement(sourceCardNumber,formatter.format(now),"Fund transfer", Float.parseFloat(amount));
+                        } catch (SQLException ex) {
+                            showError("Error saving the movement!");
+                        }
 
                         String recipientEmail = getClientEmail(sourceCardNumber);
                         String subject = "Transfer";
@@ -178,6 +187,30 @@ public class ControllerFundTransfer {
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean movement(String clientCardNumber, String date, String type, float value) throws SQLException {
+        //ID do movimento
+        for (int i = 0; i < 5; i++) {
+            int digito = random.nextInt(10);
+            movementID.append(digito);
+        }
+
+        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?)");
+        preparedStatement3.setString(1, String.valueOf(movementID));
+        preparedStatement3.setString(2, clientCardNumber);
+        preparedStatement3.setString(3, date);
+        preparedStatement3.setString(4, type);
+        preparedStatement3.setFloat(5, value);
+
+        ResultSet rs = preparedStatement3.executeQuery();
+
+        if(rs.next()) {
+            return true;
+        }
+        else {
             return false;
         }
     }
