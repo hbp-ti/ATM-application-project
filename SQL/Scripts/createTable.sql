@@ -40,7 +40,7 @@ CREATE PROCEDURE criarTabelas()
         );
 
         CREATE TABLE Card (
-            cardNumber VARCHAR(10) UNIQUE NOT NULL PRIMARY KEY,
+            cardNumber VARCHAR(10) NOT NULL PRIMARY KEY,
             accountNumber VARCHAR(20) UNIQUE NOT NULL,
             cardPIN VARCHAR(4) NOT NULL,
 
@@ -48,11 +48,12 @@ CREATE PROCEDURE criarTabelas()
             );
 
         CREATE TABLE Movement (
-            movementID VARCHAR(5) UNIQUE NOT NULL PRIMARY KEY,
-            cardNumber VARCHAR(10) UNIQUE NOT NULL,
+            movementID INT AUTO_INCREMENT PRIMARY KEY,
+            cardNumber VARCHAR(10) NOT NULL,
             movementDate DATETIME NOT NULL,
             movementType VARCHAR(30) NOT NULL,
             movementValue DECIMAL(8,2),
+            movementDescription VARCHAR(40) NOT NULL,
 
             FOREIGN KEY (cardNumber) REFERENCES Card(cardNumber)
             );

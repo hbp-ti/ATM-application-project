@@ -73,7 +73,6 @@ public class ControllerDeposit {
     }
 
     public void deposit(ActionEvent event) throws IOException {
-
         if (!validateInput(amount.getText())) {
             labelValidacao.setText("Invalid amount");
             applyValidationStyle();
@@ -84,27 +83,25 @@ public class ControllerDeposit {
             Timeline timeline = new Timeline(keyFrame);
             timeline.setCycleCount(1);
             timeline.play();
+
             timeline.setOnFinished(e -> {
-                success = depositMoney(clientCardNumber, Float.parseFloat(amount.getText()));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                LocalDateTime now = LocalDateTime.now();
 
-                if (success) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
-                    LocalDateTime now = LocalDateTime.now();
+                float depositAmount = Float.parseFloat(amount.getText());
 
-                    labelValidacao.setText(amount.getText() + "€ has been credited to your account!");
+                try {
+                    movement(clientCardNumber, "Credit", depositAmount, "Deposit");
+                    labelValidacao.setText(String.format("%.2f€ has been credited to your account!", depositAmount));
                     labelValidacao.setTextFill(Color.GREEN);
-
-                    try {
-                        movement(clientCardNumber,formatter.format(now),"Credit", Float.parseFloat(amount.getText()),"Deposit");
-                    } catch (SQLException ex) {
-                        showError("Error saving the movement!");
-                    }
 
                     String recipientEmail = getClientEmail(clientCardNumber);
                     String subject = "Deposit";
                     String message = "Subject: Deposit Notification\n" +
-                            "Dear "+getClientName(clientCardNumber)+",\n" +
-                            "We are pleased to inform you that a deposit of "+amount.getText()+"€ has been successfully credited to your account. This deposit was processed on "+ formatter.format(now) +" and is now available for your use.\n" +
+                            "Dear " + getClientName(clientCardNumber) + ",\n" +
+                            "We are pleased to inform you that a deposit of " + String.format("%.2f€", depositAmount) +
+                            " has been successfully credited to your account. This deposit was processed on " +
+                            formatter.format(now) + " and is now available for your use.\n" +
                             "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                             "Best regards,\n" +
                             "ByteBank";
@@ -119,36 +116,11 @@ public class ControllerDeposit {
                         }
                     });
                     pause.play();
-                } else {
-                    showError("Deposit unsuccessful!");
+                } catch (SQLException ex) {
+                    showError("Error saving the movement!");
                 }
             });
         }
-    }
-
-    private boolean depositMoney(String clientCardNumber, float amountDeposit) {
-        try {
-            String query = "UPDATE BankAccount SET accountBalance = accountBalance + ? WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber  = ?)";
-            preparedStatement3 = connection.prepareStatement(query);
-            preparedStatement3.setFloat(1, amountDeposit);
-            preparedStatement3.setString(2, clientCardNumber);
-            int linhasAftedas = preparedStatement3.executeUpdate();
-
-            if (linhasAftedas > 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return false;
     }
 
 
@@ -165,30 +137,25 @@ public class ControllerDeposit {
         stage.show();
     }
 
-    private boolean movement(String clientCardNumber, String date, String type, float value, String description) throws SQLException {
-        //ID do movimento
-        for (int i = 0; i < 5; i++) {
-            int digito = random.nextInt(10);
-            movementID.append(digito);
-        }
+    private boolean movement(String clientCardNumber, String type, float value, String description) throws SQLException {
+        try {
+            preparedStatement3 = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
+            preparedStatement3.setString(1, clientCardNumber);
+            preparedStatement3.setString(2, "Credit");  // ou qualquer valor padrão para movimentos de depósito
+            preparedStatement3.setFloat(3, value);
+            preparedStatement3.setString(4, description);
 
-        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?,?)");
-        preparedStatement3.setString(1, String.valueOf(movementID));
-        preparedStatement3.setString(2, clientCardNumber);
-        preparedStatement3.setString(3, date);
-        preparedStatement3.setString(4, type);
-        preparedStatement3.setFloat(5, value);
-        preparedStatement3.setString(6, description);
+            int rowsAffected = preparedStatement3.executeUpdate();
 
-        ResultSet rs = preparedStatement3.executeQuery();
-
-        if(rs.next()) {
-            return true;
-        }
-        else {
-            return false;
+            return rowsAffected > 0;
+        } finally {
+            // Certifique-se de fechar os recursos
+            if (preparedStatement3 != null) {
+                preparedStatement3.close();
+            }
         }
     }
+
 
     private boolean validateInput(String depositAmount) {
         // Verifica se o valor do depósito é um número float válido

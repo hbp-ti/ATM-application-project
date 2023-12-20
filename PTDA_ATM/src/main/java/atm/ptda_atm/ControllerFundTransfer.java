@@ -117,11 +117,7 @@ public class ControllerFundTransfer {
                         labelValidation.setText(amount + "€ has been withdrawn from your account!");
                         labelValidation.setTextFill(Color.GREEN);
 
-                        try {
-                            movement(sourceCardNumber,formatter.format(now),"Debit", Float.parseFloat(amount),"Transfer");
-                        } catch (SQLException ex) {
-                            showError("Error saving the movement!");
-                        }
+                        // Não é necessário chamar movement novamente aqui
 
                         String recipientEmail = getClientEmail(sourceCardNumber);
                         String subject = "Transfer";
@@ -133,11 +129,7 @@ public class ControllerFundTransfer {
                                 "ByteBank";
                         sendEmail(recipientEmail, subject, message);
 
-                        try {
-                            movement(targetCard,formatter.format(now),"Credit", Float.parseFloat(amount),"Transfer");
-                        } catch (SQLException ex) {
-                            showError("Error saving the movement!");
-                        }
+                        // Não é necessário chamar movement novamente aqui
 
                         String recipientEmailTarget = getClientEmail(targetCard);
                         String subjectTarget = "Transfer";
@@ -162,64 +154,44 @@ public class ControllerFundTransfer {
                     } else {
                         showError("Transfer unsuccessful. Check the target card number and try again.");
                     }
-
                 });
             }
         }
     }
 
-    private void updateAccountBalance(String clientCardNumber, float amount) throws SQLException {
-        String updateQuery = "UPDATE BankAccount SET accountBalance = accountBalance + ? WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
-            preparedStatement.setFloat(1, amount);
-            preparedStatement.setString(2, clientCardNumber);
-            preparedStatement.executeUpdate();
+    private boolean performFundTransfer(String sourceCard, String targetCard, float amount) {
+        // Check if the source card has sufficient balance
+        float sourceBalance = getAvailableBalance(sourceCard);
+        if (sourceBalance < amount) {
+            return false; // Insufficient balance
         }
+
+        // Perform the fund transfer logic
+        boolean debitSuccess = movement(sourceCard, amount, "Debit", "Transfer");
+        boolean creditSuccess = movement(targetCard, amount, "Credit", "Transfer");
+
+        return debitSuccess && creditSuccess; // Transfer successful if both operations are successful
     }
 
-    private boolean performFundTransfer(String sourceCard, String targetCard, float amount) {
+
+    private boolean movement(String cardNumber, float value, String type, String description) {
         try {
-            // Check if the source card has sufficient balance
-            float sourceBalance = getAvailableBalance(sourceCard);
-            if (sourceBalance < amount) {
-                return false; // Insufficient balance
-            }
+            // Perform the debit movement insertion
+            preparedStatement3 = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
+            preparedStatement3.setString(1, cardNumber);
+            preparedStatement3.setString(2, type);
+            preparedStatement3.setFloat(3, value);
+            preparedStatement3.setString(4, description);
 
-            // Perform the fund transfer logic
-            updateAccountBalance(sourceCard, -amount); // Deduct from the source account
-            updateAccountBalance(targetCard, amount);  // Add to the target account
+            int rowsAffectedDebit = preparedStatement3.executeUpdate();
 
-            return true;
+            return rowsAffectedDebit > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    private boolean movement(String clientCardNumber, String date, String type, float value, String description) throws SQLException {
-        //ID do movimento
-        for (int i = 0; i < 5; i++) {
-            int digito = random.nextInt(10);
-            movementID.append(digito);
-        }
-
-        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?,?)");
-        preparedStatement3.setString(1, String.valueOf(movementID));
-        preparedStatement3.setString(2, clientCardNumber);
-        preparedStatement3.setString(3, date);
-        preparedStatement3.setString(4, type);
-        preparedStatement3.setFloat(5, value);
-        preparedStatement3.setString(6, description);
-
-        ResultSet rs = preparedStatement3.executeQuery();
-
-        if(rs.next()) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
     public String getClientName(String clientCardNumber) {
         try {

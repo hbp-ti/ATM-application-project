@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,15 +71,13 @@ public class ControllerWithdraw {
     }
 
     public void withdraw(ActionEvent event) throws IOException {
-
         if (!validateInput(amount.getText())) {
             labelValidacao.setText("Invalid amount");
             applyValidationStyle();
         } else {
             float withdrawalAmount = Float.parseFloat(amount.getText());
-
-            // Check if the withdrawal amount is greater than the available balance
             float availableBalance = getAvailableBalance(clientCardNumber);
+
             if (withdrawalAmount > availableBalance) {
                 labelValidacao.setText("Insufficient funds");
                 applyValidationStyle();
@@ -89,47 +88,51 @@ public class ControllerWithdraw {
                 Timeline timeline = new Timeline(keyFrame);
                 timeline.setCycleCount(1);
                 timeline.play();
+
                 timeline.setOnFinished(e -> {
-                    success = withdrawMoney(clientCardNumber, Float.parseFloat(amount.getText()));
-                    if (success) {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                         LocalDateTime now = LocalDateTime.now();
 
-                        labelValidacao.setText(amount.getText() + "€ has been withdrawn from your account!");
-                        labelValidacao.setTextFill(Color.GREEN);
+                        float remainingBalance = availableBalance - withdrawalAmount;
 
-                        try {
-                            movement(clientCardNumber,formatter.format(now),"Debit", Float.parseFloat(amount.getText()),"Withdraw");
-                        } catch (SQLException ex) {
-                            showError("Error saving the movement!");
+                        if (movement(clientCardNumber, "Debit", withdrawalAmount, "Withdraw")) {
+                            labelValidacao.setText(String.format("%.2f€ has been withdrawn from your account!", withdrawalAmount));
+                            labelValidacao.setTextFill(Color.GREEN);
+
+                            String recipientEmail = getClientEmail(clientCardNumber);
+                            String subject = "Withdraw";
+                            String message = "Subject: Withdraw Notification\n" +
+                                    "Dear " + getClientName(clientCardNumber) + ",\n" +
+                                    "We are pleased to inform you that a withdraw of " + String.format("%.2f€", withdrawalAmount) +
+                                    " has been successfully withdrawn from your account. This withdraw was processed on " +
+                                    formatter.format(now) + ".\n" +
+                                    "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
+                                    "Best regards,\n" +
+                                    "ByteBank";
+                            sendEmail(recipientEmail, subject, message);
+
+                            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+                            pause.setOnFinished(events -> {
+                                try {
+                                    switchToMenu(event);
+                                } catch (IOException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                            });
+                            pause.play();
+                        } else {
+                            Platform.runLater(() -> showError("Withdraw unsuccessful!"));
                         }
-
-                        String recipientEmail = getClientEmail(clientCardNumber);
-                        String subject = "Withdraw";
-                        String message = "Subject: Withdraw Notification\n" +
-                                "Dear " + getClientName(clientCardNumber) + ",\n" +
-                                "We are pleased to inform you that a withdraw of " + amount.getText() + "€ has been successfully withdrawn from your account. This withdraw was processed on " + formatter.format(now) + ".\n" +
-                                "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
-                                "Best regards,\n" +
-                                "ByteBank";
-                        sendEmail(recipientEmail, subject, message);
-
-                        PauseTransition pause = new PauseTransition(Duration.seconds(3));
-                        pause.setOnFinished(events -> {
-                            try {
-                                switchToMenu(event);
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                        });
-                        pause.play();
-                    } else {
-                        showError("Withdraw unsuccessful!");
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        Platform.runLater(() -> showError("Error processing the withdrawal!"));
                     }
                 });
             }
         }
     }
+
 
     // Method to get the available balance in the account
     private float getAvailableBalance(String clientCardNumber) {
@@ -159,54 +162,23 @@ public class ControllerWithdraw {
         return 0.0f;  // Return 0.0 in case of an error
     }
 
-    private boolean movement(String clientCardNumber, String date, String type, float value, String description) throws SQLException {
-        //ID do movimento
-        for (int i = 0; i < 5; i++) {
-            int digito = random.nextInt(10);
-            movementID.append(digito);
-        }
-
-        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?,?)");
-        preparedStatement3.setString(1, String.valueOf(movementID));
-        preparedStatement3.setString(2, clientCardNumber);
-        preparedStatement3.setString(3, date);
-        preparedStatement3.setString(4, type);
-        preparedStatement3.setFloat(5, value);
-        preparedStatement3.setString(6, description);
-
-        ResultSet rs = preparedStatement3.executeQuery();
-
-        if(rs.next()) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    private boolean withdrawMoney(String clientCardNumber, float amountWithdraw) {
+    private boolean movement(String clientCardNumber, String type, float value, String description) throws SQLException {
         try {
-            String query = "UPDATE BankAccount SET accountBalance = accountBalance - ? WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber  = ?)";
-            preparedStatement3 = connection.prepareStatement(query);
-            preparedStatement3.setFloat(1, amountWithdraw);
-            preparedStatement3.setString(2, clientCardNumber);
-            int linhasAftedas = preparedStatement3.executeUpdate();
+            preparedStatement3 = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
+            preparedStatement3.setString(1, clientCardNumber);
+            preparedStatement3.setString(2, type);
+            preparedStatement3.setFloat(3, value);
+            preparedStatement3.setString(4, description);
 
-            if (linhasAftedas > 0) {
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            int rowsAffected = preparedStatement3.executeUpdate();
+
+            return rowsAffected > 0;
         } finally {
-            try {
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
+            // Certifique-se de fechar os recursos
+            if (preparedStatement3 != null) {
+                preparedStatement3.close();
             }
         }
-        return false;
     }
 
 
@@ -320,12 +292,14 @@ public class ControllerWithdraw {
     }
 
     private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        // Mostrar o Alert
-        alert.showAndWait();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            // Mostrar o Alert
+            alert.showAndWait();
+        });
     }
 
     // Método para aplicar o estilo de borda vermelho
