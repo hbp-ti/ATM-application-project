@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -91,56 +92,65 @@ public class ControllerServicePayment {
             labelValidation.setText("Invalid input. Check and try again.");
             applyValidationStyle();
         } else {
-            progressService.setProgress(0.0);
-            Duration duration = Duration.seconds(3);
-            KeyFrame keyFrame = new KeyFrame(duration, new KeyValue(progressService.progressProperty(), 1.0));
-            Timeline timeline = new Timeline(keyFrame);
-            timeline.setCycleCount(1);
-            timeline.play();
-            timeline.setOnFinished(e -> {
-                if (!validatePayment(ent, ref, am)) {
-                    labelValidation.setText("Payment details wrong. Check and try again.");
-                    applyValidationStyle();
-                } else {
-                    boolean success = performServicePayment(clientCardNumber, Float.parseFloat(am));
+            float payAmount = Float.parseFloat(am);
 
-                    if (success) {
-
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
-                        LocalDateTime now = LocalDateTime.now();
-
-                        labelValidation.setText("Bill " + ref + " payment was successful!");
-                        labelValidation.setTextFill(Color.GREEN);
-
-
-                        String recipientEmail = getClientEmail(clientCardNumber);
-                        String subject = "Bill Payment";
-                        String message = "Subject: Bill Payment Notification\n" +
-                                "Dear " + getClientName(clientCardNumber) + ",\n" +
-                                "We are pleased to inform you that a payment of " + amount + "€ for the service:\n" +
-                                "Entity: " + ent + "\n" +
-                                "Reference: " + ref + "\n" +
-                                "Amount: " + am + "€\n" +
-                                "has been successfully made from your account. This payment was processed on " + formatter.format(now) + ".\n" +
-                                "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
-                                "Best regards,\n" +
-                                "ByteBank";
-                        sendEmail(recipientEmail, subject, message);
-
-                        PauseTransition pauseValidation = new PauseTransition(Duration.seconds(3));
-                        pauseValidation.setOnFinished(events -> {
-                            try {
-                                switchToMenu(event);
-                            } catch (IOException es) {
-                                es.printStackTrace(); // Trate adequadamente o erro na transição para o menu
-                            }
-                        });
-                        pauseValidation.play();
+            // Check if the transfer amount is greater than the available balance
+            float availableBalance = getAvailableBalance(clientCardNumber);
+            if (payAmount > availableBalance) {
+                labelValidation.setText("Insufficient funds");
+                applyValidationStyle();
+            } else {
+                progressService.setProgress(0.0);
+                Duration duration = Duration.seconds(3);
+                KeyFrame keyFrame = new KeyFrame(duration, new KeyValue(progressService.progressProperty(), 1.0));
+                Timeline timeline = new Timeline(keyFrame);
+                timeline.setCycleCount(1);
+                timeline.play();
+                timeline.setOnFinished(e -> {
+                    if (!validatePayment(ent, ref, am)) {
+                        labelValidation.setText("Payment details wrong. Check and try again.");
+                        applyValidationStyle();
                     } else {
-                        showError("Service payment unsuccessful. Check the details and try again.");
+                        boolean success = performServicePayment(clientCardNumber, Float.parseFloat(am));
+
+                        if (success) {
+
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                            LocalDateTime now = LocalDateTime.now();
+
+                            labelValidation.setText("Bill " + ref + " payment was successful!");
+                            labelValidation.setTextFill(Color.GREEN);
+
+
+                            String recipientEmail = getClientEmail(clientCardNumber);
+                            String subject = "Bill Payment";
+                            String message = "Subject: Bill Payment Notification\n" +
+                                    "Dear " + getClientName(clientCardNumber) + ",\n" +
+                                    "We are pleased to inform you that a payment of " + amount + "€ for the service:\n" +
+                                    "Entity: " + ent + "\n" +
+                                    "Reference: " + ref + "\n" +
+                                    "Amount: " + am + "€\n" +
+                                    "has been successfully made from your account. This payment was processed on " + formatter.format(now) + ".\n" +
+                                    "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
+                                    "Best regards,\n" +
+                                    "ByteBank";
+                            sendEmail(recipientEmail, subject, message);
+
+                            PauseTransition pauseValidation = new PauseTransition(Duration.seconds(3));
+                            pauseValidation.setOnFinished(events -> {
+                                try {
+                                    switchToMenu(event);
+                                } catch (IOException es) {
+                                    es.printStackTrace(); // Trate adequadamente o erro na transição para o menu
+                                }
+                            });
+                            pauseValidation.play();
+                        } else {
+                            showError("Service payment unsuccessful. Check the details and try again.");
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
@@ -352,12 +362,12 @@ public class ControllerServicePayment {
 
 
     private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        // Mostrar o Alert
-        alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            // Mostrar o Alert
+            alert.showAndWait();
     }
 
     // Método para aplicar o estilo de borda vermelho

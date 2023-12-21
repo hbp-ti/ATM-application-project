@@ -68,7 +68,7 @@ public class ControllerMiniStatement {
 
     private void loadMiniStatement() {
         try {
-            String query = "SELECT * FROM Movement WHERE cardNumber = ? ORDER BY movementDate DESC LIMIT 10";
+            String query = "SELECT * FROM Movement WHERE cardNumber = ? ORDER BY movementDate DESC LIMIT 15";
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, clientCardNumber);
             rs = preparedStatement.executeQuery();

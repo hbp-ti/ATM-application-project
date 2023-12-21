@@ -117,8 +117,6 @@ public class ControllerFundTransfer {
                         labelValidation.setText(amount + "€ has been withdrawn from your account!");
                         labelValidation.setTextFill(Color.GREEN);
 
-                        // Não é necessário chamar movement novamente aqui
-
                         String recipientEmail = getClientEmail(sourceCardNumber);
                         String subject = "Transfer";
                         String message = "Subject: Transfer Notification\n" +

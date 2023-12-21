@@ -106,12 +106,6 @@ public class ControllerChargePhone {
                     labelValidacao.setText(amountt + "€ has been charged to "+phoneNumberr+"!");
                     labelValidacao.setTextFill(Color.GREEN);
 
-                    try {
-                        movement(clientCardNumber,formatter.format(now),"Debit", Float.parseFloat(amount.getText()),"Phone Charge");
-                    } catch (SQLException ex) {
-                        showError("Error saving the movement!");
-                    }
-
                     String recipientEmail = getClientEmail(clientCardNumber);
                     String subject = "Transfer";
                     String message = "Subject: Phone Credit Notification\n" +
@@ -153,50 +147,41 @@ public class ControllerChargePhone {
     }
 
     private boolean performPhoneCharge(String clientCardNumber, String phoneNumber, float amount) throws SQLException {
-        if (doesPhoneNumberExist(phoneNumber)) {
-            try {
-                String query = "UPDATE BankAccount SET accountBalance = accountBalance - ? WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber  = ?)";
-                preparedStatement3 = connection.prepareStatement(query);
-                preparedStatement3.setFloat(1, amount);
-                preparedStatement3.setString(2, clientCardNumber);
-                int linhasAftedas = preparedStatement3.executeUpdate();
-
-                if (linhasAftedas > 0) {
-                    return true;
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return false;
-            }
-        } else {
-            return false;
+        // Check if the source card has sufficient balance
+        float sourceBalance = getAvailableBalance(clientCardNumber);
+        if (sourceBalance < amount) {
+            return false; // Insufficient balance
         }
-        return false;
+
+        // Perform the fund transfer logic
+        boolean debitSuccess = movement(phoneNumber, clientCardNumber, "Debit", amount, "Phone Charge");
+
+        return debitSuccess;
     }
 
-    private boolean movement(String clientCardNumber, String date, String type, float value, String description) throws SQLException {
-        //ID do movimento
-        for (int i = 0; i < 5; i++) {
-            int digito = random.nextInt(10);
-            movementID.append(digito);
-        }
+    private boolean movement(String phoneNumber, String clientCardNumber, String type, float value, String description) throws SQLException {
+        if(doesPhoneNumberExist(phoneNumber)) {
+            try {
+                preparedStatement3 = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
+                preparedStatement3.setString(1, clientCardNumber);
+                preparedStatement3.setString(2, type);  // ou qualquer valor padrão para movimentos de depósito
+                preparedStatement3.setFloat(3, value);
+                preparedStatement3.setString(4, description);
 
-        preparedStatement3 = connection.prepareStatement("INSERT INTO Movement VALUES (?,?,?,?,?,?)");
-        preparedStatement3.setString(1, String.valueOf(movementID));
-        preparedStatement3.setString(2, clientCardNumber);
-        preparedStatement3.setString(3, date);
-        preparedStatement3.setString(4, type);
-        preparedStatement3.setFloat(5, value);
-        preparedStatement3.setString(6, description);
+                int rowsAffected = preparedStatement3.executeUpdate();
 
-        ResultSet rs = preparedStatement3.executeQuery();
+                return rowsAffected > 0;
+            } catch(SQLException e) {
+                e.printStackTrace();
+                return false;
 
-        if(rs.next()) {
-            return true;
+            } finally {
+                if (preparedStatement3 != null) {
+                    preparedStatement3.close();
+                }
+            }
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     public void switchToMenu(ActionEvent event) throws IOException {

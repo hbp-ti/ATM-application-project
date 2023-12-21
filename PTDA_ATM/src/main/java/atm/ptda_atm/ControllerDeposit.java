@@ -141,7 +141,7 @@ public class ControllerDeposit {
         try {
             preparedStatement3 = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
             preparedStatement3.setString(1, clientCardNumber);
-            preparedStatement3.setString(2, "Credit");  // ou qualquer valor padrão para movimentos de depósito
+            preparedStatement3.setString(2, type);
             preparedStatement3.setFloat(3, value);
             preparedStatement3.setString(4, description);
 
