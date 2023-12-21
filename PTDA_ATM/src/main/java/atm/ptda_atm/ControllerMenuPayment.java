@@ -34,6 +34,7 @@ public class ControllerMenuPayment {
     private PreparedStatement preparedStatement;
     private ResultSet rsName;
     private String clientCardNumber;
+    private String clientName;
 
     public void initialize(Connection connection) {
 
@@ -70,6 +71,10 @@ public class ControllerMenuPayment {
         initialize(connection);
     }
 
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
@@ -84,16 +89,24 @@ public class ControllerMenuPayment {
     }
 
     public void switchToServicePayment(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServicePayment.fxml"));
+        Parent root = loader.load();
+        ControllerServicePayment controller = loader.getController();
+        controller.setClientCardNumber(clientCardNumber);
+        controller.initialize(connection);
         Stage stage = (Stage) buttonServicePay.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("ServicePayment.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     public void switchToTheStatePayment(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("TheStatePayment.fxml"));
+        Parent root = loader.load();
+        ControllerTheStatePayment controller = loader.getController();
+        controller.setClientCardNumber(clientCardNumber);
+        controller.initialize(connection);
         Stage stage = (Stage) buttonStatePay.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("TheStatePayment.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

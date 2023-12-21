@@ -323,8 +323,8 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MiniStatement.fxml"));
         Parent root = loader.load();
         ControllerMiniStatement controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
         controller.initialize(connection);
+        controller.setClientCardNumber(clientCardNumber);
         Stage stage = (Stage) buttonMiniStatement.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
