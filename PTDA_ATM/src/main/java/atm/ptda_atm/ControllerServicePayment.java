@@ -126,7 +126,6 @@ public class ControllerServicePayment {
                             String subject = "Bill Payment";
                             String message = "Subject: Bill Payment Notification\n" +
                                     "Dear " + getClientName(clientCardNumber) + ",\n" +
-                                    "We are pleased to inform you that a payment of " + amount + "€ for the service:\n" +
                                     "Entity: " + ent + "\n" +
                                     "Reference: " + ref + "\n" +
                                     "Amount: " + am + "€\n" +

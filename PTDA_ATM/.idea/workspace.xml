@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChargePhone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChargePhone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerDeposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerDeposit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerFundTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerFundTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMiniStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMiniStatement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerServicePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerServicePayment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerTheStatePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerTheStatePayment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/TheStatePayment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/TheStatePayment.fxml" afterDir="false" />
     </list>
     <list id="999a1962-b642-4633-abe9-0d79c9e8123e" name="Changes by goncalo farias" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -135,8 +130,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.9-jbrsdk-17.0.9-3183f394aec4-8d7b1619" />
-        <option value="jdk-20.0.2-azul-20.0.2-8336523bb0d9-ce1e98ff" />
+        <option value="jdk-20.0.2-azul-20.0.2-3183f394aec4-4edb7f01" />
       </set>
     </attachedChunks>
   </component>
@@ -176,6 +170,8 @@
       <workItem from="1703170187387" duration="311000" />
       <workItem from="1703171468819" duration="11812000" />
       <workItem from="1703185348837" duration="1036000" />
+      <workItem from="1703196244335" duration="74000" />
+      <workItem from="1703196335134" duration="65000" />
     </task>
     <servers />
   </component>

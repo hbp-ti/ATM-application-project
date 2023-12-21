@@ -122,7 +122,6 @@ public class ControllerTheStatePayment {
                             String subject = "Bill Payment";
                             String message = "Subject: Bill Payment Notification\n" +
                                     "Dear " + getClientName(clientCardNumber) + ",\n" +
-                                    "We are pleased to inform you that a payment of " + amount + "€ for the state:\n" +
                                     "Reference: " + ref + "\n" +
                                     "Amount: " + am + "€\n" +
                                     "has been successfully made from your account. This payment was processed on " + formatter.format(now) + ".\n" +
