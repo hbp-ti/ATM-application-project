@@ -1,4 +1,4 @@
-module atm.ptda_atm {
+module PTDA_ATM {
     requires javafx.controls;
     requires javafx.fxml;
 

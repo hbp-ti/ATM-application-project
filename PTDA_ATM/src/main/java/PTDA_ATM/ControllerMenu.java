@@ -1,6 +1,7 @@
 package PTDA_ATM;
 
-import SQL.Conn;
+
+import SQL.Query;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -10,12 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.scene.image.ImageView;
-
 import java.io.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 public class ControllerMenu {
 
@@ -64,9 +61,7 @@ public class ControllerMenu {
 
     private String clientName;
     private String clientCardNumber;
-    private PreparedStatement preparedStatement;
-    private ResultSet resultSet;
-    private Connection connection;
+    Query query = new Query();
 
     public void setClientCardNumber(String cardNumber) {
         this.clientCardNumber = cardNumber;
@@ -82,7 +77,7 @@ public class ControllerMenu {
         if (clientName != null) {
             labelWelcome.setText("Welcome " + clientName);
 
-            String gender = getGenderFromDatabase(clientCardNumber);
+            String gender = query.getGenderFromDatabase(clientCardNumber);
 
             if ("Male".equals(gender)) {
                 maleAvatar.setVisible(true);
@@ -165,8 +160,6 @@ public class ControllerMenu {
             }
         });
 
-
-
         buttonOptions.setOnMouseClicked(mouseEvent -> {
             try {
                 switchToOptions(mouseEvent);
@@ -207,37 +200,7 @@ public class ControllerMenu {
 
     }
 
-    // Método que obtém o género da conta ssociada
-    private String getGenderFromDatabase(String cardNumber) {
-        String gender = null;
 
-        connection = Conn.getConnection();
-
-        // Obtém o número da conta associado ao número do cartão
-        String getAccountNumberQuery = "SELECT accountNumber FROM Card WHERE cardNumber = ?";
-        try (PreparedStatement accountNumberStatement = connection.prepareStatement(getAccountNumberQuery)) {
-            accountNumberStatement.setString(1, cardNumber);
-            ResultSet accountNumberResultSet = accountNumberStatement.executeQuery();
-
-            if (accountNumberResultSet.next()) {
-                String accountNumber = accountNumberResultSet.getString("accountNumber");
-
-                // Obtém o gênero usando o número da conta
-                String getGenderQuery = "SELECT gender FROM BankAccount WHERE accountNumber = ?";
-                try (PreparedStatement genderStatement = connection.prepareStatement(getGenderQuery)) {
-                    genderStatement.setString(1, accountNumber);
-                    ResultSet genderResultSet = genderStatement.executeQuery();
-
-                    if (genderResultSet.next()) {
-                        gender = genderResultSet.getString("gender");
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro a obter género da base de dados: " + e.getMessage());
-        }
-        return gender;
-    }
 
     public void switchToLogIn(ActionEvent event) throws IOException {
         Stage stage = (Stage) buttonLogOut.getScene().getWindow();
@@ -252,7 +215,6 @@ public class ControllerMenu {
         Parent root = loader.load();
         ControllerChangePIN controller = loader.getController();
         controller.setClientCardNumber(clientCardNumber);
-        controller.initialize(connection);
         Stage stage = (Stage) buttonChangePIN.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -264,7 +226,6 @@ public class ControllerMenu {
         Parent root = loader.load();
         ControllerChargePhone controller = loader.getController();
         controller.setClientCardNumber(clientCardNumber);
-        controller.initialize(connection);
         Stage stage = (Stage) buttonChargePhone.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -276,7 +237,6 @@ public class ControllerMenu {
         Parent root = loader.load();
         ControllerCheckBalance controller = loader.getController();
         controller.setClientCardNumber(clientCardNumber);
-        controller.initialize(connection);
         controller.checkBalance();
         Stage stage = (Stage) buttonBalance.getScene().getWindow();
         Scene scene = new Scene(root);
@@ -289,7 +249,6 @@ public class ControllerMenu {
         Parent root = loader.load();
         ControllerDeposit controller = loader.getController();
         controller.setClientCardNumber(clientCardNumber);
-        controller.initialize(connection);
         Stage stage = (Stage) buttonDeposit.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -301,7 +260,6 @@ public class ControllerMenu {
         Parent root = loader.load();
         ControllerFundTransfer controller = loader.getController();
         controller.setClientCardNumber(clientCardNumber);
-        controller.initialize(connection);
         Stage stage = (Stage) buttonTransfer.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -313,7 +271,6 @@ public class ControllerMenu {
         Parent root = loader.load();
         ControllerMenuPayment controller = loader.getController();
         controller.setClientCardNumber(clientCardNumber);
-        controller.initialize(connection);
         Stage stage = (Stage) buttonPayment.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -324,7 +281,6 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MiniStatement.fxml"));
         Parent root = loader.load();
         ControllerMiniStatement controller = loader.getController();
-        controller.initialize(connection);
         controller.setClientCardNumber(clientCardNumber);
         Stage stage = (Stage) buttonMiniStatement.getScene().getWindow();
         Scene scene = new Scene(root);
@@ -345,7 +301,6 @@ public class ControllerMenu {
         Parent root = loader.load();
         ControllerWithdraw controller = loader.getController();
         controller.setClientCardNumber(clientCardNumber);
-        controller.initialize(connection);
         Stage stage = (Stage) buttonWithdraw.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

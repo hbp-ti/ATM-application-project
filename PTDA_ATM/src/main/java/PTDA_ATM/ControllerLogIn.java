@@ -1,6 +1,6 @@
 package PTDA_ATM;
 
-import SQL.Conn;
+import SQL.Query;
 import javafx.animation.PauseTransition;
 import javafx.event.*;
 import javafx.fxml.*;
@@ -13,10 +13,7 @@ import javafx.stage.*;
 import javafx.util.Duration;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 public class ControllerLogIn {
 
@@ -38,18 +35,13 @@ public class ControllerLogIn {
     @FXML
     private ImageView bankLogo;
 
-    private Button logIn;
     private Stage stage;
     private Scene scene;
-    private Parent root;
-    private PreparedStatement preparedStatement;
-    private PreparedStatement preparedStatement2;
-    private ResultSet rs;
-    private ResultSet rsName;
-    private Connection connection;
+
     private String clientCardNumber;
     private String password;
     private String clientName;
+    Query query = new Query();
 
     public void initialize() {
         cardNumberInput.setOnKeyTyped(event -> clearValidationErrors());
@@ -63,18 +55,16 @@ public class ControllerLogIn {
     }
 
 
-    public void switchToMainPage(ActionEvent event) throws IOException {
+    public void switchToMainPage(ActionEvent event){
         clientCardNumber = cardNumberInput.getText();
         password = passwordInput.getText();
 
-        boolean verifyCard = verifyCardInfo(clientCardNumber,password);
+        boolean verifyCard = query.verifyCardInfo(clientCardNumber,password);
 
         if (verifyCard) {
-            boolean success = getClientName(clientCardNumber);
-
-            if (success) {
                 labelValidation.setText("Valid Data!");
                 applyCorrectStyle();
+                this.clientName = query.getClientName(clientCardNumber);
 
                 PauseTransition pauseValidation = new PauseTransition(Duration.seconds(2));
                 pauseValidation.setOnFinished(events -> {
@@ -85,80 +75,11 @@ public class ControllerLogIn {
                     }
                 });
                 pauseValidation.play();
-                return;
-            }
         } else {
             labelValidation.setText("Invalid data!");
             passwordInput.setText("");
             applyValidationStyle();
         }
-    }
-
-    public boolean verifyCardInfo(String clientCardNumber, String password) {
-        try {
-            connection = Conn.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT cardNumber, cardPIN FROM Card WHERE cardNumber = ? AND cardPIN = ?");
-            preparedStatement.setString(1, this.cardNumberInput.getText());
-            preparedStatement.setString(2, this.passwordInput.getText());
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                return true;
-            }
-
-        } catch (SQLException e) {
-            System.out.println("SQLExeption: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (rsName != null) {
-                    rsName.close();
-                }
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (preparedStatement2 != null) {
-                    preparedStatement2.close();
-                }
-
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return false;
-    }
-
-    public boolean getClientName(String clientCardNumber) {
-        try {
-            String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement2 = connection.prepareStatement(query);
-            preparedStatement2.setString(1, clientCardNumber);
-            rsName = preparedStatement2.executeQuery();
-
-            if (rsName.next()) {
-                this.clientName = rsName.getString("clientName");
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsName != null) {
-                    rsName.close();
-                }
-                if (preparedStatement2 != null) {
-                    preparedStatement2.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return false;
     }
 
     public void switchToMenu(ActionEvent event) throws IOException {

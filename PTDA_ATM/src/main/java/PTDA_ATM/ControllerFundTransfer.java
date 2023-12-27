@@ -1,5 +1,6 @@
 package PTDA_ATM;
 
+import SQL.Query;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
@@ -14,14 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javafx.util.Duration;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -49,25 +45,16 @@ public class ControllerFundTransfer {
     @FXML
     private Label labelValidation;
 
-    Random random =  new Random();
-    StringBuilder movementID = new StringBuilder();
     private String sourceCardNumber;
-    private Connection connection;
-    private PreparedStatement preparedStatement;
-    private PreparedStatement preparedStatement2;
-    private PreparedStatement preparedStatement3;
-    private PreparedStatement preparedStatement4;
-    private ResultSet rs;
-    private ResultSet rsName;
-    private ResultSet rsBalance;
-    private ResultSet rsEmail;
+    Query query = new Query();
+
 
     public void setClientCardNumber(String sourceCardNumber) {
         this.sourceCardNumber = sourceCardNumber;
-        initialize(connection);
+        initialize();
     }
 
-    public void initialize(Connection connection) {
+    public void initialize() {
         targetCardNumber.setOnKeyTyped(event -> clearValidationStyles());
         transferAmount.setOnKeyTyped(event -> clearValidationStyles());
 
@@ -76,8 +63,6 @@ public class ControllerFundTransfer {
 
         buttonTransfer.setOnMouseEntered(e -> buttonTransfer.setCursor(Cursor.HAND));
         buttonTransfer.setOnMouseExited(e -> buttonTransfer.setCursor(Cursor.DEFAULT));
-
-        this.connection = connection;
     }
 
     public void transfer(ActionEvent event) throws IOException {
@@ -91,7 +76,7 @@ public class ControllerFundTransfer {
             float transferAmount = Float.parseFloat(amount);
 
             // Check if the transfer amount is greater than the available balance
-            float availableBalance = getAvailableBalance(sourceCardNumber);
+            float availableBalance = query.getAvailableBalance(sourceCardNumber);
             if (transferAmount > availableBalance) {
                 labelValidation.setText("Insufficient funds");
                 applyValidationStyle();
@@ -103,7 +88,12 @@ public class ControllerFundTransfer {
                 timeline.setCycleCount(1);
                 timeline.play();
                 timeline.setOnFinished(e -> {
-                    boolean success = performFundTransfer(sourceCardNumber, targetCard, transferAmount);
+                    boolean success = false;
+                    try {
+                        success = performFundTransfer(sourceCardNumber, targetCard, transferAmount);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
 
                     if (success) {
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
@@ -112,10 +102,10 @@ public class ControllerFundTransfer {
                         labelValidation.setText(amount + "€ has been withdrawn from your account!");
                         labelValidation.setTextFill(Color.GREEN);
 
-                        String recipientEmail = getClientEmail(sourceCardNumber);
+                        String recipientEmail = query.getClientEmail(sourceCardNumber);
                         String subject = "Transfer";
                         String message = "Subject: Transfer Notification\n" +
-                                "Dear "+getClientName(sourceCardNumber)+",\n" +
+                                "Dear "+query.getClientName(sourceCardNumber)+",\n" +
                                 "We are pleased to inform you that a transfer of "+ amount +"€ has been successfully made from your account. This transfer was processed on "+ formatter.format(now) +".\n" +
                                 "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                                 "Best regards,\n" +
@@ -124,11 +114,11 @@ public class ControllerFundTransfer {
 
                         // Não é necessário chamar movement novamente aqui
 
-                        String recipientEmailTarget = getClientEmail(targetCard);
+                        String recipientEmailTarget = query.getClientEmail(targetCard);
                         String subjectTarget = "Transfer";
 
                         String messageTarge = "Subject: Transfer Notification\n"+
-                                "Dear "+getClientName(targetCard)+",\n" +
+                                "Dear "+query.getClientName(targetCard)+",\n" +
                                 "We are pleased to inform you that a transfer of "+ amount +"€ has been successfully made to your account. This transfer was processed on "+ formatter.format(now) +".\n" +
                                 "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                                 "Best regards,\n" +
@@ -152,93 +142,18 @@ public class ControllerFundTransfer {
         }
     }
 
-    private boolean performFundTransfer(String sourceCard, String targetCard, float amount) {
+    private boolean performFundTransfer(String sourceCard, String targetCard, float amount) throws SQLException {
         // Check if the source card has sufficient balance
-        float sourceBalance = getAvailableBalance(sourceCard);
+        float sourceBalance = query.getAvailableBalance(sourceCard);
         if (sourceBalance < amount) {
             return false; // Insufficient balance
         }
 
         // Perform the fund transfer logic
-        boolean debitSuccess = movement(sourceCard, amount, "Debit", "Transfer");
-        boolean creditSuccess = movement(targetCard, amount, "Credit", "Transfer");
+        boolean debitSuccess = query.movement(sourceCard,"Debit",amount , "Transfer");
+        boolean creditSuccess = query.movement(targetCard,"Credit",amount , "Transfer");
 
         return debitSuccess && creditSuccess; // Transfer successful if both operations are successful
-    }
-
-
-    private boolean movement(String cardNumber, float value, String type, String description) {
-        try {
-            // Perform the debit movement insertion
-            preparedStatement3 = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
-            preparedStatement3.setString(1, cardNumber);
-            preparedStatement3.setString(2, type);
-            preparedStatement3.setFloat(3, value);
-            preparedStatement3.setString(4, description);
-
-            int rowsAffectedDebit = preparedStatement3.executeUpdate();
-
-            return rowsAffectedDebit > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-
-    public String getClientName(String clientCardNumber) {
-        try {
-            String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement2 = connection.prepareStatement(query);
-            preparedStatement2.setString(1, clientCardNumber);
-            rsName = preparedStatement2.executeQuery();
-
-            if (rsName.next()) {
-                return rsName.getString("clientName");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsName != null) {
-                    rsName.close();
-                }
-                if (preparedStatement2 != null) {
-                    preparedStatement2.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o clientName
-    }
-
-    // Method to get the available balance in the account
-    private float getAvailableBalance(String clientCardNumber) {
-        try {
-            String query = "SELECT accountBalance FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber  = ?)";
-            preparedStatement3 = connection.prepareStatement(query);
-            preparedStatement3.setString(1, clientCardNumber);
-            rs = preparedStatement3.executeQuery();
-
-            if (rs.next()) {
-                return rs.getFloat("accountBalance");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return 0.0f;  // Return 0.0 in case of an error
     }
 
     private void sendEmail(String recipientEmail, String subject, String text) {
@@ -273,39 +188,11 @@ public class ControllerFundTransfer {
         }
     }
 
-    // Método para obter o email do cliente
-    private String getClientEmail(String clientCardNumber) {
-        try {
-            String query = "SELECT email FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement4 = connection.prepareStatement(query);
-            preparedStatement4.setString(1, clientCardNumber);
-            rsEmail = preparedStatement4.executeQuery();
-
-            if (rsEmail.next()) {
-                return rsEmail.getString("email");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsEmail != null) {
-                    rsEmail.close();
-                }
-                if (preparedStatement4 != null) {
-                    preparedStatement4.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o email
-    }
-
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = getClientName(sourceCardNumber);
+        String clientName = query.getClientName(sourceCardNumber);
         menuController.setClientName(clientName);
         menuController.setClientCardNumber(sourceCardNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();

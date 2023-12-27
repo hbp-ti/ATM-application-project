@@ -1,5 +1,6 @@
 package PTDA_ATM;
 
+import SQL.Query;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,15 +15,10 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
@@ -39,16 +35,10 @@ public class ControllerMiniStatement {
     private Label miniStatementLabel;
     StringBuilder miniStatement = new StringBuilder();
     private String clientCardNumber;
-    private PreparedStatement preparedStatement;
-    private PreparedStatement preparedStatement4;
-    private PreparedStatement preparedStatement3;
-    private ResultSet rs;
-    private ResultSet rsEmail;
-    private ResultSet rsName;
-    private Connection connection;
+    Query query = new Query();
 
 
-    public void initialize(Connection connection) {
+    public void initialize() {
 
         buttonGoBack.setOnMouseEntered(e -> buttonGoBack.setCursor(Cursor.HAND));
         buttonGoBack.setOnMouseExited(e -> buttonGoBack.setCursor(Cursor.DEFAULT));
@@ -56,47 +46,13 @@ public class ControllerMiniStatement {
         buttonEmail.setOnMouseEntered(e -> buttonEmail.setCursor(Cursor.HAND));
         buttonEmail.setOnMouseExited(e -> buttonEmail.setCursor(Cursor.DEFAULT));
 
-        this.connection = connection;
     }
 
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
-        initialize(connection);
-        loadMiniStatement();
-    }
-
-    private void loadMiniStatement() {
-        try {
-            String query = "SELECT * FROM Movement WHERE cardNumber = ? ORDER BY movementDate DESC LIMIT 15";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, clientCardNumber);
-            rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                String movementDescription = rs.getString("movementDescription");
-                String movementDate = rs.getString("movementDate");
-                String movementValue = rs.getString("movementValue");
-
-                miniStatement.append(movementDate).append(" - ").append(movementDescription)
-                        .append(": ").append(movementValue).append("€\n");
-            }
-
-            miniStatementLabel.setText(miniStatement.toString());
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
+        miniStatement = query.loadMiniStatement(clientCardNumber);
+        miniStatementLabel.setText(miniStatement.toString());
+        initialize();
     }
 
     public void email(ActionEvent event) throws IOException {
@@ -104,10 +60,10 @@ public class ControllerMiniStatement {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
-        String recipientEmail = getClientEmail(clientCardNumber);
+        String recipientEmail = query.getClientEmail(clientCardNumber);
         String subject = "Mini Statement";
         String message = "Subject: Account Statement\n" +
-                "Dear " + getClientName(clientCardNumber) + ",\n" +
+                "Dear " + query.getClientName(clientCardNumber) + ",\n" +
                 "We are pleased to provide your account statement as of " + formatter.format(now) + ":\n\n" +
                 miniStatement.toString() + "\n" +
                 "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
@@ -122,41 +78,13 @@ public class ControllerMiniStatement {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientCardNumber);
         menuController.setClientName(clientName);
         menuController.setClientCardNumber(clientCardNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-
-    public String getClientName(String clientCardNumber) {
-        try {
-            String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement3 = connection.prepareStatement(query);
-            preparedStatement3.setString(1, clientCardNumber);
-            rsName = preparedStatement3.executeQuery();
-
-            if (rsName.next()) {
-                return rsName.getString("clientName");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsName != null) {
-                    rsName.close();
-                }
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o clientName
     }
 
     private void sendEmail(String recipientEmail, String subject, String text) {
@@ -189,34 +117,6 @@ public class ControllerMiniStatement {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // Método para obter o email do cliente
-    private String getClientEmail(String clientCardNumber) {
-        try {
-            String query = "SELECT email FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement4 = connection.prepareStatement(query);
-            preparedStatement4.setString(1, clientCardNumber);
-            rsEmail = preparedStatement4.executeQuery();
-
-            if (rsEmail.next()) {
-                return rsEmail.getString("email");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsEmail != null) {
-                    rsEmail.close();
-                }
-                if (preparedStatement4 != null) {
-                    preparedStatement4.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o email
     }
 
     private void showSuccessPopup(String message) {

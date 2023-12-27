@@ -1,5 +1,6 @@
 package PTDA_ATM;
 
+import SQL.Query;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 
 public class ControllerMenuPayment {
@@ -27,14 +23,11 @@ public class ControllerMenuPayment {
     @FXML
     private Button buttonGoBack;
 
-    private Connection connection;
-    private PreparedStatement preparedStatement;
-    private ResultSet rsName;
     private String clientCardNumber;
     private String clientName;
+    Query query = new Query();
 
-    public void initialize(Connection connection) {
-
+    public void initialize() {
         buttonServicePay.setOnMouseClicked(mouseEvent -> {
             try {
                 switchToServicePayment(new ActionEvent());
@@ -59,13 +52,11 @@ public class ControllerMenuPayment {
 
         buttonStatePay.setOnMouseEntered(e -> buttonStatePay.setCursor(javafx.scene.Cursor.HAND));
         buttonStatePay.setOnMouseExited(e -> buttonStatePay.setCursor(javafx.scene.Cursor.DEFAULT));
-
-        this.connection = connection;
     }
 
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
-        initialize(connection);
+        initialize();
     }
 
     public void setClientName(String clientName) {
@@ -76,7 +67,7 @@ public class ControllerMenuPayment {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientCardNumber);
         menuController.setClientName(clientName);
         menuController.setClientCardNumber(clientCardNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
@@ -90,7 +81,6 @@ public class ControllerMenuPayment {
         Parent root = loader.load();
         ControllerServicePayment controller = loader.getController();
         controller.setClientCardNumber(clientCardNumber);
-        controller.initialize(connection);
         Stage stage = (Stage) buttonServicePay.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -102,37 +92,9 @@ public class ControllerMenuPayment {
         Parent root = loader.load();
         ControllerTheStatePayment controller = loader.getController();
         controller.setClientCardNumber(clientCardNumber);
-        controller.initialize(connection);
         Stage stage = (Stage) buttonStatePay.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public String getClientName(String clientCardNumber) {
-        try {
-            String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, clientCardNumber);
-            rsName = preparedStatement.executeQuery();
-
-            if (rsName.next()) {
-                return rsName.getString("clientName");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsName != null) {
-                    rsName.close();
-                }
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o clientName
     }
 }

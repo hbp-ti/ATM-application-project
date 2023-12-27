@@ -1,6 +1,5 @@
 package PTDA_ATM;
-
-import SQL.Conn;
+import SQL.Query;
 import javafx.animation.*;
 import javafx.event.*;
 import javafx.fxml.*;
@@ -16,12 +15,10 @@ import javafx.util.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDate;
 import java.util.*;
 import java.net.URL;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,12 +61,7 @@ public class ControllerSignUp implements Initializable {
 
     private Stage stage;
     private Scene scene;
-    private Parent root;
-    Random random = new Random();
-    StringBuilder numeroConta = new StringBuilder();
-    private PreparedStatement preparedStatement;
-    private ResultSet rs;
-    private Connection connection = null;
+    Query query = new Query();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -154,33 +146,36 @@ public class ControllerSignUp implements Initializable {
         confirmationWindow.showAndWait();
     }
 
-    public void switchToLogIn(ActionEvent event) throws IOException {
-        Conn con = new Conn();
+    public void switchToLogIn(ActionEvent event) throws SQLException {
+        String name = textName.getText();
+        String NIF = textNIF.getText();
+        String address = textAddress.getText();
+        String zipCode = textZipCode.getText();
+        String phone = textPhone.getText();
+        String email = textEmail.getText();
+        LocalDate date = textDate.getValue();
+        String marital = textMarital.getValue().toString();
+        String gender = textGender.getValue().toString();
 
-        try {
-            if (!validateRequiredFields()) {
-                return;
-            }
-
-            if (!validateEmailFormat()) {
-                return;
-            }
-
-            connection = Conn.getConnection();
-            String accountNumber = insertBankAccountData(connection);
-            insertCardData(connection, accountNumber);
-
-            sendConfirmationEmail(textName.getText(), textEmail.getText(), accountNumber);
-
-            showSuccessPopup(event);
-
-            switchToLogInAfterDelay(event);
-
-        } catch (SQLException e) {
-            handleSQLException(e);
-        } finally {
-            closeResources(connection);
+        if (!validateRequiredFields()) {
+            return;
         }
+
+        if (!validateEmailFormat()) {
+            return;
+        }
+
+        String accountNumber = query.insertBankAccountData(name, NIF, address, zipCode, phone, email, date, marital, gender);
+
+        String[] cardData = query.insertCardData(accountNumber);
+        String cardNumber = cardData[0];
+        String cardPIN = cardData[1];
+
+        sendConfirmationEmail(textName.getText(), textEmail.getText(), accountNumber, cardNumber, cardPIN);
+
+        showSuccessPopup(event);
+
+        switchToLogInAfterDelay(event);
     }
 
     private boolean validateRequiredFields() {
@@ -231,59 +226,18 @@ public class ControllerSignUp implements Initializable {
         }
     }
 
-    private String insertBankAccountData(Connection connection) throws SQLException {
-        PreparedStatement preparedStatementBankAccount = connection.prepareStatement("INSERT INTO BankAccount (accountNumber, clientName, NIF, address, zipcode, phoneNumber, email, birthDate, maritalStatus, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-        String accountNumber = generateAccountNumber();
-        preparedStatementBankAccount.setString(1, accountNumber);
-        preparedStatementBankAccount.setString(2, textName.getText());
-        preparedStatementBankAccount.setInt(3, Integer.parseInt(textNIF.getText()));
-        preparedStatementBankAccount.setString(4, textAddress.getText());
-        preparedStatementBankAccount.setString(5, textZipCode.getText());
-        preparedStatementBankAccount.setInt(6, Integer.parseInt(textPhone.getText()));
-        preparedStatementBankAccount.setString(7, textEmail.getText());
-        preparedStatementBankAccount.setDate(8, java.sql.Date.valueOf(textDate.getValue()));
-        preparedStatementBankAccount.setString(9, textMarital.getValue().toString());
-        preparedStatementBankAccount.setString(10, textGender.getValue().toString());
-
-        preparedStatementBankAccount.executeUpdate();
-        preparedStatementBankAccount.close();
-
-        return accountNumber;
-    }
-
-    private void insertCardData(Connection connection, String accountNumber) throws SQLException {
-        PreparedStatement preparedStatementCard = connection.prepareStatement("INSERT INTO Card (cardNumber, accountNumber, cardPIN) VALUES (?, ?, ?)");
-
-        String cardNumber = generateCardNumber();
-        String cardPIN = generateCardPIN();
-
-        preparedStatementCard.setString(1, cardNumber);
-        preparedStatementCard.setString(2, accountNumber);
-        preparedStatementCard.setString(3, cardPIN);
-
-        preparedStatementCard.executeUpdate();
-        preparedStatementCard.close();
-    }
-
-    private void sendConfirmationEmail(String clientName, String email, String accountNumber) {
-        // Envie o e-mail com as informações da conta e do cartão
-        String emailText = null;
-        try {
-            emailText = "Dear " + clientName + ",\n\n"
-                    + "We are delighted to inform you that your bank account has been successfully created at our bank.\n\n"
-                    + "Below are the details of your new account:\n\n"
-                    + "Bank account number: " + accountNumber + "\n"
-                    + "Card number: " + generateCardNumber() + "\n"
-                    + "Card PIN: " + generateCardPIN() + "\n\n"
-                    + "Please keep this information in a secure place and do not share it with others.\n\n"
-                    + "If you have any questions or need assistance, feel free to contact us.\n\n"
-                    + "Thank you for choosing ByteBank.\n\n"
-                    + "Best regards,\n"
-                    + "ByteBank Team";
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    private void sendConfirmationEmail(String clientName, String email, String accountNumber,String cardNumber,String cardPIN) {
+        String emailText = "Dear " + clientName + ",\n\n"
+                + "We are delighted to inform you that your bank account has been successfully created at our bank.\n\n"
+                + "Below are the details of your new account:\n\n"
+                + "Bank account number: " + accountNumber + "\n"
+                + "Card number: " + cardNumber + "\n"
+                + "Card PIN: " + cardPIN + "\n\n"
+                + "Please keep this information in a secure place and do not share it with others.\n\n"
+                + "If you have any questions or need assistance, feel free to contact us.\n\n"
+                + "Thank you for choosing ByteBank.\n\n"
+                + "Best regards,\n"
+                + "ByteBank Team";
 
         sendEmail(email, "Account creation", emailText);
     }
@@ -330,8 +284,6 @@ public class ControllerSignUp implements Initializable {
         popupWindow.showAndWait();
     }
 
-
-
     private void switchToLogInAfterDelay(ActionEvent event) {
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(events -> {
@@ -350,80 +302,6 @@ public class ControllerSignUp implements Initializable {
         });
         pause.play();
     }
-
-    private String generateAccountNumber() throws SQLException {
-        while (true) {
-            String accountNumber = generateRandomNumber(20);
-            if (!isAccountNumberExists(accountNumber)) {
-                return accountNumber;
-            }
-        }
-    }
-
-    private String generateCardNumber() throws SQLException {
-        while (true) {
-            String cardNumber = generateRandomNumber(10);
-            if (!isCardNumberExists(cardNumber)) {
-                return cardNumber;
-            }
-        }
-    }
-
-    private String generateRandomNumber(int length) {
-        StringBuilder number = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < length; i++) {
-            int digit = random.nextInt(10);
-            number.append(digit);
-        }
-        return number.toString();
-    }
-
-    private boolean isAccountNumberExists(String accountNumber) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM BankAccount WHERE accountNumber = ?");
-        preparedStatement.setString(1, accountNumber);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-        int count = resultSet.getInt(1);
-        return count > 0;
-    }
-
-    private boolean isCardNumberExists(String cardNumber) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Card WHERE cardNumber = ?");
-        preparedStatement.setString(1, cardNumber);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.next();
-        int count = resultSet.getInt(1);
-        return count > 0;
-    }
-
-
-    private String generateCardPIN() {
-        StringBuilder cardPIN = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 4; i++) {
-            int digit = random.nextInt(10);
-            cardPIN.append(digit);
-        }
-        return cardPIN.toString();
-    }
-
-    private void handleSQLException(SQLException e) {
-        System.out.println("SQLException: " + e.getMessage());
-        System.out.println("SQLState: " + e.getSQLState());
-        System.out.println("VendorError: " + e.getErrorCode());
-    }
-
-    private void closeResources(Connection connection) {
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            System.err.println("Error closing connection: " + e.getMessage());
-        }
-    }
-
 
     // Método que envia email
     private void sendEmail(String recipientEmail, String subject, String text) {

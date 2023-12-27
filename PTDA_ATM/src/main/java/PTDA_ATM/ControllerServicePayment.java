@@ -1,5 +1,6 @@
 package PTDA_ATM;
 
+import SQL.Query;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
@@ -20,9 +21,6 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,17 +51,9 @@ public class ControllerServicePayment {
     private Button buttonPay;
 
     private String clientCardNumber;
-    private Connection connection;
-    private PreparedStatement preparedStatement;
-    private PreparedStatement preparedStatement2;
-    private PreparedStatement preparedStatement3;
-    private PreparedStatement preparedStatement4;
-    private ResultSet rsEmail;
-    private ResultSet rsName;
-    private ResultSet rs;
+    Query query = new Query();
 
-
-    public void initialize(Connection connection) {
+    public void initialize() {
         entity.setOnKeyTyped(event -> clearValidationStyles());
         reference.setOnKeyTyped(event -> clearValidationStyles());
         amount.setOnKeyTyped(event -> clearValidationStyles());
@@ -74,15 +64,14 @@ public class ControllerServicePayment {
         buttonPay.setOnMouseEntered(e -> buttonPay.setCursor(Cursor.HAND));
         buttonPay.setOnMouseExited(e -> buttonPay.setCursor(Cursor.DEFAULT));
 
-        this.connection = connection;
     }
 
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
-        initialize(connection);
+        initialize();
     }
 
-    public void payService(ActionEvent event) throws IOException {
+    public void payService(ActionEvent event) {
         String ent = entity.getText();
         String ref = reference.getText();
         String am = amount.getText();
@@ -94,7 +83,7 @@ public class ControllerServicePayment {
             float payAmount = Float.parseFloat(am);
 
             // Check if the transfer amount is greater than the available balance
-            float availableBalance = getAvailableBalance(clientCardNumber);
+            float availableBalance = query.getAvailableBalance(clientCardNumber);
             if (payAmount > availableBalance) {
                 labelValidation.setText("Insufficient funds");
                 applyValidationStyle();
@@ -110,7 +99,12 @@ public class ControllerServicePayment {
                         labelValidation.setText("Payment details wrong. Check and try again.");
                         applyValidationStyle();
                     } else {
-                        boolean success = performServicePayment(clientCardNumber, Float.parseFloat(am));
+                        boolean success = false;
+                        try {
+                            success = performServicePayment(clientCardNumber, Float.parseFloat(am));
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
 
                         if (success) {
 
@@ -120,11 +114,10 @@ public class ControllerServicePayment {
                             labelValidation.setText("Bill " + ref + " payment was successful!");
                             labelValidation.setTextFill(Color.GREEN);
 
-
-                            String recipientEmail = getClientEmail(clientCardNumber);
+                            String recipientEmail = query.getClientEmail(clientCardNumber);
                             String subject = "Bill Payment";
                             String message = "Subject: Bill Payment Notification\n" +
-                                    "Dear " + getClientName(clientCardNumber) + ",\n" +
+                                    "Dear " + query.getClientName(clientCardNumber) + ",\n" +
                                     "Entity: " + ent + "\n" +
                                     "Reference: " + ref + "\n" +
                                     "Amount: " + am + "€\n" +
@@ -152,105 +145,30 @@ public class ControllerServicePayment {
         }
     }
 
-
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuPayment.fxml"));
         Parent root = loader.load();
         ControllerMenuPayment Controller = loader.getController();
-        String clientName = getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientCardNumber);
         Controller.setClientName(clientName);
         Controller.setClientCardNumber(clientCardNumber);
-        Controller.initialize(connection);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    private boolean performServicePayment(String clientCardNumber, float amount) {
+    private boolean performServicePayment(String clientCardNumber, float amount) throws SQLException {
         // Check if the source card has sufficient balance
-        float Balance = getAvailableBalance(clientCardNumber);
+        float Balance = query.getAvailableBalance(clientCardNumber);
         if (Balance < amount) {
             return false; // Insufficient balance
         }
 
         // Perform the fund transfer logic
-        boolean debitSuccess = movement(clientCardNumber, amount, "Debit", "Service Payment");
+        boolean debitSuccess = query.movement(clientCardNumber, "Debit", amount,"Service Payment");
 
         return debitSuccess;
-    }
-
-    private boolean movement(String cardNumber, float value, String type, String description) {
-        try {
-            // Perform the debit movement insertion
-            preparedStatement3 = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
-            preparedStatement3.setString(1, cardNumber);
-            preparedStatement3.setString(2, type);
-            preparedStatement3.setFloat(3, value);
-            preparedStatement3.setString(4, description);
-
-            int rowsAffectedDebit = preparedStatement3.executeUpdate();
-
-            return rowsAffectedDebit > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    // Method to get the available balance in the account
-    private float getAvailableBalance(String clientCardNumber) {
-        try {
-            String query = "SELECT accountBalance FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber  = ?)";
-            preparedStatement3 = connection.prepareStatement(query);
-            preparedStatement3.setString(1, clientCardNumber);
-            rs = preparedStatement3.executeQuery();
-
-            if (rs.next()) {
-                return rs.getFloat("accountBalance");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return 0.0f;  // Return 0.0 in case of an error
-    }
-
-    public String getClientName(String clientCardNumber) {
-        try {
-            String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement2 = connection.prepareStatement(query);
-            preparedStatement2.setString(1, clientCardNumber);
-            rsName = preparedStatement2.executeQuery();
-
-            if (rsName.next()) {
-                return rsName.getString("clientName");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsName != null) {
-                    rsName.close();
-                }
-                if (preparedStatement2 != null) {
-                    preparedStatement2.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o clientName
     }
 
     private void sendEmail(String recipientEmail, String subject, String text) {
@@ -284,35 +202,6 @@ public class ControllerServicePayment {
             throw new RuntimeException(e);
         }
     }
-
-    // Método para obter o email do cliente
-    private String getClientEmail(String clientCardNumber) {
-        try {
-            String query = "SELECT email FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement4 = connection.prepareStatement(query);
-            preparedStatement4.setString(1, clientCardNumber);
-            rsEmail = preparedStatement4.executeQuery();
-
-            if (rsEmail.next()) {
-                return rsEmail.getString("email");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsEmail != null) {
-                    rsEmail.close();
-                }
-                if (preparedStatement4 != null) {
-                    preparedStatement4.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o email
-    }
-
 
     private boolean validateInput(String entity, String reference, String amount) {
         if (!entity.matches("^\\d{5}$")) {
@@ -357,7 +246,6 @@ public class ControllerServicePayment {
 
         return isReferenceValid && isEntityValid && isValueValid;
     }
-
 
     private void showError(String message) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

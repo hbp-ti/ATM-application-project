@@ -1,5 +1,6 @@
 package PTDA_ATM;
 
+import SQL.Query;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.geometry.*;
@@ -16,12 +17,7 @@ import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
-import java.util.Random;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class ControllerChangePIN {
 
@@ -43,19 +39,11 @@ public class ControllerChangePIN {
     @FXML
     private Button buttonConfirm;
 
-    Random random =  new Random();
-    StringBuilder movementID = new StringBuilder();
     private String clientCardNumber;
-    private PreparedStatement preparedStatement;
-    private PreparedStatement preparedStatement2;
-    private PreparedStatement preparedStatement3;
-    private ResultSet rs;
-    private ResultSet rsEmailName;
-    private ResultSet rsName;
-    private Connection connection;
+    Query query = new Query();
 
 
-    public void initialize(Connection connection) {
+    public void initialize() {
         currentPINInput.setOnKeyTyped(event -> clearValidationStyles());
         newPINInput.setOnKeyTyped(event -> clearValidationStyles());
         newPINInput2.setOnKeyTyped(event -> clearValidationStyles());
@@ -66,12 +54,11 @@ public class ControllerChangePIN {
         buttonConfirm.setOnMouseEntered(e -> buttonConfirm.setCursor(Cursor.HAND));
         buttonConfirm.setOnMouseExited(e -> buttonConfirm.setCursor(Cursor.DEFAULT));
 
-        this.connection = connection;
     }
 
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
-        initialize(connection);
+        initialize();
     }
 
     public void changePIN(ActionEvent event) throws IOException {
@@ -86,13 +73,13 @@ public class ControllerChangePIN {
             labelValidacao.setText("Invalid PIN's. Check and try again.");
             applyValidationStyle();
         } else {
-            if (newPIN.equals(getStoredPIN(clientCardNumber))) {
+            if (newPIN.equals(query.getStoredPIN(clientCardNumber))) {
                 labelValidacao.setTextFill(Color.RED);
                 labelValidacao.setText("The current PIN matches the new PIN!");
                 applyValidationStyle();
             } else {
                 // Lógica para alterar o PIN no banco de dados
-                boolean success = changePINInDatabase(clientCardNumber, currentPIN, newPIN);
+                boolean success = query.changePINInDatabase(clientCardNumber, currentPIN, newPIN);
 
                 if (success) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
@@ -101,10 +88,10 @@ public class ControllerChangePIN {
                     // Se a mudança de PIN for bem-sucedida, mostra uma mensagem de sucesso
                     showSuccessPopup("PIN changed successfully!");
                     // Envia email informativo
-                    String recipientEmail = getClientEmail(clientCardNumber);
+                    String recipientEmail = query.getClientEmail(clientCardNumber);
                     String subject = "PIN Changed";
                     String messageBody = "Subject: PIN Change Notification for Your Bank Account\n" +
-                            "Dear " + getClientName(clientCardNumber) + ",\n" +
+                            "Dear " + query.getClientName(clientCardNumber) + ",\n" +
                             "We would like to inform you that the PIN associated with your bank account's card has been successfully changed processed on "+ formatter.format(now) +".\n" +
                             "If you initiated this change, you can disregard this message. However, if you did not authorize this alteration or if you have any concerns about this update, please contact our bank immediately. We will investigate and resolve this matter promptly.\n" +
                             "The security and protection of your data are of utmost importance to us. We are here to assist and ensure the security of your account.\n" +
@@ -136,108 +123,11 @@ public class ControllerChangePIN {
         return true;
     }
 
-    private boolean changePINInDatabase(String cardNumber, String currentPIN, String newPIN) {
-        try {
-            // Verifica se o PIN atual corresponde
-            if (currentPIN.equals(getStoredPIN(cardNumber))) {
-                // Atualiza o PIN no banco de dados
-                String updateQuery = "UPDATE Card SET cardPIN = ? WHERE cardNumber = ?";
-                preparedStatement2 = connection.prepareStatement(updateQuery);
-                preparedStatement2.setString(1, newPIN);
-                preparedStatement2.setString(2, cardNumber);
-                preparedStatement2.executeUpdate();
-
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (preparedStatement2 != null) {
-                    preparedStatement2.close();
-                }
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return false;
-    }
-
-    public String getStoredPIN(String cardNumber) {
-        String storedPIN = "";
-        try {
-            String query = "SELECT cardPIN FROM Card WHERE cardNumber = ?";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, cardNumber);
-            rs = preparedStatement.executeQuery();
-
-            if (rs.next()) {
-                storedPIN = rs.getString("cardPIN").trim();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (preparedStatement2 != null) {
-                    preparedStatement2.close();
-                }
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return storedPIN;
-    }
-    
-    public String getClientName(String clientCardNumber) {
-        try {
-            String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement3 = connection.prepareStatement(query);
-            preparedStatement3.setString(1, clientCardNumber);
-            rsName = preparedStatement3.executeQuery();
-
-            if (rsName.next()) {
-                return rsName.getString("clientName");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsName != null) {
-                    rsName.close();
-                }
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o clientName
-    }
-
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientCardNumber);
         menuController.setClientName(clientName);
         menuController.setClientCardNumber(clientCardNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
@@ -276,34 +166,6 @@ public class ControllerChangePIN {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // Método para obter o email do cliente
-    private String getClientEmail(String clientCardNumber) {
-        try {
-            String query = "SELECT email FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement3 = connection.prepareStatement(query);
-            preparedStatement3.setString(1, clientCardNumber);
-            rsEmailName = preparedStatement3.executeQuery();
-
-            if (rsEmailName.next()) {
-                return rsEmailName.getString("email");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsEmailName != null) {
-                    rsEmailName.close();
-                }
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o email
     }
 
     // Método que trata de mostrar o popup de sucesso a mudar PIN

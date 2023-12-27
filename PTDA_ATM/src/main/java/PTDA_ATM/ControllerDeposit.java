@@ -1,5 +1,6 @@
 package PTDA_ATM;
 
+import SQL.Query;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
@@ -20,14 +21,10 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
-import java.util.Random;
 
 public class ControllerDeposit {
     @FXML
@@ -41,22 +38,18 @@ public class ControllerDeposit {
     @FXML
     private Label labelValidacao;
 
-    Random random =  new Random();
-    StringBuilder movementID = new StringBuilder();
+
     private String clientCardNumber;
-    private PreparedStatement preparedStatement3;
-    private ResultSet rs;
-    private ResultSet rsEmailName;
-    private ResultSet rsName;
-    private Connection connection;
+    Query query = new Query();
+
     private boolean success;
 
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
-        initialize(connection);
+        initialize();
     }
 
-    public void initialize(Connection connection) {
+    public void initialize() {
         amount.setOnKeyTyped(event -> clearValidationStyles());
 
         buttonGoBack.setOnMouseEntered(e -> buttonGoBack.setCursor(Cursor.HAND));
@@ -64,8 +57,6 @@ public class ControllerDeposit {
 
         buttonDeposit.setOnMouseEntered(e -> buttonDeposit.setCursor(Cursor.HAND));
         buttonDeposit.setOnMouseExited(e -> buttonDeposit.setCursor(Cursor.DEFAULT));
-
-        this.connection = connection;
     }
 
     public void deposit(ActionEvent event) throws IOException {
@@ -87,14 +78,14 @@ public class ControllerDeposit {
                 float depositAmount = Float.parseFloat(amount.getText());
 
                 try {
-                    movement(clientCardNumber, "Credit", depositAmount, "Deposit");
+                    query.movement(clientCardNumber, "Credit", depositAmount, "Deposit");
                     labelValidacao.setText(String.format("%.2f€ has been credited to your account!", depositAmount));
                     labelValidacao.setTextFill(Color.GREEN);
 
-                    String recipientEmail = getClientEmail(clientCardNumber);
+                    String recipientEmail = query.getClientEmail(clientCardNumber);
                     String subject = "Deposit";
                     String message = "Subject: Deposit Notification\n" +
-                            "Dear " + getClientName(clientCardNumber) + ",\n" +
+                            "Dear " + query.getClientName(clientCardNumber) + ",\n" +
                             "We are pleased to inform you that a deposit of " + String.format("%.2f€", depositAmount) +
                             " has been successfully credited to your account. This deposit was processed on " +
                             formatter.format(now) + " and is now available for your use.\n" +
@@ -124,7 +115,7 @@ public class ControllerDeposit {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientCardNumber);
         menuController.setClientName(clientName);
         menuController.setClientCardNumber(clientCardNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
@@ -133,59 +124,12 @@ public class ControllerDeposit {
         stage.show();
     }
 
-    private boolean movement(String clientCardNumber, String type, float value, String description) throws SQLException {
-        try {
-            preparedStatement3 = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
-            preparedStatement3.setString(1, clientCardNumber);
-            preparedStatement3.setString(2, type);
-            preparedStatement3.setFloat(3, value);
-            preparedStatement3.setString(4, description);
-
-            int rowsAffected = preparedStatement3.executeUpdate();
-
-            return rowsAffected > 0;
-        } finally {
-            // Certifique-se de fechar os recursos
-            if (preparedStatement3 != null) {
-                preparedStatement3.close();
-            }
-        }
-    }
-
-
     private boolean validateInput(String depositAmount) {
         // Verifica se o valor do depósito é um número float válido
         if (!depositAmount.matches("^\\d+(\\.\\d+)?$")) {
             return false; // Não é um número float válido
         }
         return true;
-    }
-
-    public String getClientName(String clientCardNumber) {
-        try {
-            String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement3 = connection.prepareStatement(query);
-            preparedStatement3.setString(1, clientCardNumber);
-            rsName = preparedStatement3.executeQuery();
-
-            if (rsName.next()) {
-                return rsName.getString("clientName");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsName != null) {
-                    rsName.close();
-                }
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o clientName
     }
 
     private void sendEmail(String recipientEmail, String subject, String text) {
@@ -218,34 +162,6 @@ public class ControllerDeposit {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // Método para obter o email do cliente
-    private String getClientEmail(String clientCardNumber) {
-        try {
-            String query = "SELECT email FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
-            preparedStatement3 = connection.prepareStatement(query);
-            preparedStatement3.setString(1, clientCardNumber);
-            rsEmailName = preparedStatement3.executeQuery();
-
-            if (rsEmailName.next()) {
-                return rsEmailName.getString("email");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rsEmailName != null) {
-                    rsEmailName.close();
-                }
-                if (preparedStatement3 != null) {
-                    preparedStatement3.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
-            }
-        }
-        return null;  // Retorna null se não conseguir obter o email
     }
 
     private void showError(String message) {
