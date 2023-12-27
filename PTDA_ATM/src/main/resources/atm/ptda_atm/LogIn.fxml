@@ -25,14 +25,14 @@
                   <Font name="SansSerif Bold" size="30.0" />
                </font>
             </Label>
-            <TextField fx:id="cardNumberInput" layoutX="25.0" layoutY="281.0" prefHeight="32.0" prefWidth="295.0" promptText="Card Number..." style="-fx-background-radius: 6;" />
+            <TextField fx:id="cardNumberInput" layoutX="25.0" layoutY="286.0" prefHeight="32.0" prefWidth="295.0" promptText="Card Number..." style="-fx-background-radius: 6;" />
             <PasswordField fx:id="passwordInput" layoutX="25.0" layoutY="332.0" prefHeight="32.0" prefWidth="295.0" promptText="Password..." style="-fx-background-radius: 6;" />
-            <Button fx:id="loginButton" layoutX="25.0" layoutY="383.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="LOG IN" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="24.0" layoutY="377.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="LOG IN" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="12.0" />
                </font>
             </Button>
-            <Label fx:id="labelValidacao" layoutX="25.0" layoutY="250.0" prefHeight="20.0" prefWidth="237.0" textFill="WHITE">
+            <Label fx:id="labelValidation" layoutX="25.0" layoutY="259.0" prefHeight="20.0" prefWidth="237.0" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>

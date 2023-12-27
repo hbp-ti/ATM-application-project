@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerLogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerLogIn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMiniStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMiniStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/LogIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/LogIn.fxml" afterDir="false" />
     </list>
     <list id="999a1962-b642-4633-abe9-0d79c9e8123e" name="Changes by goncalo farias" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,7 +96,7 @@
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/UTILIZADOR/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/Projeto Temático em desenvolvimento de aplicacoes/PTDA/PTDA_ATM&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -177,6 +181,9 @@
       <workItem from="1703291417353" duration="5000" />
       <workItem from="1703292474591" duration="43000" />
       <workItem from="1703292800744" duration="5000" />
+      <workItem from="1703294899971" duration="44000" />
+      <workItem from="1703294952494" duration="32000" />
+      <workItem from="1703692285949" duration="5755000" />
     </task>
     <servers />
   </component>

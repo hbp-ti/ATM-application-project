@@ -15,11 +15,8 @@ import javafx.util.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
-import java.util.Objects;
+import java.util.*;
 import java.net.URL;
-import java.util.Random;
-import java.util.ResourceBundle;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -72,6 +69,7 @@ public class ControllerSignUp implements Initializable {
     StringBuilder numeroConta = new StringBuilder();
     private PreparedStatement preparedStatement;
     private ResultSet rs;
+    private Connection connection = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -156,250 +154,276 @@ public class ControllerSignUp implements Initializable {
         confirmationWindow.showAndWait();
     }
 
-
-
-
     public void switchToLogIn(ActionEvent event) throws IOException {
         Conn con = new Conn();
-        Connection connection = null;
 
-        try  {
-            // Validar campos obrigatórios
-            if (textName.getText().isEmpty() || textNIF.getText().isEmpty() || textAddress.getText().isEmpty() ||
-                    textZipCode.getText().isEmpty() || textPhone.getText().isEmpty() || textEmail.getText().isEmpty() ||
-                    textDate.getValue() == null || textMarital.getValue() == null || textGender.getValue() == null) {
-
-                // Exibir mensagem de erro
-                showError("Please fill in all required fields.");
-
-                // Adicionar borda laranja às caixas de texto não preenchidas
-                if (textName.getText().isEmpty()) {
-                    textName.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
-                } else {
-                    textName.setStyle(null); // Remover a borda se o campo estiver preenchido
-                }
-
-                if (textNIF.getText().isEmpty()) {
-                    textNIF.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
-                } else {
-                    textNIF.setStyle(null);
-                }
-
-                if (textAddress.getText().isEmpty()) {
-                    textAddress.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
-                } else {
-                    textAddress.setStyle(null);
-                }
-
-                if (textZipCode.getText().isEmpty()) {
-                    textZipCode.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
-                } else {
-                    textZipCode.setStyle(null);
-                }
-
-                if (textPhone.getText().isEmpty()) {
-                    textPhone.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
-                } else {
-                    textPhone.setStyle(null);
-                }
-
-                if (textEmail.getText().isEmpty()) {
-                    textEmail.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
-                } else {
-                    textEmail.setStyle(null);
-                }
-
-                if (Objects.isNull(textDate.getValue())) {
-                    textDate.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
-                } else {
-                    textDate.setStyle(null);
-                }
-
-                if (Objects.isNull(textMarital.getValue())) {
-                    textMarital.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
-                } else {
-                    textMarital.setStyle(null);
-                }
-
-                if (Objects.isNull(textGender.getValue())) {
-                    textGender.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
-                } else {
-                    textGender.setStyle(null);
-                }
-
+        try {
+            if (!validateRequiredFields()) {
                 return;
-
-            } else {
-
-                // Validar o formato do endereço de e-mail
-                if (!isValidEmail(textEmail.getText())) {
-                    showError("Invalid email format.");
-                    textEmail.setStyle("-fx-border-color: RED; -fx-border-radius: 6;");
-
-                    return;
-                }
-
-                // Remover a formatação vermelha se o e-mail for válido
-                textEmail.setStyle(null);
-
-                connection = Conn.getConnection();
-                // Inserção na tabela BankAccount
-                PreparedStatement preparedStatementBankAccount = connection.prepareStatement("INSERT INTO BankAccount (accountNumber, clientName, NIF, address, zipcode, phoneNumber, email, birthDate, maritalStatus, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-                //Numero conta
-                for (int i = 0; i < 20; i++) {
-                    int digito = random.nextInt(10);
-                    numeroConta.append(digito);
-                }
-                preparedStatementBankAccount.setString(1, numeroConta.toString());
-
-                //Nome
-                preparedStatementBankAccount.setString(2, textName.getText());
-                //NIF
-                preparedStatementBankAccount.setInt(3, Integer.parseInt(textNIF.getText()));
-                //Morada
-                preparedStatementBankAccount.setString(4, textAddress.getText());
-                //Codigo Postal
-                preparedStatementBankAccount.setString(5, textZipCode.getText());
-                //Numero Telemovel
-                preparedStatementBankAccount.setInt(6, Integer.parseInt(textPhone.getText()));
-                //Email
-                preparedStatementBankAccount.setString(7, textEmail.getText());
-                //DataNascimento
-                LocalDate localDate = textDate.getValue();
-                java.sql.Date dataSql = java.sql.Date.valueOf(localDate);
-                preparedStatementBankAccount.setDate(8, dataSql);
-                //Estado Civil
-                preparedStatementBankAccount.setString(9, textMarital.getValue().toString());
-                //Genero
-                preparedStatementBankAccount.setString(10, textGender.getValue().toString());
-
-                preparedStatementBankAccount.executeUpdate();
-
-                preparedStatementBankAccount.close();
-
-
-
-
-
-                PreparedStatement preparedStatementCard = connection.prepareStatement("INSERT INTO Card (cardNumber, accountNumber, cardPIN) VALUES (?, ?, ?)");
-
-                //Numero Cartao
-                StringBuilder numeroCartao = new StringBuilder();
-                for (int i = 0; i < 10; i++) {
-                    int digito = random.nextInt(10);
-                    numeroCartao.append(digito);
-                }
-                preparedStatementCard.setString(1, numeroCartao.toString());
-
-                //Numero Conta
-                preparedStatementCard.setString(2, numeroConta.toString());
-
-                //PIN Cartao
-                StringBuilder PINCartao = new StringBuilder();
-                for (int i = 0; i < 4; i++) {
-                    int digito = random.nextInt(10);
-                    PINCartao.append(digito);
-                }
-                preparedStatementCard.setString(3, PINCartao.toString());
-
-                preparedStatementCard.executeUpdate();
-
-                preparedStatementCard.close();
-
-
-                //Envia um email com as informacoes da conta e do cartao
-                String emailText = "Dear " + textName.getText() + ",\n\n"
-                        + "We are delighted to inform you that your bank account has been successfully created at our bank.\n\n"
-                        + "Below are the details of your new account:\n\n"
-                        + "Bank account number: " + numeroConta.toString() + "\n"
-                        + "Card number: " + numeroCartao.toString() + "\n"
-                        + "Card PIN: " + PINCartao.toString() + "\n\n"
-                        + "Please keep this information in a secure place and do not share it with others.\n\n"
-                        + "If you have any questions or need assistance, feel free to contact us.\n\n"
-                        + "Thank you for choosing ByteBank.\n\n"
-                        + "Best regards,\n"
-                        + "ByteBank Team";
-
-
-                sendEmail(textEmail.getText(), "Account creation", emailText);
-
-
-                // Obtém a janela principal
-                Node sourceNode = (Node) event.getSource();
-                Stage primaryStage = (Stage) sourceNode.getScene().getWindow();
-
-                // Aplica o efeito de desfoque à janela principal
-                primaryStage.getScene().getRoot().setEffect(new BoxBlur(10, 10, 10));
-
-                Stage popupWindow = new Stage();
-                popupWindow.initModality(Modality.APPLICATION_MODAL);
-                popupWindow.setTitle("Success!");
-
-                Label messageLabel = new Label("Your account has been created successfully!\n" +
-                        "We have sent an email to:\n" + textEmail.getText() + " with your account and card informations!");
-
-                messageLabel.setWrapText(true);
-                messageLabel.setPrefWidth(300);
-                messageLabel.setMaxHeight(Double.MAX_VALUE);
-
-                VBox.setMargin(messageLabel, new javafx.geometry.Insets(10, 10, 50, 10));
-
-                Button closeButton = new Button("OK");
-                closeButton.setOnAction(e -> {
-                    // Remove o efeito de desfoque da janela principal
-                    primaryStage.getScene().getRoot().setEffect(null);
-                    popupWindow.close();
-                });
-                closeButton.setPrefWidth(80);
-                closeButton.setPrefHeight(30);
-                VBox.setMargin(closeButton, new javafx.geometry.Insets(0, 10, 10, 10));
-
-                VBox layout = new VBox(10);
-                layout.setAlignment(Pos.CENTER);
-                layout.getChildren().addAll(messageLabel, closeButton);
-
-                Scene popupScene = new Scene(layout, 400, 200);
-                popupWindow.setResizable(false);
-                popupWindow.setScene(popupScene);
-
-                popupWindow.showAndWait();
-
-
-
-
-                PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                pause.setOnFinished(events -> {
-                    Parent root = null;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
-                        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                        scene = new Scene(root);
-                        stage.setScene(scene);
-                        stage.setResizable(false);
-                        stage.show();
-                        stage.centerOnScreen();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-                pause.play();
             }
 
+            if (!validateEmailFormat()) {
+                return;
+            }
+
+            connection = Conn.getConnection();
+            String accountNumber = insertBankAccountData(connection);
+            insertCardData(connection, accountNumber);
+
+            sendConfirmationEmail(textName.getText(), textEmail.getText(), accountNumber);
+
+            showSuccessPopup(event);
+
+            switchToLogInAfterDelay(event);
+
         } catch (SQLException e) {
-            System.out.println("SQLExeption: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
+            handleSQLException(e);
         } finally {
+            closeResources(connection);
+        }
+    }
+
+    private boolean validateRequiredFields() {
+        List<TextField> requiredFields = Arrays.asList(textName, textNIF, textAddress, textZipCode, textPhone, textEmail);
+        List<ComboBoxBase> requiredComboBoxes = Arrays.asList(textDate, textMarital, textGender);
+
+        boolean isValid = true;
+
+        for (TextField field : requiredFields) {
+            if (field.getText().isEmpty()) {
+                showError("Please fill in all required fields.");
+                setOrangeBorder(field);
+                isValid = false;
+            } else {
+                resetBorder(field);
+            }
+        }
+
+        for (ComboBoxBase comboBox : requiredComboBoxes) {
+            if (comboBox.getValue() == null) {
+                showError("Please fill in all required fields.");
+                setOrangeBorder(comboBox);
+                isValid = false;
+            } else {
+                resetBorder(comboBox);
+            }
+        }
+
+        return isValid;
+    }
+
+    private void setOrangeBorder(Control control) {
+        control.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
+    }
+
+    private void resetBorder(Control control) {
+        control.setStyle(null);
+    }
+
+    private boolean validateEmailFormat() {
+        if (!isValidEmail(textEmail.getText())) {
+            showError("Invalid email format.");
+            textEmail.setStyle("-fx-border-color: RED; -fx-border-radius: 6;");
+            return false;
+        } else {
+            textEmail.setStyle(null);
+            return true;
+        }
+    }
+
+    private String insertBankAccountData(Connection connection) throws SQLException {
+        PreparedStatement preparedStatementBankAccount = connection.prepareStatement("INSERT INTO BankAccount (accountNumber, clientName, NIF, address, zipcode, phoneNumber, email, birthDate, maritalStatus, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        String accountNumber = generateAccountNumber();
+        preparedStatementBankAccount.setString(1, accountNumber);
+        preparedStatementBankAccount.setString(2, textName.getText());
+        preparedStatementBankAccount.setInt(3, Integer.parseInt(textNIF.getText()));
+        preparedStatementBankAccount.setString(4, textAddress.getText());
+        preparedStatementBankAccount.setString(5, textZipCode.getText());
+        preparedStatementBankAccount.setInt(6, Integer.parseInt(textPhone.getText()));
+        preparedStatementBankAccount.setString(7, textEmail.getText());
+        preparedStatementBankAccount.setDate(8, java.sql.Date.valueOf(textDate.getValue()));
+        preparedStatementBankAccount.setString(9, textMarital.getValue().toString());
+        preparedStatementBankAccount.setString(10, textGender.getValue().toString());
+
+        preparedStatementBankAccount.executeUpdate();
+        preparedStatementBankAccount.close();
+
+        return accountNumber;
+    }
+
+    private void insertCardData(Connection connection, String accountNumber) throws SQLException {
+        PreparedStatement preparedStatementCard = connection.prepareStatement("INSERT INTO Card (cardNumber, accountNumber, cardPIN) VALUES (?, ?, ?)");
+
+        String cardNumber = generateCardNumber();
+        String cardPIN = generateCardPIN();
+
+        preparedStatementCard.setString(1, cardNumber);
+        preparedStatementCard.setString(2, accountNumber);
+        preparedStatementCard.setString(3, cardPIN);
+
+        preparedStatementCard.executeUpdate();
+        preparedStatementCard.close();
+    }
+
+    private void sendConfirmationEmail(String clientName, String email, String accountNumber) {
+        // Envie o e-mail com as informações da conta e do cartão
+        String emailText = null;
+        try {
+            emailText = "Dear " + clientName + ",\n\n"
+                    + "We are delighted to inform you that your bank account has been successfully created at our bank.\n\n"
+                    + "Below are the details of your new account:\n\n"
+                    + "Bank account number: " + accountNumber + "\n"
+                    + "Card number: " + generateCardNumber() + "\n"
+                    + "Card PIN: " + generateCardPIN() + "\n\n"
+                    + "Please keep this information in a secure place and do not share it with others.\n\n"
+                    + "If you have any questions or need assistance, feel free to contact us.\n\n"
+                    + "Thank you for choosing ByteBank.\n\n"
+                    + "Best regards,\n"
+                    + "ByteBank Team";
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        sendEmail(email, "Account creation", emailText);
+    }
+
+    private void showSuccessPopup(ActionEvent event) {
+        // Obtém a janela principal
+        Node sourceNode = (Node) event.getSource();
+        Stage primaryStage = (Stage) sourceNode.getScene().getWindow();
+
+        // Aplica o efeito de desfoque à janela principal
+        primaryStage.getScene().getRoot().setEffect(new BoxBlur(10, 10, 10));
+
+        Stage popupWindow = new Stage();
+        popupWindow.initModality(Modality.APPLICATION_MODAL);
+        popupWindow.setTitle("Success!");
+
+        Label messageLabel = new Label("Your account has been created successfully!\n" +
+                "We have sent an email to:\n" + textEmail.getText() + " with your account and card information!");
+
+        messageLabel.setWrapText(true);
+        messageLabel.setPrefWidth(300);
+        messageLabel.setMaxHeight(Double.MAX_VALUE);
+
+        VBox.setMargin(messageLabel, new Insets(10, 10, 50, 10));
+
+        Button closeButton = new Button("OK");
+        closeButton.setOnAction(e -> {
+            // Remove o efeito de desfoque da janela principal
+            primaryStage.getScene().getRoot().setEffect(null);
+            popupWindow.close();
+        });
+        closeButton.setPrefWidth(80);
+        closeButton.setPrefHeight(30);
+        VBox.setMargin(closeButton, new Insets(0, 10, 10, 10));
+
+        VBox layout = new VBox(10);
+        layout.setAlignment(Pos.CENTER);
+        layout.getChildren().addAll(messageLabel, closeButton);
+
+        Scene popupScene = new Scene(layout, 400, 200);
+        popupWindow.setResizable(false);
+        popupWindow.setScene(popupScene);
+
+        popupWindow.showAndWait();
+    }
+
+
+
+    private void switchToLogInAfterDelay(ActionEvent event) {
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(events -> {
+            Parent root = null;
             try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                System.err.println("Error closing resources: " + e.getMessage());
+                root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
+                stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setResizable(false);
+                stage.show();
+                stage.centerOnScreen();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        pause.play();
+    }
+
+    private String generateAccountNumber() throws SQLException {
+        while (true) {
+            String accountNumber = generateRandomNumber(20);
+            if (!isAccountNumberExists(accountNumber)) {
+                return accountNumber;
             }
         }
     }
+
+    private String generateCardNumber() throws SQLException {
+        while (true) {
+            String cardNumber = generateRandomNumber(10);
+            if (!isCardNumberExists(cardNumber)) {
+                return cardNumber;
+            }
+        }
+    }
+
+    private String generateRandomNumber(int length) {
+        StringBuilder number = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            int digit = random.nextInt(10);
+            number.append(digit);
+        }
+        return number.toString();
+    }
+
+    private boolean isAccountNumberExists(String accountNumber) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM BankAccount WHERE accountNumber = ?");
+        preparedStatement.setString(1, accountNumber);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        int count = resultSet.getInt(1);
+        return count > 0;
+    }
+
+    private boolean isCardNumberExists(String cardNumber) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Card WHERE cardNumber = ?");
+        preparedStatement.setString(1, cardNumber);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        int count = resultSet.getInt(1);
+        return count > 0;
+    }
+
+
+    private String generateCardPIN() {
+        StringBuilder cardPIN = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 4; i++) {
+            int digit = random.nextInt(10);
+            cardPIN.append(digit);
+        }
+        return cardPIN.toString();
+    }
+
+    private void handleSQLException(SQLException e) {
+        System.out.println("SQLException: " + e.getMessage());
+        System.out.println("SQLState: " + e.getSQLState());
+        System.out.println("VendorError: " + e.getErrorCode());
+    }
+
+    private void closeResources(Connection connection) {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Error closing connection: " + e.getMessage());
+        }
+    }
+
 
     // Método que envia email
     private void sendEmail(String recipientEmail, String subject, String text) {

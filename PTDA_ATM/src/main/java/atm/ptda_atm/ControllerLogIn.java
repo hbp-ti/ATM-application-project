@@ -19,6 +19,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ControllerLogIn {
 
@@ -32,7 +34,7 @@ public class ControllerLogIn {
     private Button loginButton;
 
     @FXML
-    private Label labelValidacao;
+    private Label labelValidation;
 
     @FXML
     private Hyperlink signupLink;
@@ -50,6 +52,7 @@ public class ControllerLogIn {
     private ResultSet rsName;
     private Connection connection;
     private String clientCardNumber;
+    private String password;
     private String clientName;
 
     public void initialize() {
@@ -63,13 +66,39 @@ public class ControllerLogIn {
         signupLink.setOnMouseExited(e -> signupLink.setCursor(javafx.scene.Cursor.DEFAULT));
     }
 
-    private void clearValidationErrors() {
-        labelValidacao.setText("");
-        cardNumberInput.setBorder(null);
-        passwordInput.setBorder(null);
-    }
 
     public void switchToMainPage(ActionEvent event) throws IOException {
+        clientCardNumber = cardNumberInput.getText();
+        password = passwordInput.getText();
+
+        boolean verifyCard = verifyCardInfo(clientCardNumber,password);
+
+        if (verifyCard) {
+            boolean success = getClientName(clientCardNumber);
+
+            if (success) {
+                labelValidation.setText("Valid Data!");
+                applyCorrectStyle();
+
+                PauseTransition pauseValidation = new PauseTransition(Duration.seconds(2));
+                pauseValidation.setOnFinished(events -> {
+                    try {
+                        switchToMenu(event);
+                    } catch (IOException es) {
+                        es.printStackTrace();
+                    }
+                });
+                pauseValidation.play();
+                return;
+            }
+        } else {
+            labelValidation.setText("Invalid data!");
+            passwordInput.setText("");
+            applyValidationStyle();
+        }
+    }
+
+    public boolean verifyCardInfo(String clientCardNumber, String password) {
         try {
             connection = Conn.getConnection();
             preparedStatement = connection.prepareStatement("SELECT cardNumber, cardPIN FROM Card WHERE cardNumber = ? AND cardPIN = ?");
@@ -79,51 +108,7 @@ public class ControllerLogIn {
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs.next()) {
-                preparedStatement2 = connection.prepareStatement("SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)");
-                preparedStatement2.setString(1, this.cardNumberInput.getText());
-
-                rsName = preparedStatement2.executeQuery();
-
-                if (rsName.next()) {
-                    clientName = rsName.getString("clientName");
-
-                    // Armazena o número do cartão no campo de membro
-                    clientCardNumber = cardNumberInput.getText();
-
-                    labelValidacao.setTextFill(Color.GREEN);
-                    labelValidacao.setText("Dados válidos!");
-                    Border border = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
-                    cardNumberInput.setBorder(border);
-                    passwordInput.setBorder(border);
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
-                    Parent root = loader.load();
-                    ControllerMenu menuController = loader.getController();
-
-                    // Passa o número e cartão e nome de cliente para o controlador de menu
-                    menuController.setClientCardNumber(clientCardNumber);
-                    menuController.setClientName(clientName);
-
-                    PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                    pause.setOnFinished(events -> {
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        Scene scene = new Scene(root);
-                        stage.setScene(scene);
-                        stage.setResizable(false);
-                        stage.show();
-                        stage.centerOnScreen();
-                    });
-                    pause.play();
-
-                    return;
-                }
-            } else {
-                labelValidacao.setTextFill(Color.RED);
-                labelValidacao.setText("Dados inválidos!");
-                passwordInput.setText("");
-                Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
-                cardNumberInput.setBorder(border);
-                passwordInput.setBorder(border);
+                return true;
             }
 
         } catch (SQLException e) {
@@ -146,17 +131,52 @@ public class ControllerLogIn {
                 }
 
             } catch (SQLException e) {
-                System.err.println("Erro ao fechar recursos: " + e.getMessage());
+                System.err.println("Error closing resources: " + e.getMessage());
             }
         }
+        return false;
     }
 
-    public String getClientCardNumber() {
-        return clientCardNumber;
+    public boolean getClientName(String clientCardNumber) {
+        try {
+            String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
+            preparedStatement2 = connection.prepareStatement(query);
+            preparedStatement2.setString(1, clientCardNumber);
+            rsName = preparedStatement2.executeQuery();
+
+            if (rsName.next()) {
+                this.clientName = rsName.getString("clientName");
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rsName != null) {
+                    rsName.close();
+                }
+                if (preparedStatement2 != null) {
+                    preparedStatement2.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error closing resources: " + e.getMessage());
+            }
+        }
+        return false;
     }
 
-    public String getClientName() {
-        return clientName;
+    public void switchToMenu(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        Parent root = loader.load();
+        ControllerMenu menuController = loader.getController();
+        menuController.setClientCardNumber(clientCardNumber);
+        menuController.setClientName(clientName);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+        stage.centerOnScreen();
     }
 
     public void switchToSignUp(ActionEvent event) throws IOException {
@@ -167,6 +187,27 @@ public class ControllerLogIn {
         stage.setResizable(false);
         stage.show();
         stage.centerOnScreen();
+    }
+
+    // Método para aplicar o estilo de borda vermelho
+    private void applyValidationStyle() {
+        labelValidation.setTextFill(Color.RED);
+        Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
+        cardNumberInput.setBorder(border);
+        passwordInput.setBorder(border);
+    }
+
+    private void applyCorrectStyle() {
+        labelValidation.setTextFill(Color.GREEN);
+        Border border = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
+        cardNumberInput.setBorder(border);
+        passwordInput.setBorder(border);
+    }
+
+    private void clearValidationErrors() {
+        labelValidation.setText("");
+        cardNumberInput.setBorder(null);
+        passwordInput.setBorder(null);
     }
 }
 

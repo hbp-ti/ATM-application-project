@@ -106,7 +106,7 @@ public class ControllerMiniStatement {
         LocalDateTime now = LocalDateTime.now();
 
         String recipientEmail = getClientEmail(clientCardNumber);
-        String subject = "Transfer";
+        String subject = "Mini Statement";
         String message = "Subject: Account Statement\n" +
                 "Dear " + getClientName(clientCardNumber) + ",\n" +
                 "We are pleased to provide your account statement as of " + formatter.format(now) + ":\n\n" +
