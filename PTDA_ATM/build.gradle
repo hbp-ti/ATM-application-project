@@ -25,8 +25,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-  mainModule = 'atm.ptda_atm'
-  mainClass = 'atm.ptda_atm.HelloApplication'
+  mainModule = 'PTDA_ATM'
+  mainClass = 'PTDA_ATM.Main'
 }
 
 javafx {

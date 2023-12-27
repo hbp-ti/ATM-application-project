@@ -6,6 +6,8 @@ module atm.ptda_atm {
     requires java.sql;
     requires java.mail;
 
-    opens atm.ptda_atm to javafx.fxml;
-    exports atm.ptda_atm;
+    opens PTDA_ATM to javafx.fxml;
+    exports PTDA_ATM;
+    exports SQL;
+    opens SQL to javafx.fxml;
 }

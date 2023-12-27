@@ -6,10 +6,61 @@
   <component name="ChangeListManager">
     <list default="true" id="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerLogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerLogIn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMiniStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMiniStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/LogIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/LogIn.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/Bills.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/Bills.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/BillsType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/BillsType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/Conn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SQL/Conn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChangePIN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChangePIN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerChargePhone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerCheckBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerCheckBalance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerDeposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerDeposit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerFundTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerFundTransfer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerLogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerLogIn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMenuPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenuPayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerMiniStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMiniStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerServicePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerServicePayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerSignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerTheStatePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerTheStatePayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/ControllerWithdraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerWithdraw.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/atm/ptda_atm/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Payments.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/Payments.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/atm.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/ChangePIN.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ChangePIN.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/ChargePhone.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ChargePhone.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/CheckBalance.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/CheckBalance.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/Deposit.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Deposit.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/FundTransfer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/FundTransfer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/LogIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/LogIn.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/Menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Menu.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/MenuPayment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/MenuPayment.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/MiniStatement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/MiniStatement.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/Options.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Options.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/ServicePayment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ServicePayment.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/SignUp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/SignUp.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/TheStatePayment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/TheStatePayment.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/atm/ptda_atm/Withdraw.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Withdraw.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/avatar_female.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/avatar_female.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/avatar_male.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/avatar_male.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/avatar_other.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/avatar_other.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/background.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/background.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/balance.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/balance.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/bankLogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/bankLogo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/changePin.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/changePin.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/chargePhone.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/chargePhone.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/deposit.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/deposit.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/gobackArrow.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/gobackArrow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/leftArrow.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/leftArrow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logo2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/logo2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ministatement.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/ministatement.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/options.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/options.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/phoneCharge.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/phoneCharge.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/servicePayment.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/servicePayment.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/theStatePayment.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/theStatePayment.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/transfer.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/transfer.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/withdraw.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/withdraw.png" afterDir="false" />
     </list>
     <list id="999a1962-b642-4633-abe9-0d79c9e8123e" name="Changes by goncalo farias" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,37 +136,60 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Gradle.PTDA_ATM [:Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/Projeto Temático em desenvolvimento de aplicacoes/PTDA/PTDA_ATM&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Main.executor": "Run",
+    "Gradle.Build PTDA_ATM.executor": "Run",
+    "Gradle.PTDA_ATM [:Main.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/Projeto Temático em desenvolvimento de aplicacoes/PTDA/PTDA_ATM",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\UTILIZADOR\Documents\Escola\Universidade Aveiro - ESTGA\2º Ano\1º Semestre\Projeto Temático em desenvolvimento de aplicacoes\PTDA\PTDA_ATM\src\main\resources\images" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="SQL" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.PTDA_ATM.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="atm.ptda_atm.Main" />
       <module name="PTDA_ATM.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="atm.ptda_atm.*" />
+          <option name="PATTERN" value="SQL.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PTDA_ATM.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.Main" />
+      <module name="PTDA_ATM.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="PTDA_ATM.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -125,6 +199,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PTDA_ATM.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -184,6 +259,7 @@
       <workItem from="1703294899971" duration="44000" />
       <workItem from="1703294952494" duration="32000" />
       <workItem from="1703692285949" duration="5755000" />
+      <workItem from="1703699760980" duration="1145000" />
     </task>
     <servers />
   </component>

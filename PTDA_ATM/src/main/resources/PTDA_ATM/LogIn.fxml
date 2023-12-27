@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PTDA_ATM.ControllerLogIn">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="850.0">
+         <image>
+            <Image url="@../images/background.jpg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="254.0" layoutY="41.0" prefHeight="519.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
+         <children>
+            <Label alignment="CENTER" layoutX="39.0" layoutY="27.0" prefHeight="49.0" prefWidth="266.0" text="ByteBank ATM">
+               <font>
+                  <Font name="SansSerif Bold" size="30.0" />
+               </font>
+            </Label>
+            <TextField fx:id="cardNumberInput" layoutX="25.0" layoutY="286.0" prefHeight="32.0" prefWidth="295.0" promptText="Card Number..." style="-fx-background-radius: 6;" />
+            <PasswordField fx:id="passwordInput" layoutX="25.0" layoutY="332.0" prefHeight="32.0" prefWidth="295.0" promptText="Password..." style="-fx-background-radius: 6;" />
+            <Button fx:id="loginButton" layoutX="24.0" layoutY="377.0" mnemonicParsing="false" onAction="#switchToMainPage" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="LOG IN" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Bold" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="labelValidation" layoutX="25.0" layoutY="259.0" prefHeight="20.0" prefWidth="237.0" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="bankLogo" fitHeight="175.0" fitWidth="175.0" layoutX="84.0" layoutY="82.0">
+               <image>
+                  <Image url="@../images/logo2.png" />
+               </image>
+            </ImageView>
+            <Hyperlink fx:id="signupLink" layoutX="217.0" layoutY="475.0" onAction="#switchToSignUp" text="Sign up" textFill="#1464b4">
+               <font>
+                  <Font name="SansSerif Bold" size="12.0" />
+               </font>
+            </Hyperlink>
+         </children>
+      </Pane>
+      <Label layoutX="340.0" layoutY="519.0" text="Dont have an account? ">
+         <font>
+            <Font name="SansSerif Bold" size="12.0" />
+         </font></Label>
+   </children>
+</AnchorPane>
