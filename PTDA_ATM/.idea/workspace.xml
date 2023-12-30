@@ -6,20 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChangePIN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChangePIN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerCheckBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerCheckBalance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerDeposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerDeposit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerFundTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerFundTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerLogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerLogIn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenuPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenuPayment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMiniStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMiniStatement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerServicePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerServicePayment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerSignUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerTheStatePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerTheStatePayment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerWithdraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerWithdraw.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <list id="999a1962-b642-4633-abe9-0d79c9e8123e" name="Changes by goncalo farias" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,32 +79,32 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.Main.executor": "Run",
-    "Gradle.Build PTDA_ATM.executor": "Run",
-    "Gradle.PTDA_ATM [:Main.main()].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/Projeto Temático em desenvolvimento de aplicacoes/PTDA/PTDA_ATM",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build PTDA_ATM.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PTDA_ATM [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/Projeto Temático em desenvolvimento de aplicacoes/PTDA/PTDA_ATM&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\UTILIZADOR\Documents\Escola\Universidade Aveiro - ESTGA\2º Ano\1º Semestre\Projeto Temático em desenvolvimento de aplicacoes\PTDA\PTDA_ATM\src\main\resources\images" />
@@ -163,7 +150,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-20.0.2-azul-20.0.2-3183f394aec4-4edb7f01" />
+        <option value="jdk-17.0.9-jbrsdk-17.0.9-3183f394aec4-8d7b1619" />
+        <option value="jdk-20.0.2-azul-20.0.2-8336523bb0d9-ce1e98ff" />
       </set>
     </attachedChunks>
   </component>

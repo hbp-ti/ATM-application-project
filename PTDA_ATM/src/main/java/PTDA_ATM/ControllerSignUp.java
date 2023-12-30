@@ -146,62 +146,85 @@ public class ControllerSignUp implements Initializable {
         confirmationWindow.showAndWait();
     }
 
-    public void switchToLogIn(ActionEvent event) throws SQLException {
-        String name = textName.getText();
-        String NIF = textNIF.getText();
-        String address = textAddress.getText();
-        String zipCode = textZipCode.getText();
-        String phone = textPhone.getText();
-        String email = textEmail.getText();
-        LocalDate date = textDate.getValue();
-        String marital = textMarital.getValue().toString();
-        String gender = textGender.getValue().toString();
+    public void switchToLogIn(ActionEvent event) {
+        try {
+            String name = textName.getText();
+            String NIF = textNIF.getText();
+            String address = textAddress.getText();
+            String zipCode = textZipCode.getText();
+            String phone = textPhone.getText();
+            String email = textEmail.getText();
+            LocalDate date = textDate.getValue();
+            String marital = textMarital.getValue() != null ? textMarital.getValue().toString() : "";
+            String gender = textGender.getValue() != null ? textGender.getValue().toString() : "";
 
-        if (!validateRequiredFields()) {
-            return;
+            if (!validateRequiredFields()) {
+                return;
+            }
+
+            if (!validateEmailFormat()) {
+                return;
+            }
+
+            String accountNumber = query.insertBankAccountData(name, NIF, address, zipCode, phone, email, date, marital, gender);
+
+            String[] cardData = query.insertCardData(accountNumber);
+            String cardNumber = cardData[0];
+            String cardPIN = cardData[1];
+
+            sendConfirmationEmail(textName.getText(), textEmail.getText(), accountNumber, cardNumber, cardPIN);
+
+            showSuccessPopup(event);
+
+            switchToLogInAfterDelay(event);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showError("An error occurred while processing your request.");
         }
-
-        if (!validateEmailFormat()) {
-            return;
-        }
-
-        String accountNumber = query.insertBankAccountData(name, NIF, address, zipCode, phone, email, date, marital, gender);
-
-        String[] cardData = query.insertCardData(accountNumber);
-        String cardNumber = cardData[0];
-        String cardPIN = cardData[1];
-
-        sendConfirmationEmail(textName.getText(), textEmail.getText(), accountNumber, cardNumber, cardPIN);
-
-        showSuccessPopup(event);
-
-        switchToLogInAfterDelay(event);
     }
+
 
     private boolean validateRequiredFields() {
         List<TextField> requiredFields = Arrays.asList(textName, textNIF, textAddress, textZipCode, textPhone, textEmail);
-        List<ComboBoxBase> requiredComboBoxes = Arrays.asList(textDate, textMarital, textGender);
+        List<ComboBox<String>> requiredComboBoxes = Arrays.asList(textMarital, textGender);
+        List<DatePicker> requiredDatePickers = Arrays.asList(textDate);
 
         boolean isValid = true;
+        boolean anyFieldEmpty = false;
 
         for (TextField field : requiredFields) {
             if (field.getText().isEmpty()) {
-                showError("Please fill in all required fields.");
                 setOrangeBorder(field);
                 isValid = false;
+                anyFieldEmpty = true;
             } else {
                 resetBorder(field);
             }
         }
 
-        for (ComboBoxBase comboBox : requiredComboBoxes) {
-            if (comboBox.getValue() == null) {
-                showError("Please fill in all required fields.");
+        for (ComboBox<String> comboBox : requiredComboBoxes) {
+            if (comboBox.getValue() == null || comboBox.getValue().isEmpty()) {
                 setOrangeBorder(comboBox);
                 isValid = false;
+                anyFieldEmpty = true;
             } else {
                 resetBorder(comboBox);
             }
+        }
+
+        // Verifique também o DatePicker
+        for (DatePicker datePicker : requiredDatePickers) {
+            if (datePicker.getValue() == null) {
+                setOrangeBorder(datePicker);
+                isValid = false;
+                anyFieldEmpty = true;
+            } else {
+                resetBorder(datePicker);
+            }
+        }
+
+        if (!isValid && anyFieldEmpty) {
+            showError("Please fill in all required fields.");
         }
 
         return isValid;
