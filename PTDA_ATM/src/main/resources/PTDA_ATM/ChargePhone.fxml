@@ -17,30 +17,30 @@
             <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
-      <Pane layoutX="226.0" layoutY="69.0" prefHeight="462.0" prefWidth="398.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
+      <Pane layoutX="252.0" layoutY="69.0" prefHeight="462.0" prefWidth="347.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
          <children>
-            <Label alignment="CENTER" layoutX="66.0" layoutY="27.0" prefHeight="49.0" prefWidth="266.0" text="Charge Phone">
+            <Label alignment="CENTER" layoutX="41.0" layoutY="27.0" prefHeight="49.0" prefWidth="266.0" text="Charge Phone">
                <font>
                   <Font name="SansSerif Bold" size="30.0" />
                </font>
             </Label>
-            <TextField fx:id="phoneNumber" layoutX="26.0" layoutY="293.0" prefHeight="32.0" prefWidth="345.0" promptText="Phone Number" style="-fx-background-radius: 6;" />
-            <Button fx:id="buttonCharge" layoutX="27.0" layoutY="398.0" mnemonicParsing="false" onAction="#chargePhone" prefHeight="32.0" prefWidth="345.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="CHARGE" textFill="WHITE">
+            <TextField fx:id="phoneNumber" layoutX="26.0" layoutY="297.0" prefHeight="32.0" prefWidth="295.0" promptText="Phone Number" style="-fx-background-radius: 6;" />
+            <Button fx:id="buttonCharge" layoutX="27.0" layoutY="403.0" mnemonicParsing="false" onAction="#chargePhone" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="CHARGE" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="12.0" />
                </font>
             </Button>
-            <Label fx:id="labelValidacao" layoutX="26.0" layoutY="256.0" prefHeight="35.0" prefWidth="345.0" textFill="WHITE">
+            <Label fx:id="labelValidacao" layoutX="26.0" layoutY="258.0" prefHeight="35.0" prefWidth="295.0" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <ImageView fx:id="bankLogo" fitHeight="175.0" fitWidth="179.0" layoutX="130.0" layoutY="67.0">
+            <ImageView fx:id="bankLogo" fitHeight="175.0" fitWidth="179.0" layoutX="100.0" layoutY="76.0">
                <image>
                   <Image url="@../images/phoneCharge.png" />
                </image>
             </ImageView>
-            <TextField fx:id="amount" layoutX="26.0" layoutY="334.0" prefHeight="32.0" prefWidth="345.0" promptText="Amount..." style="-fx-background-radius: 6;" />
+            <TextField fx:id="amount" layoutX="26.0" layoutY="339.0" prefHeight="32.0" prefWidth="295.0" promptText="Amount..." style="-fx-background-radius: 6;" />
          </children>
       </Pane>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="51.0" layoutY="549.0">

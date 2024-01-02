@@ -26,29 +26,69 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+/**
+ * Controlador para a funcionalidade de depósito.
+ */
 public class ControllerDeposit {
+
+    /**
+     * Botão para realizar o depósito.
+     */
     @FXML
     private Button buttonDeposit;
+
+    /**
+     * Barra de progresso para exibir o progresso do depósito.
+     */
     @FXML
     private ProgressBar progressDeposit;
+
+    /**
+     * Campo de texto para inserir o valor do depósito.
+     */
     @FXML
     private TextField amount;
+
+    /**
+     * Botão para voltar ao menu principal.
+     */
     @FXML
     private Button buttonGoBack;
+
+    /**
+     * Rótulo para exibir mensagens de validação ou sucesso.
+     */
     @FXML
     private Label labelValidacao;
 
-
+    /**
+     * Número do cartão do cliente.
+     */
     private String clientCardNumber;
-    Query query = new Query();
 
+    /**
+     * Objeto para executar consultas no banco de dados.
+     */
+    private final Query query = new Query();
+
+    /**
+     * Flag para indicar se o depósito foi bem-sucedido.
+     */
     private boolean success;
 
+    /**
+     * Define o número do cartão do cliente.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     */
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
         initialize();
     }
 
+    /**
+     * Inicializa o controlador.
+     */
     public void initialize() {
         amount.setOnKeyTyped(event -> clearValidationStyles());
 
@@ -59,6 +99,12 @@ public class ControllerDeposit {
         buttonDeposit.setOnMouseExited(e -> buttonDeposit.setCursor(Cursor.DEFAULT));
     }
 
+    /**
+     * Realiza a lógica de depósito.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void deposit(ActionEvent event) throws IOException {
         if (!validateInput(amount.getText())) {
             labelValidacao.setText("Invalid amount");
@@ -110,7 +156,12 @@ public class ControllerDeposit {
         }
     }
 
-
+    /**
+     * Alterna para a tela de menu principal.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
@@ -124,6 +175,12 @@ public class ControllerDeposit {
         stage.show();
     }
 
+    /**
+     * Valida a entrada do usuário para o valor do depósito.
+     *
+     * @param depositAmount Valor do depósito a ser validado.
+     * @return True se a entrada for válida, False caso contrário.
+     */
     private boolean validateInput(String depositAmount) {
         // Verifica se o valor do depósito é um número float válido
         if (!depositAmount.matches("^\\d+(\\.\\d+)?$")) {
@@ -132,6 +189,13 @@ public class ControllerDeposit {
         return true;
     }
 
+    /**
+     * Envia um email de notificação para o cliente após o depósito.
+     *
+     * @param recipientEmail Endereço de email do destinatário.
+     * @param subject        Assunto do email.
+     * @param text           Corpo do email.
+     */
     private void sendEmail(String recipientEmail, String subject, String text) {
         final String username = "projetoptda@gmail.com";
         final String password = "gcue jaff wcib cklg";
@@ -164,6 +228,11 @@ public class ControllerDeposit {
         }
     }
 
+    /**
+     * Exibe uma mensagem de erro usando um Alert.
+     *
+     * @param message Mensagem de erro a ser exibida.
+     */
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -173,14 +242,18 @@ public class ControllerDeposit {
         alert.showAndWait();
     }
 
-    // Método para aplicar o estilo de borda vermelho
+    /**
+     * Aplica o estilo de validação com borda vermelha.
+     */
     private void applyValidationStyle() {
         labelValidacao.setTextFill(Color.RED);
         Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
         amount.setBorder(border);
     }
 
-    // Método para limpar os estilos de validação
+    /**
+     * Limpa os estilos de validação.
+     */
     private void clearValidationStyles() {
         labelValidacao.setText("");
         amount.setBorder(null);

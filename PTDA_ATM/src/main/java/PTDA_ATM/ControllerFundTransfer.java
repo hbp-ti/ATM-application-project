@@ -26,34 +26,70 @@ import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.Random;
 
+/**
+ * Controlador para a funcionalidade de transferência de fundos entre contas.
+ */
 public class ControllerFundTransfer {
+
+    /**
+     * Campo de texto para o número do cartão de destino da transferência.
+     */
     @FXML
     private TextField targetCardNumber;
 
+    /**
+     * Campo de texto para o valor da transferência.
+     */
     @FXML
     private TextField transferAmount;
 
+    /**
+     * Barra de progresso para exibir o progresso da transferência.
+     */
     @FXML
     private ProgressBar progressTransfer;
 
+    /**
+     * Botão para realizar a transferência.
+     */
     @FXML
     private Button buttonTransfer;
 
+    /**
+     * Botão para voltar ao menu principal.
+     */
     @FXML
     private Button buttonGoBack;
 
+    /**
+     * Rótulo para exibir mensagens de validação ou sucesso.
+     */
     @FXML
     private Label labelValidation;
 
+    /**
+     * Número do cartão de origem da transferência.
+     */
     private String sourceCardNumber;
-    Query query = new Query();
 
+    /**
+     * Objeto para executar consultas no banco de dados.
+     */
+    private final Query query = new Query();
 
+    /**
+     * Define o número do cartão do cliente de origem.
+     *
+     * @param sourceCardNumber Número do cartão do cliente de origem.
+     */
     public void setClientCardNumber(String sourceCardNumber) {
         this.sourceCardNumber = sourceCardNumber;
         initialize();
     }
 
+    /**
+     * Inicializa o controlador.
+     */
     public void initialize() {
         targetCardNumber.setOnKeyTyped(event -> clearValidationStyles());
         transferAmount.setOnKeyTyped(event -> clearValidationStyles());
@@ -65,6 +101,12 @@ public class ControllerFundTransfer {
         buttonTransfer.setOnMouseExited(e -> buttonTransfer.setCursor(Cursor.DEFAULT));
     }
 
+    /**
+     * Realiza a lógica de transferência de fundos.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void transfer(ActionEvent event) throws IOException {
         String targetCard = targetCardNumber.getText();
         String amount = transferAmount.getText();
@@ -75,7 +117,7 @@ public class ControllerFundTransfer {
         } else {
             float transferAmount = Float.parseFloat(amount);
 
-            // Check if the transfer amount is greater than the available balance
+            // Verifica se o valor da transferência é maior que o saldo disponível
             float availableBalance = query.getAvailableBalance(sourceCardNumber);
             if (transferAmount > availableBalance) {
                 labelValidation.setText("Insufficient funds");
@@ -117,13 +159,13 @@ public class ControllerFundTransfer {
                         String recipientEmailTarget = query.getClientEmail(targetCard);
                         String subjectTarget = "Transfer";
 
-                        String messageTarge = "Subject: Transfer Notification\n"+
+                        String messageTarget = "Subject: Transfer Notification\n"+
                                 "Dear "+query.getClientName(targetCard)+",\n" +
                                 "We are pleased to inform you that a transfer of "+ amount +"€ has been successfully made to your account. This transfer was processed on "+ formatter.format(now) +".\n" +
                                 "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                                 "Best regards,\n" +
                                 "ByteBank";
-                        sendEmail(recipientEmailTarget, subjectTarget, messageTarge);
+                        sendEmail(recipientEmailTarget, subjectTarget, messageTarget);
 
                         PauseTransition pause = new PauseTransition(Duration.seconds(3));
                         pause.setOnFinished(events -> {
@@ -142,20 +184,36 @@ public class ControllerFundTransfer {
         }
     }
 
+    /**
+     * Executa a lógica de transferência de fundos no banco de dados.
+     *
+     * @param sourceCard   Número do cartão de origem.
+     * @param targetCard   Número do cartão de destino.
+     * @param amount       Valor da transferência.
+     * @return True se a transferência for bem-sucedida, False caso contrário.
+     * @throws SQLException Exceção de SQL.
+     */
     private boolean performFundTransfer(String sourceCard, String targetCard, float amount) throws SQLException {
-        // Check if the source card has sufficient balance
+        // Verifica se o cartão de origem tem saldo suficiente
         float sourceBalance = query.getAvailableBalance(sourceCard);
         if (sourceBalance < amount) {
-            return false; // Insufficient balance
+            return false; // Saldo insuficiente
         }
 
-        // Perform the fund transfer logic
+        // Executa a lógica de transferência de fundos
         boolean debitSuccess = query.movement(sourceCard,"Debit",amount , "Transfer");
         boolean creditSuccess = query.movement(targetCard,"Credit",amount , "Transfer");
 
-        return debitSuccess && creditSuccess; // Transfer successful if both operations are successful
+        return debitSuccess && creditSuccess; // Transferência bem-sucedida se ambas as operações forem bem-sucedidas
     }
 
+    /**
+     * Envia um e-mail para o destinatário da transferência.
+     *
+     * @param recipientEmail Endereço de e-mail do destinatário.
+     * @param subject        Assunto do e-mail.
+     * @param text           Corpo do e-mail.
+     */
     private void sendEmail(String recipientEmail, String subject, String text) {
         final String username = "projetoptda@gmail.com";
         final String password = "gcue jaff wcib cklg";
@@ -188,6 +246,12 @@ public class ControllerFundTransfer {
         }
     }
 
+    /**
+     * Alterna para a tela de menu principal.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
@@ -201,35 +265,51 @@ public class ControllerFundTransfer {
         stage.show();
     }
 
+    /**
+     * Valida a entrada do user para o número do cartão de destino e o valor da transferência.
+     *
+     * @param targetCard Número do cartão de destino.
+     * @param amount     Valor da transferência.
+     * @return True se a entrada for válida, False caso contrário.
+     */
     private boolean validateInput(String targetCard, String amount) {
-        // Validate if the target card exists and the amount is a valid float
+        // Valida se o cartão de destino existe e o valor é um número float válido
         if (!targetCard.matches("^\\d{10}$")) {
-            return false; // Target card number should be a 16-digit number
+            return false; // O número do cartão de destino deve ser um número de 16 dígitos
         }
 
         if (!amount.matches("^\\d+(\\.\\d+)?$")) {
-            return false; // Amount should be a valid float
+            return false; // O valor deve ser um número float válido
         }
         return true;
     }
 
+    /**
+     * Exibe uma mensagem de erro usando um Alert.
+     *
+     * @param message Mensagem de erro a ser exibida.
+     */
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
-        // Mostrar o Alert
+        // Mostra o Alert
         alert.showAndWait();
     }
 
-    // Método para aplicar o estilo de borda vermelho
+    /**
+     * Aplica o estilo de validação com borda vermelha.
+     */
     private void applyValidationStyle() {
         labelValidation.setTextFill(Color.RED);
         Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
         transferAmount.setBorder(border);
     }
 
-    // Método para limpar os estilos de validação
+    /**
+     * Limpa os estilos de validação.
+     */
     private void clearValidationStyles() {
         labelValidation.setText("");
         transferAmount.setBorder(null);

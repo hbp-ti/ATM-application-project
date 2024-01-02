@@ -3,10 +3,24 @@ package SQL;
 import java.sql.*;
 import java.util.Scanner;
 
+/**
+ * A classe Conn é responsável por tratar a conexão com a base de dados MySQL.
+ */
 public class Conn {
+    /**
+     * Conexão estática com o banco de dados.
+     */
     private static Connection c;
+
+    /**
+     * Declaração utilizada para executar consultas SQL.
+     */
     private Statement s;
 
+    /**
+     * Inicia uma nova conexão com a base de dados.
+     * Se já existir uma conexão, exibe uma mensagem informando sobre a conexão existente.
+     */
     public void doConnection() {
         if (!isConnected()) {
             Scanner sc = new Scanner(System.in);
@@ -33,6 +47,15 @@ public class Conn {
         }
     }
 
+    /**
+     * Realiza a conexão com a base de dados MySQL.
+     *
+     * @param url      URL do host da BD.
+     * @param port     Porta da BD.
+     * @param schema   Nome do esquema da BD.
+     * @param user     Nome de utilizador.
+     * @param password Senha para autenticação.
+     */
     private void connect(String url, int port, String schema, String user, String password) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -44,10 +67,19 @@ public class Conn {
         }
     }
 
+    /**
+     * Obtém a conexão ativa com a base de dados.
+     *
+     * @return A conexão com a base de dados.
+     */
     public static Connection getConnection() {
         return c;
     }
 
+    /**
+     * Fecha a conexão com a base de dados.
+     * Fecha também o Statement associado, se estiver aberto.
+     */
     public void close() {
         try {
             if (s != null) {
@@ -61,6 +93,11 @@ public class Conn {
         }
     }
 
+    /**
+     * Verifica se há uma conexão ativa com a base de dados.
+     *
+     * @return True se houver uma conexão ativa; false, caso contrário.
+     */
     public boolean isConnected() {
         return c != null;
     }

@@ -23,31 +23,60 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+/**
+ * Controlador para a tela de extrato simplificado.
+ */
 public class ControllerMiniStatement {
 
+    /**
+     * Botão para voltar ao menu principal.
+     */
     @FXML
     private Button buttonGoBack;
 
+    /**
+     * Botão para enviar o extrato por e-mail.
+     */
     @FXML
     private Button buttonEmail;
 
+    /**
+     * Rótulo para exibir o extrato simplificado.
+     */
     @FXML
     private Label miniStatementLabel;
-    StringBuilder miniStatement = new StringBuilder();
+
+    /**
+     * Objeto StringBuilder para armazenar o extrato simplificado.
+     */
+    private StringBuilder miniStatement = new StringBuilder();
+
+    /**
+     * Número do cartão do cliente.
+     */
     private String clientCardNumber;
-    Query query = new Query();
 
+    /**
+     * Objeto para executar consultas no banco de dados.
+     */
+    private final Query query = new Query();
 
+    /**
+     * Inicializa o controlador.
+     */
     public void initialize() {
-
         buttonGoBack.setOnMouseEntered(e -> buttonGoBack.setCursor(Cursor.HAND));
         buttonGoBack.setOnMouseExited(e -> buttonGoBack.setCursor(Cursor.DEFAULT));
 
         buttonEmail.setOnMouseEntered(e -> buttonEmail.setCursor(Cursor.HAND));
         buttonEmail.setOnMouseExited(e -> buttonEmail.setCursor(Cursor.DEFAULT));
-
     }
 
+    /**
+     * Define o número do cartão do cliente.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     */
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
         miniStatement = query.loadMiniStatement(clientCardNumber);
@@ -55,8 +84,13 @@ public class ControllerMiniStatement {
         initialize();
     }
 
+    /**
+     * Envia o extrato por e-mail.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void email(ActionEvent event) throws IOException {
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
@@ -74,6 +108,12 @@ public class ControllerMiniStatement {
         showSuccessPopup("Email sent successfully!");
     }
 
+    /**
+     * Alterna para a tela do menu principal.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
@@ -87,6 +127,13 @@ public class ControllerMiniStatement {
         stage.show();
     }
 
+    /**
+     * Envia um e-mail com o extrato.
+     *
+     * @param recipientEmail O endereço de e-mail do destinatário.
+     * @param subject        O assunto do e-mail.
+     * @param text           O corpo do e-mail.
+     */
     private void sendEmail(String recipientEmail, String subject, String text) {
         final String username = "projetoptda@gmail.com";
         final String password = "gcue jaff wcib cklg";
@@ -119,6 +166,11 @@ public class ControllerMiniStatement {
         }
     }
 
+    /**
+     * Exibe uma janela pop-up de sucesso.
+     *
+     * @param message Mensagem a ser exibida na janela pop-up.
+     */
     private void showSuccessPopup(String message) {
         Stage popupStage = new Stage();
         popupStage.initModality(Modality.APPLICATION_MODAL);
@@ -161,5 +213,4 @@ public class ControllerMiniStatement {
 
         popupStage.showAndWait();
     }
-
 }

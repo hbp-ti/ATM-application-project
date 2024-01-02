@@ -27,30 +27,60 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Properties;
 
+/**
+ * Controlador para a tela de pagamento de taxas estatais.
+ */
 public class ControllerTheStatePayment {
 
+    /**
+     * Campo de texto para a referência do pagamento.
+     */
     @FXML
     private TextField reference;
 
+    /**
+     * Campo de texto para o valor do pagamento.
+     */
     @FXML
     private TextField amount;
 
+    /**
+     * Botão para voltar ao menu de pagamento.
+     */
     @FXML
     private Button buttonGoBack;
 
+    /**
+     * Rótulo para exibir mensagens de validação.
+     */
     @FXML
     private Label labelValidation;
 
+    /**
+     * Barra de progresso para mostrar o progresso do pagamento.
+     */
     @FXML
     private ProgressBar progressState;
 
+    /**
+     * Botão para realizar o pagamento.
+     */
     @FXML
     private Button buttonPay;
 
-    private Query query = new Query();
+    /**
+     * Objeto para executar consultas no banco de dados.
+     */
+    private final Query query = new Query();
+
+    /**
+     * Número do cartão do cliente.
+     */
     private String clientCardNumber;
 
-
+    /**
+     * Inicializa o controlador.
+     */
     public void initialize() {
         reference.setOnKeyTyped(event -> clearValidationStyles());
         amount.setOnKeyTyped(event -> clearValidationStyles());
@@ -60,26 +90,35 @@ public class ControllerTheStatePayment {
 
         buttonPay.setOnMouseEntered(e -> buttonPay.setCursor(Cursor.HAND));
         buttonPay.setOnMouseExited(e -> buttonPay.setCursor(Cursor.DEFAULT));
-
     }
 
+    /**
+     * Define o número do cartão do cliente.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     */
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
         initialize();
     }
 
-
+    /**
+     * Realiza o pagamento das taxas estatais.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Se houver um erro durante a transição para o menu.
+     */
     public void payState(ActionEvent event) throws IOException {
         String ref = reference.getText();
         String am = amount.getText();
 
-        if (!validateInput(ref,am)) {
+        if (!validateInput(ref, am)) {
             labelValidation.setText("Invalid input. Check and try again.");
             applyValidationStyle();
         } else {
             float payAmount = Float.parseFloat(am);
 
-            // Check if the transfer amount is greater than the available balance
+            // Verifica se o valor do pagamento é maior que o saldo disponível
             float availableBalance = query.getAvailableBalance(clientCardNumber);
             if (payAmount > availableBalance) {
                 labelValidation.setText("Insufficient funds");
@@ -92,11 +131,10 @@ public class ControllerTheStatePayment {
                 timeline.setCycleCount(1);
                 timeline.play();
                 timeline.setOnFinished(e -> {
-                    if (!validatePayment(ref,am)) {
+                    if (!validatePayment(ref, am)) {
                         labelValidation.setText("Payment details wrong. Check and try again.");
                         applyValidationStyle();
                     } else {
-
                         boolean success = false;
                         try {
                             success = performStatePayment(clientCardNumber, Float.parseFloat(am));
@@ -141,6 +179,12 @@ public class ControllerTheStatePayment {
         }
     }
 
+    /**
+     * Retorna ao menu principal.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Se houver um erro durante a transição para o menu.
+     */
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuPayment.fxml"));
         Parent root = loader.load();
@@ -154,19 +198,34 @@ public class ControllerTheStatePayment {
         stage.show();
     }
 
+    /**
+     * Realiza o pagamento das taxas estatais.
+     *
+     * @param clientCardNumber O número do cartão do cliente.
+     * @param amount O valor do pagamento.
+     * @return Verdadeiro se o pagamento for bem-sucedido, falso caso contrário.
+     * @throws SQLException Se ocorrer um erro durante a execução de consultas no banco de dados.
+     */
     private boolean performStatePayment(String clientCardNumber, float amount) throws SQLException {
-        // Check if the source card has sufficient balance
+        // Verifica se o cartão de origem tem saldo suficiente
         float Balance = query.getAvailableBalance(clientCardNumber);
         if (Balance < amount) {
-            return false; // Insufficient balance
+            return false; // Saldo insuficiente
         }
 
-        // Perform the fund transfer logic
+        // Executa a lógica de pagamento das taxas estatais
         boolean debitSuccess = query.movement(clientCardNumber, "Debit", amount, "State Payment");
 
         return debitSuccess;
     }
 
+    /**
+     * Envia um e-mail.
+     *
+     * @param recipientEmail O endereço de e-mail do destinatário.
+     * @param subject O assunto do e-mail.
+     * @param text O corpo do e-mail.
+     */
     private void sendEmail(String recipientEmail, String subject, String text) {
         final String username = "projetoptda@gmail.com";
         final String password = "gcue jaff wcib cklg";
@@ -193,29 +252,48 @@ public class ControllerTheStatePayment {
 
             Transport.send(message);
 
-            System.out.println("Email enviado com sucesso!");
+            System.out.println("Email sent successfully!");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Valida a entrada do usuário.
+     *
+     * @param reference A referência do pagamento.
+     * @param amount O valor do pagamento.
+     * @return Verdadeiro se a entrada for válida, falso caso contrário.
+     */
     private boolean validateInput(String reference, String amount) {
         if (!reference.matches("^\\d{15}$")) {
-            return false; // Reference should have 9 numeric digits
+            return false; // A referência deve ter 15 dígitos numéricos
         }
 
         if (!amount.matches("^\\d+(\\.\\d+)?$")) {
-            return false; // Amount should be a valid float
+            return false; // O valor deve ser um número decimal válido
         }
 
         return true;
     }
 
+    /**
+     * Obtém um mapa de pagamentos.
+     *
+     * @return Um mapa contendo informações de pagamento.
+     */
     private HashMap<String, Object> getHashMap() {
         Bills bills = new Bills();
         return bills.getPayment();
     }
 
+    /**
+     * Valida os detalhes do pagamento.
+     *
+     * @param reference A referência do pagamento.
+     * @param amount O valor do pagamento.
+     * @return Verdadeiro se os detalhes do pagamento forem válidos, falso caso contrário.
+     */
     private boolean validatePayment(String reference, String amount) {
         HashMap<String, Object> bill = getHashMap();
 
@@ -228,7 +306,7 @@ public class ControllerTheStatePayment {
             if (payment instanceof TheState) {
                 TheState state = (TheState) payment;
                 if (Double.parseDouble(amount) == state.getValue()) {
-                    isValueValid = true; // Encontrou o valor correspondente nos serviços
+                    isValueValid = true; // Encontrou o valor correspondente nas taxas estatais
                 }
             }
         }
@@ -236,17 +314,23 @@ public class ControllerTheStatePayment {
         return isReferenceValid && isValueValid;
     }
 
-
+    /**
+     * Exibe uma mensagem de erro.
+     *
+     * @param message A mensagem de erro a ser exibida.
+     */
     private void showError(String message) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            // Mostrar o Alert
-            alert.showAndWait();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        // Mostra o Alert
+        alert.showAndWait();
     }
 
-    // Método para aplicar o estilo de borda vermelho
+    /**
+     * Aplica o estilo de validação.
+     */
     private void applyValidationStyle() {
         labelValidation.setTextFill(Color.RED);
         Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
@@ -254,7 +338,9 @@ public class ControllerTheStatePayment {
         amount.setBorder(border);
     }
 
-    // Método para limpar os estilos de validação
+    /**
+     * Limpa os estilos de validação.
+     */
     private void clearValidationStyles() {
         labelValidation.setText("");
         reference.setBorder(null);

@@ -11,10 +11,23 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 
+/**
+ * A classe principal que inicia a aplicação ATM.
+ */
 public class Main extends Application {
 
+    /**
+     * Objeto de conexão com o banco de dados.
+     */
     private Conn connection;
 
+    /**
+     * O método start é chamado quando a aplicação é iniciada.
+     * Ele configura a interface gráfica do user e exibe a tela de login.
+     *
+     * @param stage O palco principal da aplicação.
+     * @throws IOException Se houver um erro ao carregar o arquivo FXML.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         connection = new Conn();
@@ -41,6 +54,10 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * O método stop é chamado quando a aplicação é encerrada.
+     * Ele fecha a conexão com o banco de dados antes de finalizar a aplicação.
+     */
     @Override
     public void stop() {
         // Feche a conexão ao encerrar a aplicação
@@ -49,6 +66,11 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * O método main é o ponto de entrada da aplicação.
+     *
+     * @param args Os argumentos da linha de comando.
+     */
     public static void main(String[] args) {
         launch();
     }

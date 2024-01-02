@@ -6,14 +6,41 @@ import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Random;
 
+/**
+ * Classe que fornece métodos para executar consultas no banco de dados relacionadas a operações bancárias.
+ */
 public class Query {
+    /**
+     * Declaração preparada utilizada para executar consultas parametrizadas.
+     */
     private PreparedStatement preparedStatement;
+
+    /**
+     * Resultado de uma consulta SQL.
+     */
     private ResultSet rs;
+
+    /**
+     * Resultado de uma consulta SQL para obter e-mails.
+     */
     private ResultSet rsEmail;
+
+    /**
+     * Resultado de uma consulta SQL para obter nomes.
+     */
     private ResultSet rsName;
+
+    /**
+     * Conexão com o banco de dados obtida da classe Conn.
+     */
     private Connection connection = Conn.getConnection();
 
-
+    /**
+     * Obtém o saldo disponível para uma determinada conta.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     * @return O saldo disponível para a conta associada ao número do cartão.
+     */
     public float getAvailableBalance(String clientCardNumber) {
         try {
             String query = "SELECT accountBalance FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber  = ?)";
@@ -41,6 +68,12 @@ public class Query {
         return 0.0f;  // Return 0.0 in case of an error
     }
 
+    /**
+     * Verifica o saldo de uma determinada conta.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     * @return O saldo da conta associada ao número do cartão.
+     */
     public BigDecimal checkBalance(String clientCardNumber) {
         try {
             String query = "SELECT accountBalance FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
@@ -68,7 +101,16 @@ public class Query {
         return null;
     }
 
-
+    /**
+     * Registra uma operação de movimentação na conta do cliente.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     * @param type             Tipo de movimentação (por exemplo, "Débito" ou "Crédito").
+     * @param value            Valor da movimentação.
+     * @param description      Descrição da movimentação.
+     * @return True se a movimentação for registrada com sucesso; false, caso contrário.
+     * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
+     */
     public boolean movement(String clientCardNumber, String type, float value, String description) throws SQLException {
         try {
             preparedStatement = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
@@ -88,6 +130,17 @@ public class Query {
         }
     }
 
+    /**
+     * Registra uma operação de movimentação associada a um número de telefone.
+     *
+     * @param phoneNumber      Número de telefone do cliente.
+     * @param clientCardNumber Número do cartão do cliente.
+     * @param type             Tipo de movimentação (por exemplo, "Débito" ou "Crédito").
+     * @param value            Valor da movimentação.
+     * @param description      Descrição da movimentação.
+     * @return True se a movimentação for registrada com sucesso; false, caso contrário.
+     * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
+     */
     public boolean movementPhone(String phoneNumber, String clientCardNumber, String type, float value, String description) throws SQLException {
         if(doesPhoneNumberExist(phoneNumber)) {
             try {
@@ -113,6 +166,12 @@ public class Query {
         return false;
     }
 
+    /**
+     * Obtém o nome do cliente associado a um número de cartão.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     * @return O nome do cliente associado ao número do cartão.
+     */
     public String getClientName(String clientCardNumber) {
         try {
             String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
@@ -140,6 +199,12 @@ public class Query {
         return null;  // Retorna null se não conseguir obter o clientName
     }
 
+    /**
+     * Obtém o endereço de e-mail do cliente associado a um número de cartão.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     * @return O endereço de e-mail do cliente associado ao número do cartão.
+     */
     public String getClientEmail(String clientCardNumber) {
         try {
             String query = "SELECT email FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
@@ -167,6 +232,21 @@ public class Query {
         return null;  // Retorna null se não conseguir obter o email
     }
 
+    /**
+     * Insere dados de uma nova conta bancária no banco de dados.
+     *
+     * @param name    Nome do cliente.
+     * @param NIF     NIF do cliente.
+     * @param address Endereço do cliente.
+     * @param zipCode Código postal do cliente.
+     * @param phone   Número de telefone do cliente.
+     * @param email   Endereço de e-mail do cliente.
+     * @param date    Data de nascimento do cliente.
+     * @param marital Estado civil do cliente.
+     * @param gender  Gênero do cliente.
+     * @return O número da conta bancária gerado.
+     * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
+     */
     public String insertBankAccountData(String name, String NIF, String address, String zipCode, String phone, String email, LocalDate date, String marital, String gender) throws SQLException {
         PreparedStatement preparedStatementBankAccount = connection.prepareStatement("INSERT INTO BankAccount (accountNumber, clientName, NIF, address, zipcode, phoneNumber, email, birthDate, maritalStatus, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -188,7 +268,13 @@ public class Query {
         return accountNumber;
     }
 
-
+    /**
+     * Insere dados de um novo cartão no banco de dados.
+     *
+     * @param accountNumber Número da conta associada ao cartão.
+     * @return Um array contendo o número do cartão e o PIN gerados.
+     * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
+     */
     public String[] insertCardData(String accountNumber) throws SQLException {
         PreparedStatement preparedStatementCard = connection.prepareStatement("INSERT INTO Card (cardNumber, accountNumber, cardPIN) VALUES (?, ?, ?)");
 
@@ -205,6 +291,12 @@ public class Query {
         return new String[] { cardNumber, cardPIN };
     }
 
+    /**
+     * Carrega um extrato bancário resumido para um determinado cliente.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     * @return Um StringBuilder contendo as últimas 15 movimentações da conta do cliente.
+     */
     public StringBuilder loadMiniStatement(String clientCardNumber) {
         StringBuilder miniStatement = new StringBuilder();
         try {
@@ -240,7 +332,12 @@ public class Query {
         return miniStatement;
     }
 
-    // Método que obtém o género da conta ssociada
+    /**
+     * Obtém o gênero associado a um número de cartão.
+     *
+     * @param cardNumber Número do cartão para o qual se deseja obter o gênero.
+     * @return O gênero associado à conta bancária vinculada ao número do cartão.
+     */
     public String getGenderFromDatabase(String cardNumber) {
         String gender = null;
 
@@ -270,6 +367,13 @@ public class Query {
         return gender;
     }
 
+    /**
+     * Verifica se as informações do cartão são válidas.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     * @param password         PIN do cartão.
+     * @return True se as informações do cartão forem válidas; false, caso contrário.
+     */
     public boolean verifyCardInfo(String clientCardNumber, String password) {
         try {
             connection = Conn.getConnection();
@@ -302,6 +406,13 @@ public class Query {
         return false;
     }
 
+    /**
+     * Verifica se um número de telefone já existe no banco de dados.
+     *
+     * @param phoneNumber Número de telefone a ser verificado.
+     * @return True se o número de telefone já existir; false, caso contrário.
+     * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
+     */
     private boolean doesPhoneNumberExist(String phoneNumber) throws SQLException {
         String query = "SELECT phoneNumber FROM BankAccount WHERE phoneNumber = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -315,6 +426,14 @@ public class Query {
         return false;
     }
 
+    /**
+     * Altera o PIN de um cartão no banco de dados.
+     *
+     * @param cardNumber  Número do cartão.
+     * @param currentPIN  PIN atual do cartão.
+     * @param newPIN      Novo PIN desejado.
+     * @return True se o PIN for alterado com sucesso; false, caso contrário.
+     */
     public boolean changePINInDatabase(String cardNumber, String currentPIN, String newPIN) {
         try {
             // Verifica se o PIN atual corresponde
@@ -345,6 +464,12 @@ public class Query {
         return false;
     }
 
+    /**
+     * Obtém o PIN armazenado no banco de dados associado a um número de cartão.
+     *
+     * @param cardNumber Número do cartão.
+     * @return O PIN associado ao número do cartão.
+     */
     public String getStoredPIN(String cardNumber) {
         String storedPIN = "";
         try {
@@ -373,6 +498,12 @@ public class Query {
         return storedPIN;
     }
 
+    /**
+     * Gera um número de conta único e não existente no banco de dados.
+     *
+     * @return O número de conta gerado.
+     * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
+     */
     private String generateAccountNumber() throws SQLException {
         while (true) {
             String accountNumber = generateRandomNumber(20);
@@ -382,6 +513,13 @@ public class Query {
         }
     }
 
+    /**
+     * Verifica se um número de conta já existe no banco de dados.
+     *
+     * @param accountNumber Número de conta a ser verificado.
+     * @return True se o número de conta já existir; false, caso contrário.
+     * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
+     */
     private boolean isAccountNumberExists(String accountNumber) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM BankAccount WHERE accountNumber = ?");
         preparedStatement.setString(1, accountNumber);
@@ -391,6 +529,12 @@ public class Query {
         return count > 0;
     }
 
+    /**
+     * Gera um número aleatório com o comprimento especificado.
+     *
+     * @param length Comprimento do número gerado.
+     * @return O número aleatório gerado.
+     */
     private String generateRandomNumber(int length) {
         StringBuilder number = new StringBuilder();
         Random random = new Random();
@@ -401,6 +545,12 @@ public class Query {
         return number.toString();
     }
 
+    /**
+     * Gera um número de cartão único e não existente no banco de dados.
+     *
+     * @return O número de cartão gerado.
+     * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
+     */
     public String generateCardNumber() throws SQLException {
         while (true) {
             String cardNumber = generateRandomNumber(10);
@@ -410,6 +560,11 @@ public class Query {
         }
     }
 
+    /**
+     * Gera um PIN de cartão aleatório.
+     *
+     * @return O PIN de cartão gerado.
+     */
     public String generateCardPIN() {
         StringBuilder cardPIN = new StringBuilder();
         Random random = new Random();
@@ -420,6 +575,13 @@ public class Query {
         return cardPIN.toString();
     }
 
+    /**
+     * Verifica se um número de cartão já existe no banco de dados.
+     *
+     * @param cardNumber Número de cartão a ser verificado.
+     * @return True se o número de cartão já existir; false, caso contrário.
+     * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
+     */
     private boolean isCardNumberExists(String cardNumber) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Card WHERE cardNumber = ?");
         preparedStatement.setString(1, cardNumber);

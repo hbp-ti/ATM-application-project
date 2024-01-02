@@ -25,27 +25,55 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+/**
+ * Controlador para a funcionalidade de carregamento de saldo de telefone.
+ */
 public class ControllerChargePhone {
 
+    /**
+     * Botão para realizar o carregamento do telefone.
+     */
     @FXML
     private Button buttonCharge;
 
+    /**
+     * Botão para voltar ao menu principal.
+     */
     @FXML
     private Button buttonGoBack;
 
+    /**
+     * Rótulo para exibir mensagens de validação ou sucesso.
+     */
     @FXML
     private Label labelValidacao;
 
+    /**
+     * Campo de texto para inserir o valor a ser carregado.
+     */
     @FXML
     private TextField amount;
 
+    /**
+     * Campo de texto para inserir o número de telefone.
+     */
     @FXML
     private TextField phoneNumber;
 
+    /**
+     * Número do cartão do cliente.
+     */
     private String clientCardNumber;
+
+    /**
+     * Objeto para executar consultas no banco de dados.
+     */
     Query query = new Query();
 
 
+    /**
+     * Inicializa o controlador.
+     */
     public void initialize() {
         phoneNumber.setOnKeyTyped(event -> clearValidationStyles());
         amount.setOnKeyTyped(event -> clearValidationStyles());
@@ -58,11 +86,22 @@ public class ControllerChargePhone {
 
     }
 
+    /**
+     * Define o número do cartão do cliente.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     */
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
         initialize();
     }
 
+    /**
+     * Realiza o carregamento do telefone.
+     *
+     * @param event O evento associado à ação.
+     * @throws SQLException Exceção SQL.
+     */
     public void chargePhone(ActionEvent event) throws SQLException {
         String phoneNumberr = phoneNumber.getText();
         String amountt = amount.getText();
@@ -116,6 +155,15 @@ public class ControllerChargePhone {
         }
     }
 
+    /**
+     * Executa a lógica de carregamento do telefone.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     * @param phoneNumber      Número de telefone.
+     * @param amount           Valor a ser carregado.
+     * @return True se o carregamento for bem-sucedido, False caso contrário.
+     * @throws SQLException Exceção SQL.
+     */
     private boolean performPhoneCharge(String clientCardNumber, String phoneNumber, float amount) throws SQLException {
         // Check if the source card has sufficient balance
         float sourceBalance = query.getAvailableBalance(clientCardNumber);
@@ -129,6 +177,12 @@ public class ControllerChargePhone {
         return debitSuccess;
     }
 
+    /**
+     * Alterna para a tela de menu principal.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
@@ -142,6 +196,13 @@ public class ControllerChargePhone {
         stage.show();
     }
 
+    /**
+     * Valida a entrada do usuário.
+     *
+     * @param phoneNumber Número de telefone.
+     * @param amount      Valor a ser carregado.
+     * @return True se a entrada for válida, False caso contrário.
+     */
     private boolean validateInput(String phoneNumber, String amount) {
         // Validate if the phone number exists and the amount is a valid float
         if (!phoneNumber.matches("^\\d{1,9}$")) {
@@ -154,6 +215,13 @@ public class ControllerChargePhone {
         return true;
     }
 
+    /**
+     * Envia um email.
+     *
+     * @param recipientEmail Endereço de email do destinatário.
+     * @param subject        Assunto do email.
+     * @param text           Corpo do email.
+     */
     private void sendEmail(String recipientEmail, String subject, String text) {
         final String username = "projetoptda@gmail.com";
         final String password = "gcue jaff wcib cklg";
@@ -187,6 +255,11 @@ public class ControllerChargePhone {
 
     }
 
+    /**
+     * Exibe uma mensagem de erro usando um Alert.
+     *
+     * @param message Mensagem de erro a ser exibida.
+     */
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -196,7 +269,9 @@ public class ControllerChargePhone {
         alert.showAndWait();
     }
 
-    // Método para aplicar o estilo de borda vermelho
+    /**
+     * Aplica o estilo de validação com borda vermelha.
+     */
     private void applyValidationStyle() {
         labelValidacao.setTextFill(Color.RED);
         Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
@@ -204,7 +279,9 @@ public class ControllerChargePhone {
         amount.setBorder(border);
     }
 
-    // Método para limpar os estilos de validação
+    /**
+     * Limpa os estilos de validação.
+     */
     private void clearValidationStyles() {
         labelValidacao.setText("");
         phoneNumber.setBorder(null);

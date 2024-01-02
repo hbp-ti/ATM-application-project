@@ -16,13 +16,23 @@
             <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
-      <Pane layoutX="254.0" layoutY="169.0" prefHeight="188.0" prefWidth="339.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
+      <Pane layoutX="256.0" layoutY="124.0" prefHeight="352.0" prefWidth="339.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
          <children>
-            <Label fx:id="labelSaldo" alignment="CENTER" layoutX="20.0" layoutY="43.0" prefHeight="102.0" prefWidth="300.0">
+            <Label fx:id="labelSaldo" alignment="CENTER" layoutX="20.0" layoutY="227.0" prefHeight="102.0" prefWidth="300.0">
                <font>
                   <Font name="SansSerif Bold" size="24.0" />
                </font>
             </Label>
+            <Label alignment="CENTER" layoutX="37.0" layoutY="19.0" prefHeight="49.0" prefWidth="266.0" text="Check Balance">
+               <font>
+                  <Font name="SansSerif Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="105.0" layoutY="79.0">
+               <image>
+                  <Image url="@../images/checkBalanceLogo.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Button fx:id="buttonGoBack" layoutX="686.0" layoutY="37.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: #B01B1F; -fx-background-radius: 8;" text="GO BACK" textFill="WHITE">

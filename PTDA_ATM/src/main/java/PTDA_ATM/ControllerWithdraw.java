@@ -17,6 +17,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -26,27 +27,64 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+/**
+ * Controlador para a tela de levantamento de dinheiro.
+ */
 public class ControllerWithdraw {
+
+    /**
+     * Botão para realizar o levantamento.
+     */
     @FXML
     private Button buttonWithdraw;
 
+    /**
+     * Barra de progresso para mostrar o progresso do levantamento
+     */
     @FXML
     private ProgressBar progressWithdraw;
+
+    /**
+     * Campo de texto para o valor do levantamento.
+     */
     @FXML
     private TextField amount;
+
+    /**
+     * Botão para voltar ao menu principal.
+     */
     @FXML
     private Button buttonGoBack;
+
+    /**
+     * Rótulo para exibir mensagens de validação.
+     */
     @FXML
     private Label labelValidacao;
 
+    /**
+     * Número do cartão do cliente.
+     */
     private String clientCardNumber;
+
+    /**
+     * Objeto para executar consultas no banco de dados.
+     */
     private Query query = new Query();
 
+    /**
+     * Define o número do cartão do cliente.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     */
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
         initialize();
     }
 
+    /**
+     * Inicializa o controlador.
+     */
     public void initialize() {
         amount.setOnKeyTyped(event -> clearValidationStyles());
 
@@ -57,6 +95,12 @@ public class ControllerWithdraw {
         buttonWithdraw.setOnMouseExited(e -> buttonWithdraw.setCursor(Cursor.DEFAULT));
     }
 
+    /**
+     * Realiza o levantamento de dinheiro.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Se houver um erro durante a transição para o menu principal.
+     */
     public void withdraw(ActionEvent event) throws IOException {
         if (!validateInput(amount.getText())) {
             labelValidacao.setText("Invalid amount");
@@ -120,6 +164,12 @@ public class ControllerWithdraw {
         }
     }
 
+    /**
+     * Transição para o menu principal.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Se houver um erro durante a transição para o menu principal.
+     */
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
@@ -133,15 +183,27 @@ public class ControllerWithdraw {
         stage.show();
     }
 
-
+    /**
+     * Valida o valor do levantamento.
+     *
+     * @param withdrawAmount O valor do levantamento.
+     * @return Verdadeiro se o valor do levantamento for válido, falso caso contrário.
+     */
     private boolean validateInput(String withdrawAmount) {
-        // Verifica se o valor do depósito é um número float válido
+        // Verifica se o valor do levantamento é um número float válido
         if (!withdrawAmount.matches("^\\d+(\\.\\d+)?$")) {
             return false;
         }
         return true;
     }
 
+    /**
+     * Envia um e-mail.
+     *
+     * @param recipientEmail O endereço de e-mail do destinatário.
+     * @param subject O assunto do e-mail.
+     * @param text O corpo do e-mail.
+     */
     private void sendEmail(String recipientEmail, String subject, String text) {
         final String username = "projetoptda@gmail.com";
         final String password = "gcue jaff wcib cklg";
@@ -168,31 +230,40 @@ public class ControllerWithdraw {
 
             Transport.send(message);
 
-            System.out.println("Email enviado com sucesso!");
+            System.out.println("Email sent successfully!");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Exibe uma mensagem de erro.
+     *
+     * @param message A mensagem de erro a ser exibida.
+     */
     private void showError(String message) {
         Platform.runLater(() -> {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(message);
-            // Mostrar o Alert
+            // Mostra o Alert
             alert.showAndWait();
         });
     }
 
-    // Método para aplicar o estilo de borda vermelho
+    /**
+     * Aplica o estilo de validação.
+     */
     private void applyValidationStyle() {
         labelValidacao.setTextFill(Color.RED);
         Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
         amount.setBorder(border);
     }
 
-    // Método para limpar os estilos de validação
+    /**
+     * Limpa os estilos de validação.
+     */
     private void clearValidationStyles() {
         labelValidacao.setText("");
         amount.setBorder(null);

@@ -43,17 +43,27 @@
             </ImageView>
          </graphic>
       </Button>
-      <Pane layoutX="254.0" layoutY="164.0" prefHeight="241.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
+      <Pane layoutX="254.0" layoutY="116.0" prefHeight="420.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
          <children>
-            <Button fx:id="buttonTransfer" layoutX="24.0" layoutY="182.0" mnemonicParsing="false" onAction="#transfer" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="TRANSFER" textFill="WHITE">
+            <Button fx:id="buttonTransfer" layoutX="24.0" layoutY="366.0" mnemonicParsing="false" onAction="#transfer" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="TRANSFER" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="targetCardNumber" layoutX="24.0" layoutY="56.0" prefHeight="32.0" prefWidth="295.0" promptText="Card Number..." style="-fx-background-radius: 6;" />
-            <TextField fx:id="transferAmount" layoutX="24.0" layoutY="105.0" prefHeight="32.0" prefWidth="295.0" promptText="Amount..." style="-fx-background-radius: 6;" />
-            <Label fx:id="labelValidation" layoutX="24.0" layoutY="29.0" prefHeight="17.0" prefWidth="295.0" textFill="WHITE" />
-            <ProgressBar fx:id="progressTransfer" layoutX="24.0" layoutY="160.0" prefWidth="295.0" progress="0.0" />
+            <TextField fx:id="targetCardNumber" layoutX="24.0" layoutY="240.0" prefHeight="32.0" prefWidth="295.0" promptText="Card Number..." style="-fx-background-radius: 6;" />
+            <TextField fx:id="transferAmount" layoutX="24.0" layoutY="285.0" prefHeight="32.0" prefWidth="295.0" promptText="Amount..." style="-fx-background-radius: 6;" />
+            <Label fx:id="labelValidation" layoutX="24.0" layoutY="216.0" prefHeight="17.0" prefWidth="295.0" textFill="WHITE" />
+            <ProgressBar fx:id="progressTransfer" layoutX="24.0" layoutY="343.0" prefWidth="295.0" progress="0.0" />
+            <Label alignment="CENTER" layoutX="39.0" layoutY="18.0" prefHeight="49.0" prefWidth="266.0" text="Fund Transfer">
+               <font>
+                  <Font name="SansSerif Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="145.0" fitWidth="145.0" layoutX="99.0" layoutY="71.0">
+               <image>
+                  <Image url="@../images/FundTransferLogo.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

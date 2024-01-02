@@ -19,30 +19,61 @@ import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.io.*;
 
+/**
+ * Controlador para a tela de alteração de PIN.
+ */
 public class ControllerChangePIN {
 
+    /**
+     * Rótulo para exibir mensagens de validação ou erro.
+     */
     @FXML
     private Label labelValidacao;
 
+    /**
+     * Campo de senha para inserir o PIN atual.
+     */
     @FXML
     private PasswordField currentPINInput;
 
+    /**
+     * Campo de senha para inserir o novo PIN.
+     */
     @FXML
     private PasswordField newPINInput;
 
+    /**
+     * Campo de senha para confirmar o novo PIN.
+     */
     @FXML
     private PasswordField newPINInput2;
 
+    /**
+     * Botão para retornar à tela de menu.
+     */
     @FXML
     private Button buttonGoBack;
 
+    /**
+     * Botão para confirmar a alteração de PIN.
+     */
     @FXML
     private Button buttonConfirm;
 
+    /**
+     * Número do cartão do cliente.
+     */
     private String clientCardNumber;
+
+    /**
+     * Objeto para executar consultas no banco de dados.
+     */
     Query query = new Query();
 
-
+    /**
+     * Método de inicialização do controlador.
+     * Configura os eventos e estilos para a tela de alteração de PIN.
+     */
     public void initialize() {
         currentPINInput.setOnKeyTyped(event -> clearValidationStyles());
         newPINInput.setOnKeyTyped(event -> clearValidationStyles());
@@ -56,11 +87,22 @@ public class ControllerChangePIN {
 
     }
 
+    /**
+     * Define o número do cartão do cliente.
+     *
+     * @param clientCardNumber O número do cartão do cliente.
+     */
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
         initialize();
     }
 
+    /**
+     * Método chamado ao confirmar a alteração de PIN.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void changePIN(ActionEvent event) throws IOException {
         String currentPIN = currentPINInput.getText();
         String newPIN = newPINInput.getText();
@@ -110,6 +152,15 @@ public class ControllerChangePIN {
             }
         }
     }
+
+    /**
+     * Valida os PINs inseridos.
+     *
+     * @param currentPIN O PIN atual.
+     * @param newPIN     O novo PIN.
+     * @param newPIN2    A confirmação do novo PIN.
+     * @return True se os PINs são válidos, False caso contrário.
+     */
     private boolean validatePINs(String currentPIN, String newPIN, String newPIN2) {
         // Verifica se os PINs têm o formato correto (por exemplo, contêm apenas números)
         if (!currentPIN.matches("\\d{4}") || !newPIN.matches("\\d{4}") || !newPIN2.matches("\\d{4}")) {
@@ -123,6 +174,12 @@ public class ControllerChangePIN {
         return true;
     }
 
+    /**
+     * Altera para a tela de menu.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
@@ -136,6 +193,13 @@ public class ControllerChangePIN {
         stage.show();
     }
 
+    /**
+     * Envia um email.
+     *
+     * @param recipientEmail O endereço de email do destinatário.
+     * @param subject        O assunto do email.
+     * @param text           O corpo do email.
+     */
     private void sendEmail(String recipientEmail, String subject, String text) {
         final String username = "projetoptda@gmail.com";
         final String password = "gcue jaff wcib cklg";
@@ -168,8 +232,13 @@ public class ControllerChangePIN {
         }
     }
 
-    // Método que trata de mostrar o popup de sucesso a mudar PIN
+    /**
+     * Mostra um pop-up de sucesso.
+     *
+     * @param message A mensagem de sucesso a ser exibida.
+     */
     private void showSuccessPopup(String message) {
+        // Método que trata de mostrar o popup de sucesso a mudar PIN
         Stage popupStage = new Stage();
         popupStage.initModality(Modality.APPLICATION_MODAL);
         popupStage.setTitle("Success");
@@ -206,6 +275,11 @@ public class ControllerChangePIN {
         popupStage.showAndWait();
     }
 
+    /**
+     * Mostra uma mensagem de erro em um Alert.
+     *
+     * @param message A mensagem de erro a ser exibida.
+     */
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -215,7 +289,9 @@ public class ControllerChangePIN {
         alert.showAndWait();
     }
 
-    // Método para aplicar o estilo de borda vermelho
+    /**
+     * Aplica o estilo de borda vermelha para indicar validação inválida.
+     */
     private void applyValidationStyle() {
         Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
         currentPINInput.setBorder(border);
@@ -223,7 +299,9 @@ public class ControllerChangePIN {
         newPINInput2.setBorder(border);
     }
 
-    // Método para limpar os estilos de validação
+    /**
+     * Limpa os estilos de validação.
+     */
     private void clearValidationStyles() {
         labelValidacao.setText("");
         currentPINInput.setBorder(null);

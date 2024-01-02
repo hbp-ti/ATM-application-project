@@ -2,9 +2,16 @@ package PTDA_ATM;
 
 import java.util.HashMap;
 
+/**
+ * Classe que representa as contas e serviços disponíveis para pagamento.
+ */
 public class Bills {
     private HashMap<String, Object> bills  = new HashMap<String, Object>();
 
+    /**
+     * Construtor padrão que inicializa as contas e serviços disponíveis.
+     * As contas são mapeadas pelos seus números correspondentes.
+     */
     Bills() {
         bills.put("123456789", new Services("12345", 123.12));
         bills.put("123456789012345", new TheState(124.12));
@@ -31,6 +38,11 @@ public class Bills {
         bills.put("543210987654321", new TheState(777.77));
     }
 
+    /**
+     * Obtém o mapa de contas e serviços disponíveis para pagamento.
+     *
+     * @return O mapa de contas e serviços.
+     */
     public HashMap<String, Object> getPayment() {
         return bills;
     }

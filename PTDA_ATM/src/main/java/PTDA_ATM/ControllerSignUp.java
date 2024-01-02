@@ -23,46 +23,98 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Controlador para a tela de registo (SignUp).
+ */
 public class ControllerSignUp implements Initializable {
 
+    /**
+     * Campo de texto para inserção do nome.
+     */
     @FXML
     private TextField textName;
 
+    /**
+     * Campo de texto para inserção do e-mail.
+     */
     @FXML
     private TextField textEmail;
 
+    /**
+     * Seletor de data de nascimento.
+     */
     @FXML
     private DatePicker textDate;
 
+    /**
+     * Campo de texto para inserção do endereço.
+     */
     @FXML
     private TextField textAddress;
 
+    /**
+     * Campo de texto para inserção do código postal.
+     */
     @FXML
     private TextField textZipCode;
 
+    /**
+     * Campo de texto para inserção do número de telefone.
+     */
     @FXML
     private TextField textPhone;
 
+    /**
+     * Caixa de seleção para escolha do gênero.
+     */
     @FXML
     private ComboBox textGender;
 
+    /**
+     * Caixa de seleção para escolha do estado civil.
+     */
     @FXML
     private ComboBox textMarital;
 
+    /**
+     * Campo de texto para inserção do NIF (Número de Identificação Fiscal).
+     */
     @FXML
     private TextField textNIF;
 
+    /**
+     * Botão para realizar o registro.
+     */
     @FXML
     private Button buttonRegister;
 
+    /**
+     * Imagem de seta para voltar.
+     */
     @FXML
     private ImageView goBackArrow;
 
-
+    /**
+     * Estágio da janela.
+     */
     private Stage stage;
+
+    /**
+     * Cena da janela.
+     */
     private Scene scene;
+
+    /**
+     * Objeto para executar consultas no banco de dados.
+     */
     Query query = new Query();
 
+    /**
+     * Inicializa o controlador após o carregamento do arquivo FXML.
+     *
+     * @param location  A URL de localização do arquivo FXML.
+     * @param resources Os recursos ResourceBundle.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Preenche as ComboBoxes com os valores
@@ -81,6 +133,12 @@ public class ControllerSignUp implements Initializable {
         textEmail.setOnKeyReleased(this::handleEmailKeyReleased);
     }
 
+    /**
+     * Alterna para a seta de login quando o mouse é movido sobre ela.
+     *
+     * @param event O evento de mouse associado à seta de login.
+     * @throws IOException Se houver um erro ao carregar a tela anterior.
+     */
     public void switchLogInArrow(MouseEvent event) throws IOException {
         // Obtém a janela principal
         Node sourceNode = (Node) event.getSource();
@@ -146,6 +204,11 @@ public class ControllerSignUp implements Initializable {
         confirmationWindow.showAndWait();
     }
 
+    /**
+     * Alterna para a tela de login.
+     *
+     * @param event O evento de ação associado ao botão de login.
+     */
     public void switchToLogIn(ActionEvent event) {
         try {
             String name = textName.getText();
@@ -183,7 +246,11 @@ public class ControllerSignUp implements Initializable {
         }
     }
 
-
+    /**
+     * Valida os campos obrigatórios antes de prosseguir com o registro.
+     *
+     * @return true se os campos obrigatórios são válidos; false caso contrário.
+     */
     private boolean validateRequiredFields() {
         List<TextField> requiredFields = Arrays.asList(textName, textNIF, textAddress, textZipCode, textPhone, textEmail);
         List<ComboBox<String>> requiredComboBoxes = Arrays.asList(textMarital, textGender);
@@ -230,14 +297,29 @@ public class ControllerSignUp implements Initializable {
         return isValid;
     }
 
+    /**
+     * Define a borda do campo de entrada para laranja para indicar um campo obrigatório não preenchido.
+     *
+     * @param control O campo de entrada (TextField ou ComboBox) a ser modificado.
+     */
     private void setOrangeBorder(Control control) {
         control.setStyle("-fx-border-color: orange; -fx-border-radius: 6;");
     }
 
+    /**
+     * Restaura a borda do campo de entrada para o estilo padrão.
+     *
+     * @param control O campo de entrada (TextField ou ComboBox) a ser modificado.
+     */
     private void resetBorder(Control control) {
         control.setStyle(null);
     }
 
+    /**
+     * Valida o formato do endereço de e-mail.
+     *
+     * @return true se o formato do e-mail for válido; false caso contrário.
+     */
     private boolean validateEmailFormat() {
         if (!isValidEmail(textEmail.getText())) {
             showError("Invalid email format.");
@@ -249,6 +331,15 @@ public class ControllerSignUp implements Initializable {
         }
     }
 
+    /**
+     * Envia um e-mail de confirmação para o novo usuário registrado.
+     *
+     * @param clientName     O nome do cliente.
+     * @param email          O endereço de e-mail do cliente.
+     * @param accountNumber  O número da conta bancária do cliente.
+     * @param cardNumber     O número do cartão do cliente.
+     * @param cardPIN        O PIN do cartão do cliente.
+     */
     private void sendConfirmationEmail(String clientName, String email, String accountNumber,String cardNumber,String cardPIN) {
         String emailText = "Dear " + clientName + ",\n\n"
                 + "We are delighted to inform you that your bank account has been successfully created at our bank.\n\n"
@@ -265,6 +356,11 @@ public class ControllerSignUp implements Initializable {
         sendEmail(email, "Account creation", emailText);
     }
 
+    /**
+     * Exibe uma janela pop-up informando que o registro foi bem-sucedido.
+     *
+     * @param event O evento associado ao botão de registro.
+     */
     private void showSuccessPopup(ActionEvent event) {
         // Obtém a janela principal
         Node sourceNode = (Node) event.getSource();
@@ -307,6 +403,10 @@ public class ControllerSignUp implements Initializable {
         popupWindow.showAndWait();
     }
 
+    /**
+     * Método que alterna para a tela de login após um atraso.
+     * @param event O evento associado ao clique no botão de registo.
+     */
     private void switchToLogInAfterDelay(ActionEvent event) {
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(events -> {
@@ -326,8 +426,14 @@ public class ControllerSignUp implements Initializable {
         pause.play();
     }
 
-    // Método que envia email
+    /**
+     * Método que envia um e-mail.
+     * @param recipientEmail O endereço de e-mail do destinatário.
+     * @param subject O assunto do e-mail.
+     * @param text O corpo do e-mail.
+     */
     private void sendEmail(String recipientEmail, String subject, String text) {
+        // Método que envia email
         final String username = "projetoptda@gmail.com";
         final String password = "gcue jaff wcib cklg";
 
@@ -359,8 +465,13 @@ public class ControllerSignUp implements Initializable {
         }
     }
 
-    // Método que valida o email
+    /**
+     * Método que valida o formato do e-mail.
+     * @param email O endereço de e-mail a ser validado.
+     * @return `true` se o formato do e-mail for válido, `false` caso contrário.
+     */
     private boolean isValidEmail(String email) {
+        // Método que valida o email
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
         Pattern pattern = Pattern.compile(emailRegex);
@@ -369,12 +480,22 @@ public class ControllerSignUp implements Initializable {
         return matcher.matches();
     }
 
+    /**
+     * Método chamado quando uma tecla é libertada no campo de e-mail.
+     * Remove a formatação vermelha do campo de e-mail.
+     * @param event O evento associado à libertação da tecla.
+     */
     private void handleEmailKeyReleased(KeyEvent event) {
-        // Remove a formatação vermelha quando o usuário pressiona uma tecla no campo de e-mail
+        // Remove a formatação vermelha quando o user pressiona uma tecla no campo de e-mail
         textEmail.setStyle(null);
     }
 
+    /**
+     * Método que exibe uma janela de erro.
+     * @param message A mensagem de erro a ser exibida.
+     */
     private void showError(String message) {
+        // Implementação da exibição da janela de erro
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);

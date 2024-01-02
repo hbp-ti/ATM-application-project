@@ -27,32 +27,66 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Properties;
 
+/**
+ * Controlador para a tela de pagamento de serviços.
+ */
 public class ControllerServicePayment {
 
+    /**
+     * Campo de texto para a entidade do pagamento.
+     */
     @FXML
     private TextField entity;
 
+    /**
+     * Campo de texto para a referência do pagamento.
+     */
     @FXML
     private TextField reference;
 
+    /**
+     * Campo de texto para o valor do pagamento.
+     */
     @FXML
     private TextField amount;
 
+    /**
+     * Botão para voltar ao menu de pagamento.
+     */
     @FXML
     private Button buttonGoBack;
 
+    /**
+     * Rótulo para exibir mensagens de validação.
+     */
     @FXML
     private Label labelValidation;
 
+    /**
+     * Barra de progresso para mostrar o progresso do pagamento.
+     */
     @FXML
     private ProgressBar progressService;
 
+    /**
+     * Botão para realizar o pagamento.
+     */
     @FXML
     private Button buttonPay;
 
+    /**
+     * Número do cartão do cliente.
+     */
     private String clientCardNumber;
-    Query query = new Query();
 
+    /**
+     * Objeto para executar consultas no banco de dados.
+     */
+    private final Query query = new Query();
+
+    /**
+     * Inicializa o controlador.
+     */
     public void initialize() {
         entity.setOnKeyTyped(event -> clearValidationStyles());
         reference.setOnKeyTyped(event -> clearValidationStyles());
@@ -63,26 +97,35 @@ public class ControllerServicePayment {
 
         buttonPay.setOnMouseEntered(e -> buttonPay.setCursor(Cursor.HAND));
         buttonPay.setOnMouseExited(e -> buttonPay.setCursor(Cursor.DEFAULT));
-
     }
 
+    /**
+     * Define o número do cartão do cliente.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     */
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
         initialize();
     }
 
+    /**
+     * Realiza o pagamento do serviço.
+     *
+     * @param event O evento associado à ação.
+     */
     public void payService(ActionEvent event) {
         String ent = entity.getText();
         String ref = reference.getText();
         String am = amount.getText();
 
-        if (!validateInput(ent,ref,am)) {
+        if (!validateInput(ent, ref, am)) {
             labelValidation.setText("Invalid input. Check and try again.");
             applyValidationStyle();
         } else {
             float payAmount = Float.parseFloat(am);
 
-            // Check if the transfer amount is greater than the available balance
+            // Verifica se o valor do pagamento é maior que o saldo disponível
             float availableBalance = query.getAvailableBalance(clientCardNumber);
             if (payAmount > availableBalance) {
                 labelValidation.setText("Insufficient funds");
@@ -107,7 +150,6 @@ public class ControllerServicePayment {
                         }
 
                         if (success) {
-
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
                             LocalDateTime now = LocalDateTime.now();
 
@@ -132,7 +174,8 @@ public class ControllerServicePayment {
                                 try {
                                     switchToMenu(event);
                                 } catch (IOException es) {
-                                    es.printStackTrace(); // Trate adequadamente o erro na transição para o menu
+                                    es.printStackTrace();
+                                    // Trate adequadamente o erro na transição para o menu
                                 }
                             });
                             pauseValidation.play();
@@ -145,6 +188,12 @@ public class ControllerServicePayment {
         }
     }
 
+    /**
+     * Retorna ao menu principal.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Se houver um erro durante a transição para o menu.
+     */
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuPayment.fxml"));
         Parent root = loader.load();
@@ -158,19 +207,34 @@ public class ControllerServicePayment {
         stage.show();
     }
 
+    /**
+     * Realiza o pagamento do serviço.
+     *
+     * @param clientCardNumber O número do cartão do cliente.
+     * @param amount O valor do pagamento.
+     * @return Verdadeiro se o pagamento for bem-sucedido, falso caso contrário.
+     * @throws SQLException Se ocorrer um erro durante a execução de consultas no banco de dados.
+     */
     private boolean performServicePayment(String clientCardNumber, float amount) throws SQLException {
-        // Check if the source card has sufficient balance
+        // Verifica se o cartão de origem tem saldo suficiente
         float Balance = query.getAvailableBalance(clientCardNumber);
         if (Balance < amount) {
-            return false; // Insufficient balance
+            return false; // Saldo insuficiente
         }
 
-        // Perform the fund transfer logic
-        boolean debitSuccess = query.movement(clientCardNumber, "Debit", amount,"Service Payment");
+        // Executa a lógica de pagamento do serviço
+        boolean debitSuccess = query.movement(clientCardNumber, "Debit", amount, "Service Payment");
 
         return debitSuccess;
     }
 
+    /**
+     * Envia um e-mail.
+     *
+     * @param recipientEmail O endereço de e-mail do destinatário.
+     * @param subject O assunto do e-mail.
+     * @param text O corpo do e-mail.
+     */
     private void sendEmail(String recipientEmail, String subject, String text) {
         final String username = "projetoptda@gmail.com";
         final String password = "gcue jaff wcib cklg";
@@ -197,33 +261,54 @@ public class ControllerServicePayment {
 
             Transport.send(message);
 
-            System.out.println("Email enviado com sucesso!");
+            System.out.println("Email sent successfully!");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Valida a entrada do usuário.
+     *
+     * @param entity A entidade do pagamento.
+     * @param reference A referência do pagamento.
+     * @param amount O valor do pagamento.
+     * @return Verdadeiro se a entrada for válida, falso caso contrário.
+     */
     private boolean validateInput(String entity, String reference, String amount) {
         if (!entity.matches("^\\d{5}$")) {
-            return false; // Entity should have 5 numeric digits
+            return false; // A entidade deve ter 5 dígitos numéricos
         }
 
         if (!reference.matches("^\\d{9}$")) {
-            return false; // Reference should have 9 numeric digits
+            return false; // A referência deve ter 9 dígitos numéricos
         }
 
         if (!amount.matches("^\\d+(\\.\\d+)?$")) {
-            return false; // Amount should be a valid float
+            return false; // O valor deve ser um número decimal válido
         }
 
         return true;
     }
 
+    /**
+     * Obtém um mapa de pagamentos.
+     *
+     * @return Um mapa contendo informações de pagamento.
+     */
     private HashMap<String, Object> getHashMap() {
         Bills bills = new Bills();
         return bills.getPayment();
     }
 
+    /**
+     * Valida os detalhes do pagamento.
+     *
+     * @param entity A entidade do pagamento.
+     * @param reference A referência do pagamento.
+     * @param amount O valor do pagamento.
+     * @return Verdadeiro se os detalhes do pagamento forem válidos, falso caso contrário.
+     */
     private boolean validatePayment(String entity, String reference, String amount) {
         HashMap<String, Object> bill = getHashMap();
         boolean isEntityValid = false;
@@ -247,16 +332,23 @@ public class ControllerServicePayment {
         return isReferenceValid && isEntityValid && isValueValid;
     }
 
+    /**
+     * Exibe uma mensagem de erro.
+     *
+     * @param message A mensagem de erro a ser exibida.
+     */
     private void showError(String message) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            // Mostrar o Alert
-            alert.showAndWait();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        // Mostra o Alert
+        alert.showAndWait();
     }
 
-    // Método para aplicar o estilo de borda vermelho
+    /**
+     * Aplica o estilo de validação.
+     */
     private void applyValidationStyle() {
         labelValidation.setTextFill(Color.RED);
         Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(6), BorderWidths.DEFAULT));
@@ -265,7 +357,9 @@ public class ControllerServicePayment {
         amount.setBorder(border);
     }
 
-    // Método para limpar os estilos de validação
+    /**
+     * Limpa os estilos de validação.
+     */
     private void clearValidationStyles() {
         labelValidation.setText("");
         entity.setBorder(null);

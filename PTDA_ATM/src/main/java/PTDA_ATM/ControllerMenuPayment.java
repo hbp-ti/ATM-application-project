@@ -11,22 +11,47 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-
+/**
+ * Controlador para a tela de menu de pagamentos.
+ */
 public class ControllerMenuPayment {
 
+    /**
+     * Painel para o botão de pagamento de serviços.
+     */
     @FXML
     private Pane buttonServicePay;
 
+    /**
+     * Painel para o botão de pagamento de impostos ou contas.
+     */
     @FXML
     private Pane buttonStatePay;
 
+    /**
+     * Botão para voltar ao menu principal.
+     */
     @FXML
     private Button buttonGoBack;
 
+    /**
+     * Número do cartão do cliente.
+     */
     private String clientCardNumber;
-    private String clientName;
-    Query query = new Query();
 
+    /**
+     * Nome do cliente.
+     */
+    private String clientName;
+
+    /**
+     * Objeto para executar consultas no banco de dados.
+     */
+    private final Query query = new Query();
+
+    /**
+     * Inicializa o controlador.
+     */
     public void initialize() {
         buttonServicePay.setOnMouseClicked(mouseEvent -> {
             try {
@@ -54,15 +79,31 @@ public class ControllerMenuPayment {
         buttonStatePay.setOnMouseExited(e -> buttonStatePay.setCursor(javafx.scene.Cursor.DEFAULT));
     }
 
+    /**
+     * Define o número do cartão do cliente.
+     *
+     * @param clientCardNumber Número do cartão do cliente.
+     */
     public void setClientCardNumber(String clientCardNumber) {
         this.clientCardNumber = clientCardNumber;
         initialize();
     }
 
+    /**
+     * Define o nome do cliente.
+     *
+     * @param clientName Nome do cliente.
+     */
     public void setClientName(String clientName) {
         this.clientName = clientName;
     }
 
+    /**
+     * Alterna para a tela do menu principal.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void switchToMenu(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
@@ -76,6 +117,12 @@ public class ControllerMenuPayment {
         stage.show();
     }
 
+    /**
+     * Alterna para a tela de pagamento de serviços.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void switchToServicePayment(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ServicePayment.fxml"));
         Parent root = loader.load();
@@ -87,6 +134,12 @@ public class ControllerMenuPayment {
         stage.show();
     }
 
+    /**
+     * Alterna para a tela de pagamento de impostos ou contas.
+     *
+     * @param event O evento associado à ação.
+     * @throws IOException Exceção de entrada/saída.
+     */
     public void switchToTheStatePayment(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TheStatePayment.fxml"));
         Parent root = loader.load();
