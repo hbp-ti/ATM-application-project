@@ -28,9 +28,9 @@
                   <Font name="SansSerif Bold" size="30.0" />
                </font>
             </Label>
-            <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="105.0" layoutY="79.0">
+            <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="100.0" layoutY="88.0">
                <image>
-                  <Image url="@../images/checkBalanceLogo.png" />
+                  <Image url="@../images/CheckBalanceLogo.png" />
                </image>
             </ImageView>
          </children>

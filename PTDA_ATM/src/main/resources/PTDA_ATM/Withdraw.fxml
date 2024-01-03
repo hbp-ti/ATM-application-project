@@ -18,16 +18,26 @@
             <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
-      <Pane layoutX="254.0" layoutY="206.0" prefHeight="189.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
+      <Pane layoutX="254.0" layoutY="114.0" prefHeight="372.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
          <children>
-            <Button fx:id="buttonWithdraw" layoutX="24.0" layoutY="140.0" mnemonicParsing="false" onAction="#withdraw" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="WITHDRAW" textFill="WHITE">
+            <Button fx:id="buttonWithdraw" layoutX="24.0" layoutY="317.0" mnemonicParsing="false" onAction="#withdraw" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="WITHDRAW" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="12.0" />
                </font>
             </Button>
-            <ProgressBar fx:id="progressWithdraw" layoutX="24.0" layoutY="119.0" prefHeight="18.0" prefWidth="295.0" progress="0.0" />
-            <TextField fx:id="amount" layoutX="24.0" layoutY="63.0" prefHeight="32.0" prefWidth="295.0" promptText="Amount..." style="-fx-background-radius: 6;" />
-            <Label fx:id="labelValidacao" layoutX="24.0" layoutY="32.0" prefHeight="25.0" prefWidth="295.0" />
+            <ProgressBar fx:id="progressWithdraw" layoutX="24.0" layoutY="293.0" prefHeight="18.0" prefWidth="295.0" progress="0.0" />
+            <TextField fx:id="amount" layoutX="24.0" layoutY="237.0" prefHeight="32.0" prefWidth="295.0" promptText="Amount..." style="-fx-background-radius: 6;" />
+            <Label fx:id="labelValidacao" layoutX="24.0" layoutY="206.0" prefHeight="25.0" prefWidth="295.0" />
+            <Label alignment="CENTER" layoutX="34.0" layoutY="12.0" prefHeight="49.0" prefWidth="266.0" text="Withdraw">
+               <font>
+                  <Font name="SansSerif Bold" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="135.0" fitWidth="135.0" layoutX="97.0" layoutY="63.0">
+               <image>
+                  <Image url="@../images/WithdrawLogoAlternativo.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <Button fx:id="buttonGoBack" layoutX="686.0" layoutY="37.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="34.0" prefWidth="118.0" style="-fx-background-color: #B01B1F; -fx-background-radius: 8;" text="GO BACK" textFill="WHITE">

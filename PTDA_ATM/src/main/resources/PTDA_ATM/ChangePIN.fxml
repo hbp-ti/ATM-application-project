@@ -19,7 +19,7 @@
       </ImageView>
       <Pane layoutX="254.0" layoutY="97.0" prefHeight="438.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
          <children>
-            <PasswordField fx:id="newPINInput" layoutX="24.0" layoutY="255.0" prefHeight="32.0" prefWidth="295.0" promptText="New PIN..." style="-fx-background-radius: 6;" />
+            <PasswordField fx:id="newPINInput" layoutX="24.0" layoutY="257.0" prefHeight="32.0" prefWidth="295.0" promptText="New PIN..." style="-fx-background-radius: 6;" />
             <Button fx:id="buttonConfirm" layoutX="24.0" layoutY="382.0" mnemonicParsing="false" onAction="#changePIN" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="CHANGE PIN" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="12.0" />
@@ -30,16 +30,16 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <PasswordField fx:id="newPINInput2" layoutX="24.0" layoutY="302.0" prefHeight="32.0" prefWidth="295.0" promptText="Confirm New PIN..." style="-fx-background-radius: 6;" />
-            <PasswordField fx:id="currentPINInput" layoutX="24.0" layoutY="207.0" prefHeight="32.0" prefWidth="295.0" promptText="Current PIN..." style="-fx-background-radius: 6;" />
+            <PasswordField fx:id="newPINInput2" layoutX="24.0" layoutY="304.0" prefHeight="32.0" prefWidth="295.0" promptText="Confirm New PIN..." style="-fx-background-radius: 6;" />
+            <PasswordField fx:id="currentPINInput" layoutX="24.0" layoutY="209.0" prefHeight="32.0" prefWidth="295.0" promptText="Current PIN..." style="-fx-background-radius: 6;" />
             <Label alignment="CENTER" layoutX="39.0" layoutY="10.0" prefHeight="49.0" prefWidth="266.0" text="Change PIN">
                <font>
                   <Font name="SansSerif Bold" size="30.0" />
                </font>
             </Label>
-            <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="110.0" layoutY="61.0">
+            <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="109.0" layoutY="64.0">
                <image>
-                  <Image url="@../images/changePinLogo.png" />
+                  <Image url="@../images/PINLogoAlternativo.png" />
                </image>
             </ImageView>
          </children>
