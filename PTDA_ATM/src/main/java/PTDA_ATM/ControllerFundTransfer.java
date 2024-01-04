@@ -12,6 +12,8 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -78,6 +80,11 @@ public class ControllerFundTransfer {
     private final Query query = new Query();
 
     /**
+     * Objeto para criar sombra para os botões
+     */
+    DropShadow shadow = new DropShadow();
+
+    /**
      * Define o número do cartão do cliente de origem.
      *
      * @param sourceCardNumber Número do cartão do cliente de origem.
@@ -94,11 +101,32 @@ public class ControllerFundTransfer {
         targetCardNumber.setOnKeyTyped(event -> clearValidationStyles());
         transferAmount.setOnKeyTyped(event -> clearValidationStyles());
 
-        buttonGoBack.setOnMouseEntered(e -> buttonGoBack.setCursor(Cursor.HAND));
-        buttonGoBack.setOnMouseExited(e -> buttonGoBack.setCursor(Cursor.DEFAULT));
+        buttonGoBack.setOnMouseEntered(e -> {
+            buttonGoBack.setCursor(Cursor.HAND);
+            buttonGoBack.setTranslateY(2);
+            buttonGoBack.setEffect(shadow);
+            buttonGoBack.setStyle("-fx-background-color: #761215; -fx-background-radius: 8;");
+        });
+        buttonGoBack.setOnMouseExited(e -> {
+            buttonGoBack.setCursor(Cursor.DEFAULT);
+            buttonGoBack.setTranslateY(0);
+            buttonGoBack.setEffect(null);
+            buttonGoBack.setStyle("-fx-background-color: #B01B1F; -fx-background-radius: 8;");
+        });
 
-        buttonTransfer.setOnMouseEntered(e -> buttonTransfer.setCursor(Cursor.HAND));
-        buttonTransfer.setOnMouseExited(e -> buttonTransfer.setCursor(Cursor.DEFAULT));
+        Reflection reflection = new Reflection();
+        reflection.setFraction(0.5); // Ajusta o efeito de reflexão
+
+        buttonTransfer.setOnMouseEntered(e -> {
+            buttonTransfer.setCursor(Cursor.HAND);
+            buttonTransfer.setTranslateY(2); // Altere o valor conforme necessário
+            buttonTransfer.setEffect(reflection); // Adiciona reflexo ao passar o mouse
+        });
+        buttonTransfer.setOnMouseExited(e -> {
+            buttonTransfer.setCursor(Cursor.DEFAULT);
+            buttonTransfer.setTranslateY(0); // Retorna à posição original
+            buttonTransfer.setEffect(null); // Remove o efeito de sombra ao passar o mouse
+        });
     }
 
     /**

@@ -7,6 +7,7 @@ import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
@@ -121,13 +122,33 @@ public class ControllerSignUp implements Initializable {
         textGender.getItems().addAll("Male", "Female", "Other");
         textMarital.getItems().addAll("Married", "Divorced", "Single", "Widower");
 
+        Reflection reflection = new Reflection();
+        reflection.setFraction(0.5); // Ajusta o efeito de reflexão
+
+
         // Adiciona o efeito de mudança de cursor para o botão de login
-        buttonRegister.setOnMouseEntered(e -> buttonRegister.setCursor(javafx.scene.Cursor.HAND));
-        buttonRegister.setOnMouseExited(e -> buttonRegister.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonRegister.setOnMouseEntered(e -> {
+            buttonRegister.setCursor(javafx.scene.Cursor.HAND);
+            buttonRegister.setTranslateY(2); // Altere o valor conforme necessário
+            buttonRegister.setEffect(reflection); // Adiciona reflexo ao passar o mouse
+        });
+        buttonRegister.setOnMouseExited(e -> {
+            buttonRegister.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonRegister.setTranslateY(0); // Retorna à posição original
+            buttonRegister.setEffect(null); // Remove o efeito de sombra ao passar o mouse
+        });
 
         // Adiciona o efeito de mudança de cursor para o hyperlink de signup
-        goBackArrow.setOnMouseEntered(e -> goBackArrow.setCursor(javafx.scene.Cursor.HAND));
-        goBackArrow.setOnMouseExited(e -> goBackArrow.setCursor(javafx.scene.Cursor.DEFAULT));
+        goBackArrow.setOnMouseEntered(e -> {
+            goBackArrow.setCursor(javafx.scene.Cursor.HAND);
+            goBackArrow.setTranslateY(2);
+            goBackArrow.setEffect(reflection);
+        });
+        goBackArrow.setOnMouseExited(e -> {
+            goBackArrow.setCursor(javafx.scene.Cursor.DEFAULT);
+            goBackArrow.setTranslateY(0); // Retorna à posição original
+            goBackArrow.setEffect(null); // Remove o efeito de sombra ao passar o mouse
+        });
 
         // Adiciona o ouvinte para o evento KeyReleased no campo de e-mail
         textEmail.setOnKeyReleased(this::handleEmailKeyReleased);

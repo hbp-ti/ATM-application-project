@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -41,11 +42,27 @@ public class ControllerCheckBalance {
     private final Query query = new Query();
 
     /**
+     * Objeto para criar sombra para os botões
+     */
+    DropShadow shadow = new DropShadow();
+
+    /**
      * Inicializa o controlador.
      */
     public void initialize() {
-        buttonGoBack.setOnMouseEntered(e -> buttonGoBack.setCursor(Cursor.HAND));
-        buttonGoBack.setOnMouseExited(e -> buttonGoBack.setCursor(Cursor.DEFAULT));
+
+        buttonGoBack.setOnMouseEntered(e -> {
+            buttonGoBack.setCursor(Cursor.HAND);
+            buttonGoBack.setTranslateY(2);
+            buttonGoBack.setEffect(shadow);
+            buttonGoBack.setStyle("-fx-background-color: #761215; -fx-background-radius: 8;");
+        });
+        buttonGoBack.setOnMouseExited(e -> {
+            buttonGoBack.setCursor(Cursor.DEFAULT);
+            buttonGoBack.setTranslateY(0);
+            buttonGoBack.setEffect(null);
+            buttonGoBack.setStyle("-fx-background-color: #B01B1F; -fx-background-radius: 8;");
+        });
     }
 
     /**

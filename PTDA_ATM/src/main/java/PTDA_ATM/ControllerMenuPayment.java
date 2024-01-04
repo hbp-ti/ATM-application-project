@@ -4,9 +4,11 @@ import SQL.Query;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -50,6 +52,11 @@ public class ControllerMenuPayment {
     private final Query query = new Query();
 
     /**
+     * Objeto para criar sombra para os botões
+     */
+    DropShadow shadow = new DropShadow();
+
+    /**
      * Inicializa o controlador.
      */
     public void initialize() {
@@ -69,14 +76,44 @@ public class ControllerMenuPayment {
             }
         });
 
-        buttonGoBack.setOnMouseEntered(e -> buttonGoBack.setCursor(javafx.scene.Cursor.HAND));
-        buttonGoBack.setOnMouseExited(e -> buttonGoBack.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonGoBack.setOnMouseEntered(e -> {
+            buttonGoBack.setCursor(Cursor.HAND);
+            buttonGoBack.setTranslateY(2);
+            buttonGoBack.setEffect(shadow);
+            buttonGoBack.setStyle("-fx-background-color: #761215; -fx-background-radius: 8;");
+        });
+        buttonGoBack.setOnMouseExited(e -> {
+            buttonGoBack.setCursor(Cursor.DEFAULT);
+            buttonGoBack.setTranslateY(0);
+            buttonGoBack.setEffect(null);
+            buttonGoBack.setStyle("-fx-background-color: #B01B1F; -fx-background-radius: 8;");
+        });
 
-        buttonServicePay.setOnMouseEntered(e -> buttonServicePay.setCursor(javafx.scene.Cursor.HAND));
-        buttonServicePay.setOnMouseExited(e -> buttonServicePay.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonServicePay.setOnMouseEntered(e -> {
+            buttonServicePay.setCursor(javafx.scene.Cursor.HAND);
+            buttonServicePay.setTranslateY(2);
+            buttonServicePay.setEffect(shadow);
+            buttonServicePay.setStyle("-fx-background-color: #00447F; -fx-background-radius: 15;");
+        });
+        buttonServicePay.setOnMouseExited(e -> {
+            buttonServicePay.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonServicePay.setTranslateY(0);
+            buttonServicePay.setEffect(null);
+            buttonServicePay.setStyle("-fx-background-color:  #0C72D7; -fx-background-radius: 15;");
+        });
 
-        buttonStatePay.setOnMouseEntered(e -> buttonStatePay.setCursor(javafx.scene.Cursor.HAND));
-        buttonStatePay.setOnMouseExited(e -> buttonStatePay.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonStatePay.setOnMouseEntered(e -> {
+            buttonStatePay.setCursor(javafx.scene.Cursor.HAND);
+            buttonStatePay.setTranslateY(2);
+            buttonStatePay.setEffect(shadow);
+            buttonStatePay.setStyle("-fx-background-color: #5C2018; -fx-background-radius: 15;");
+        });
+        buttonStatePay.setOnMouseExited(e -> {
+            buttonStatePay.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonStatePay.setTranslateY(0);
+            buttonStatePay.setEffect(null);
+            buttonStatePay.setStyle("-fx-background-color:  #973528; -fx-background-radius: 15;");
+        });
     }
 
     /**

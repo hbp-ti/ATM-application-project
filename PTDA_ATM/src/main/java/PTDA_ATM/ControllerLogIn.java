@@ -2,10 +2,13 @@ package PTDA_ATM;
 
 import SQL.Query;
 import javafx.animation.PauseTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -93,11 +96,24 @@ public class ControllerLogIn {
         cardNumberInput.setOnKeyTyped(event -> clearValidationErrors());
         passwordInput.setOnKeyTyped(event -> clearValidationErrors());
 
-        loginButton.setOnMouseEntered(e -> loginButton.setCursor(javafx.scene.Cursor.HAND));
-        loginButton.setOnMouseExited(e -> loginButton.setCursor(javafx.scene.Cursor.DEFAULT));
-
         signupLink.setOnMouseEntered(e -> signupLink.setCursor(javafx.scene.Cursor.HAND));
         signupLink.setOnMouseExited(e -> signupLink.setCursor(javafx.scene.Cursor.DEFAULT));
+
+        Reflection reflection = new Reflection();
+        reflection.setFraction(0.5); // Ajusta o efeito de reflexão
+
+        // Efeito de translação vertical ao passar o mouse
+        loginButton.setOnMouseEntered(e -> {
+            loginButton.setCursor(javafx.scene.Cursor.HAND);
+            loginButton.setTranslateY(2); // Altere o valor conforme necessário
+            loginButton.setEffect(reflection); // Adiciona reflexo ao passar o mouse
+        });
+
+        loginButton.setOnMouseExited(e -> {
+            loginButton.setCursor(javafx.scene.Cursor.DEFAULT);
+            loginButton.setTranslateY(0); // Retorna à posição original
+            loginButton.setEffect(null); // Remove o efeito de sombra ao passar o mouse
+        });
     }
 
     /**

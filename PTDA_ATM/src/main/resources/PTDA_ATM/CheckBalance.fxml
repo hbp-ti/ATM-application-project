@@ -30,7 +30,7 @@
             </Label>
             <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="100.0" layoutY="88.0">
                <image>
-                  <Image url="@../images/CheckBalanceLogo.png" />
+                  <Image url="@../images/checkBalanceLogo.png" />
                </image>
             </ImageView>
          </children>

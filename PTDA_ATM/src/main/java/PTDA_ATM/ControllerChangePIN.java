@@ -7,6 +7,8 @@ import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.stage.*;
@@ -71,6 +73,11 @@ public class ControllerChangePIN {
     Query query = new Query();
 
     /**
+     * Objeto para criar sombra para os botões
+     */
+    DropShadow shadow = new DropShadow();
+
+    /**
      * Método de inicialização do controlador.
      * Configura os eventos e estilos para a tela de alteração de PIN.
      */
@@ -79,11 +86,32 @@ public class ControllerChangePIN {
         newPINInput.setOnKeyTyped(event -> clearValidationStyles());
         newPINInput2.setOnKeyTyped(event -> clearValidationStyles());
 
-        buttonGoBack.setOnMouseEntered(e -> buttonGoBack.setCursor(Cursor.HAND));
-        buttonGoBack.setOnMouseExited(e -> buttonGoBack.setCursor(Cursor.DEFAULT));
+        buttonGoBack.setOnMouseEntered(e -> {
+            buttonGoBack.setCursor(Cursor.HAND);
+            buttonGoBack.setTranslateY(2);
+            buttonGoBack.setEffect(shadow);
+            buttonGoBack.setStyle("-fx-background-color: #761215; -fx-background-radius: 8;");
+        });
+        buttonGoBack.setOnMouseExited(e -> {
+            buttonGoBack.setCursor(Cursor.DEFAULT);
+            buttonGoBack.setTranslateY(0);
+            buttonGoBack.setEffect(null);
+            buttonGoBack.setStyle("-fx-background-color: #B01B1F; -fx-background-radius: 8;");
+        });
 
-        buttonConfirm.setOnMouseEntered(e -> buttonConfirm.setCursor(Cursor.HAND));
-        buttonConfirm.setOnMouseExited(e -> buttonConfirm.setCursor(Cursor.DEFAULT));
+        Reflection reflection = new Reflection();
+        reflection.setFraction(0.5); // Ajusta o efeito de reflexão
+
+        buttonConfirm.setOnMouseEntered(e -> {
+            buttonConfirm.setCursor(Cursor.HAND);
+            buttonConfirm.setTranslateY(2); // Altere o valor conforme necessário
+            buttonConfirm.setEffect(reflection); // Adiciona reflexo ao passar o mouse
+        });
+        buttonConfirm.setOnMouseExited(e -> {
+            buttonConfirm.setCursor(Cursor.DEFAULT);
+            buttonConfirm.setTranslateY(0); // Retorna à posição original
+            buttonConfirm.setEffect(null); // Remove o efeito de sombra ao passar o mouse
+        });
 
     }
 

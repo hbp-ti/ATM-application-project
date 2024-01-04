@@ -7,8 +7,11 @@ import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.image.ImageView;
 import java.io.*;
@@ -118,6 +121,11 @@ public class ControllerMenu {
     Query query = new Query();
 
     /**
+     * Objeto para criar sombra para os botões
+     */
+    DropShadow shadow = new DropShadow();
+
+    /**
      * Define o número do cartão do cliente.
      *
      * @param cardNumber O número do cartão do cliente.
@@ -142,7 +150,7 @@ public class ControllerMenu {
      * Configura os elementos da interface de user com base nos dados do cliente.
      * Configura os eventos de clique para os botões do menu.
      * Configura o cursor para os botões do menu.
-     *
+     * Configura os estilos dos botões
      */
     public void initialize() {
         if (clientName != null) {
@@ -239,35 +247,137 @@ public class ControllerMenu {
             }
         });
 
-        buttonLogOut.setOnMouseEntered(e -> buttonLogOut.setCursor(javafx.scene.Cursor.HAND));
-        buttonLogOut.setOnMouseExited(e -> buttonLogOut.setCursor(javafx.scene.Cursor.DEFAULT));
 
-        buttonWithdraw.setOnMouseEntered(e -> buttonWithdraw.setCursor(javafx.scene.Cursor.HAND));
-        buttonWithdraw.setOnMouseExited(e -> buttonWithdraw.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonLogOut.setOnMouseEntered(e -> {
+            buttonLogOut.setCursor(javafx.scene.Cursor.HAND);
+            buttonLogOut.setTranslateY(2);
+            buttonLogOut.setEffect(shadow);
+            buttonLogOut.setStyle("-fx-background-color: #761215; -fx-background-radius: 8;");
+        });
 
-        buttonBalance.setOnMouseEntered(e -> buttonBalance.setCursor(javafx.scene.Cursor.HAND));
-        buttonBalance.setOnMouseExited(e -> buttonBalance.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonLogOut.setOnMouseExited(e -> {
+            buttonLogOut.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonLogOut.setTranslateY(0);
+            buttonLogOut.setEffect(null);
+            buttonLogOut.setStyle("-fx-background-color: #B01B1F; -fx-background-radius: 8;");
+        });
 
-        buttonTransfer.setOnMouseEntered(e -> buttonTransfer.setCursor(javafx.scene.Cursor.HAND));
-        buttonTransfer.setOnMouseExited(e -> buttonTransfer.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonWithdraw.setOnMouseEntered(e -> {
+            buttonWithdraw.setCursor(javafx.scene.Cursor.HAND);
+            buttonWithdraw.setTranslateY(2);
+            buttonWithdraw.setEffect(shadow);
+            buttonWithdraw.setStyle("-fx-background-color: #00447F; -fx-background-radius: 15;");
+        });
+        buttonWithdraw.setOnMouseExited(e -> {
+            buttonWithdraw.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonWithdraw.setTranslateY(0);
+            buttonWithdraw.setEffect(null);
+            buttonWithdraw.setStyle("-fx-background-color:  #0C72D7; -fx-background-radius: 15;");
+        });
 
-        buttonDeposit.setOnMouseEntered(e -> buttonDeposit.setCursor(javafx.scene.Cursor.HAND));
-        buttonDeposit.setOnMouseExited(e -> buttonDeposit.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonBalance.setOnMouseEntered(e -> {
+            buttonBalance.setCursor(javafx.scene.Cursor.HAND);
+            buttonBalance.setTranslateY(2);
+            buttonBalance.setEffect(shadow);
+            buttonBalance.setStyle("-fx-background-color: #17515A; -fx-background-radius: 15;");
+        });
+        buttonBalance.setOnMouseExited(e -> {
+            buttonBalance.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonBalance.setTranslateY(0);
+            buttonBalance.setEffect(null);
+            buttonBalance.setStyle("-fx-background-color: #278795; -fx-background-radius: 15;");
+        });
 
-        buttonChargePhone.setOnMouseEntered(e -> buttonChargePhone.setCursor(javafx.scene.Cursor.HAND));
-        buttonChargePhone.setOnMouseExited(e -> buttonChargePhone.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonTransfer.setOnMouseEntered(e -> {
+            buttonTransfer.setCursor(javafx.scene.Cursor.HAND);
+            buttonTransfer.setTranslateY(2);
+            buttonTransfer.setEffect(shadow);
+            buttonTransfer.setStyle("-fx-background-color: #5C2018; -fx-background-radius: 15;");
+        });
+        buttonTransfer.setOnMouseExited(e -> {
+            buttonTransfer.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonTransfer.setTranslateY(0);
+            buttonTransfer.setEffect(null);
+            buttonTransfer.setStyle("-fx-background-color: #973528; -fx-background-radius: 15;");
+        });
 
-        buttonPayment.setOnMouseEntered(e -> buttonPayment.setCursor(javafx.scene.Cursor.HAND));
-        buttonPayment.setOnMouseExited(e -> buttonPayment.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonDeposit.setOnMouseEntered(e -> {
+            buttonDeposit.setCursor(javafx.scene.Cursor.HAND);
+            buttonDeposit.setTranslateY(2);
+            buttonDeposit.setEffect(shadow);
+            buttonDeposit.setStyle("-fx-background-color: #102D69; -fx-background-radius: 15;");
+        });
+        buttonDeposit.setOnMouseExited(e -> {
+            buttonDeposit.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonDeposit.setTranslateY(0);
+            buttonDeposit.setEffect(null);
+            buttonDeposit.setStyle("-fx-background-color: #1948A4; -fx-background-radius: 15;");
+        });
 
-        buttonMiniStatement.setOnMouseEntered(e -> buttonMiniStatement.setCursor(javafx.scene.Cursor.HAND));
-        buttonMiniStatement.setOnMouseExited(e -> buttonMiniStatement.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonChargePhone.setOnMouseEntered(e -> {
+            buttonChargePhone.setCursor(javafx.scene.Cursor.HAND);
+            buttonChargePhone.setTranslateY(2);
+            buttonChargePhone.setEffect(shadow);
+            buttonChargePhone.setStyle("-fx-background-color: #0E5F50; -fx-background-radius: 15;");
+        });
+        buttonChargePhone.setOnMouseExited(e -> {
+            buttonChargePhone.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonChargePhone.setTranslateY(0);
+            buttonChargePhone.setEffect(null);
+            buttonChargePhone.setStyle("-fx-background-color: #179981; -fx-background-radius: 15;");
+        });
 
-        buttonChangePIN.setOnMouseEntered(e -> buttonChangePIN.setCursor(javafx.scene.Cursor.HAND));
-        buttonChangePIN.setOnMouseExited(e -> buttonChangePIN.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonPayment.setOnMouseEntered(e -> {
+            buttonPayment.setCursor(javafx.scene.Cursor.HAND);
+            buttonPayment.setTranslateY(2);
+            buttonPayment.setEffect(shadow);
+            buttonPayment.setStyle("-fx-background-color: #6E300C; -fx-background-radius: 15;");
+        });
+        buttonPayment.setOnMouseExited(e -> {
+            buttonPayment.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonPayment.setTranslateY(0);
+            buttonPayment.setEffect(null);
+            buttonPayment.setStyle("-fx-background-color:  #A84913; -fx-background-radius: 15;");
+        });
 
-        buttonOptions.setOnMouseEntered(e -> buttonOptions.setCursor(javafx.scene.Cursor.HAND));
-        buttonOptions.setOnMouseExited(e -> buttonOptions.setCursor(javafx.scene.Cursor.DEFAULT));
+        buttonMiniStatement.setOnMouseEntered(e -> {
+            buttonMiniStatement.setCursor(javafx.scene.Cursor.HAND);
+            buttonMiniStatement.setTranslateY(2);
+            buttonMiniStatement.setEffect(shadow);
+            buttonMiniStatement.setStyle("-fx-background-color:  #6B1A2A; -fx-background-radius: 15;");
+        });
+        buttonMiniStatement.setOnMouseExited(e -> {
+            buttonMiniStatement.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonMiniStatement.setTranslateY(0);
+            buttonMiniStatement.setEffect(null);
+            buttonMiniStatement.setStyle("-fx-background-color: null; -fx-border-color:  #6B1A2A; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 15");
+        });
+
+        buttonChangePIN.setOnMouseEntered(e -> {
+            buttonChangePIN.setCursor(javafx.scene.Cursor.HAND);
+            buttonChangePIN.setTranslateY(2);
+            buttonChangePIN.setEffect(shadow);
+            buttonChangePIN.setStyle("-fx-background-color:  #302C2B; -fx-background-radius: 15;");
+        });
+        buttonChangePIN.setOnMouseExited(e -> {
+            buttonChangePIN.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonChangePIN.setTranslateY(0);
+            buttonChangePIN.setEffect(null);
+            buttonChangePIN.setStyle("-fx-background-color: null; -fx-border-color:  #302C2B; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 15");
+        });
+
+        buttonOptions.setOnMouseEntered(e -> {
+            buttonOptions.setCursor(javafx.scene.Cursor.HAND);
+            buttonOptions.setTranslateY(2);
+            buttonOptions.setEffect(shadow);
+            buttonOptions.setStyle("-fx-background-color:  #372170; -fx-background-radius: 15;");
+        });
+        buttonOptions.setOnMouseExited(e -> {
+            buttonOptions.setCursor(javafx.scene.Cursor.DEFAULT);
+            buttonOptions.setTranslateY(0);
+            buttonOptions.setEffect(null);
+            buttonOptions.setStyle("-fx-background-color: null; -fx-border-color:  #372170; -fx-border-style: solid; -fx-border-width: 3; -fx-border-radius: 15");
+        });
 
     }
 

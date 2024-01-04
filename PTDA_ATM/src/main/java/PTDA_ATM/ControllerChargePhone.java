@@ -12,6 +12,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -70,6 +72,11 @@ public class ControllerChargePhone {
      */
     Query query = new Query();
 
+    /**
+     * Objeto para criar sombra para os botões
+     */
+    DropShadow shadow = new DropShadow();
+
 
     /**
      * Inicializa o controlador.
@@ -78,11 +85,32 @@ public class ControllerChargePhone {
         phoneNumber.setOnKeyTyped(event -> clearValidationStyles());
         amount.setOnKeyTyped(event -> clearValidationStyles());
 
-        buttonGoBack.setOnMouseEntered(e -> buttonGoBack.setCursor(Cursor.HAND));
-        buttonGoBack.setOnMouseExited(e -> buttonGoBack.setCursor(Cursor.DEFAULT));
+        buttonGoBack.setOnMouseEntered(e -> {
+            buttonGoBack.setCursor(Cursor.HAND);
+            buttonGoBack.setTranslateY(2);
+            buttonGoBack.setEffect(shadow);
+            buttonGoBack.setStyle("-fx-background-color: #761215; -fx-background-radius: 8;");
+        });
+        buttonGoBack.setOnMouseExited(e -> {
+            buttonGoBack.setCursor(Cursor.DEFAULT);
+            buttonGoBack.setTranslateY(0);
+            buttonGoBack.setEffect(null);
+            buttonGoBack.setStyle("-fx-background-color: #B01B1F; -fx-background-radius: 8;");
+        });
 
-        buttonCharge.setOnMouseEntered(e -> buttonCharge.setCursor(Cursor.HAND));
-        buttonCharge.setOnMouseExited(e -> buttonCharge.setCursor(Cursor.DEFAULT));
+        Reflection reflection = new Reflection();
+        reflection.setFraction(0.5); // Ajusta o efeito de reflexão
+
+        buttonCharge.setOnMouseEntered(e -> {
+            buttonCharge.setCursor(Cursor.HAND);
+            buttonCharge.setTranslateY(2); // Altere o valor conforme necessário
+            buttonCharge.setEffect(reflection); // Adiciona reflexo ao passar o mouse
+        });
+        buttonCharge.setOnMouseExited(e -> {
+            buttonCharge.setCursor(Cursor.DEFAULT);
+            buttonCharge.setTranslateY(0); // Retorna à posição original
+            buttonCharge.setEffect(null); // Remove o efeito de sombra ao passar o mouse
+        });
 
     }
 
