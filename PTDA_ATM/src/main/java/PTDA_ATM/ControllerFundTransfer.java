@@ -143,6 +143,12 @@ public class ControllerFundTransfer {
             labelValidation.setText("Invalid input. Check and try again.");
             applyValidationStyle();
         } else {
+            // Verificar se o número do cartão de destino existe
+            if (!query.doesCardExist(targetCard)) {
+                showError("Target card does not exist. Please enter a valid one.");
+                return; // Retorna sem realizar a transferência
+            }
+
             float transferAmount = Float.parseFloat(amount);
 
             // Verifica se o valor da transferência é maior que o saldo disponível
@@ -204,8 +210,6 @@ public class ControllerFundTransfer {
                             }
                         });
                         pause.play();
-                    } else {
-                        showError("Transfer unsuccessful. Check the target card number and try again.");
                     }
                 });
             }

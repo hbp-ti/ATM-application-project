@@ -167,6 +167,34 @@ public class Query {
     }
 
     /**
+     * Verifica se um número de cartão existe na tabela Card do banco de dados.
+     *
+     * @param cardNumber Número do cartão a ser verificado.
+     * @return true se o número do cartão existe na tabela Card, false caso contrário.
+     */
+    public boolean doesCardExist(String cardNumber) {
+        // Lógica para verificar se o número do cartão existe na tabela Card
+        String sql = "SELECT COUNT(*) FROM Card WHERE cardNumber = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, cardNumber);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0; // Retorna true se o cartão existe
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Trate adequadamente a exceção
+        }
+
+        return false; // Retorna false se houver um erro ou o cartão não existir
+    }
+
+
+
+    /**
      * Obtém o nome do cliente associado a um número de cartão.
      *
      * @param clientCardNumber Número do cartão do cliente.
@@ -297,12 +325,12 @@ public class Query {
      * @param clientCardNumber Número do cartão do cliente.
      * @return Um StringBuilder contendo as últimas 15 movimentações da conta do cliente.
      */
-    public StringBuilder loadMiniStatement(String clientCardNumber) {
+    public StringBuilder loadMiniStatement(String clientAccountNumber) {
         StringBuilder miniStatement = new StringBuilder();
         try {
-            String query = "SELECT * FROM Movement WHERE cardNumber = ? ORDER BY movementDate DESC LIMIT 15";
+            String query = "SELECT * FROM Movement WHERE accountNumber = ? ORDER BY movementDate DESC LIMIT 15";
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, clientCardNumber);
+            preparedStatement.setString(1, clientAccountNumber);
             rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
