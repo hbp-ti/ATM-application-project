@@ -63,7 +63,12 @@ public class ControllerChangePIN {
     private Button buttonConfirm;
 
     /**
-     * Número do cartão do cliente.
+     * Número da conta do cliente.
+     */
+    private String clientAccountNumber;
+
+    /**
+     * Número do cartao do cliente.
      */
     private String clientCardNumber;
 
@@ -116,12 +121,12 @@ public class ControllerChangePIN {
     }
 
     /**
-     * Define o número do cartão do cliente.
+     * Define o número da conta do cliente.
      *
-     * @param clientCardNumber O número do cartão do cliente.
+     * @param clientAccountNumber O número da conta do cliente.
      */
-    public void setClientCardNumber(String clientCardNumber) {
-        this.clientCardNumber = clientCardNumber;
+    public void setClientAccountNumber(String clientAccountNumber) {
+        this.clientAccountNumber = clientAccountNumber;
         initialize();
     }
 
@@ -143,6 +148,7 @@ public class ControllerChangePIN {
             labelValidacao.setText("Invalid PIN's. Check and try again.");
             applyValidationStyle();
         } else {
+            this.clientCardNumber = query.getClientCardNumber(clientAccountNumber);
             if (newPIN.equals(query.getStoredPIN(clientCardNumber))) {
                 labelValidacao.setTextFill(Color.RED);
                 labelValidacao.setText("The current PIN matches the new PIN!");
@@ -158,7 +164,7 @@ public class ControllerChangePIN {
                     // Se a mudança de PIN for bem-sucedida, mostra uma mensagem de sucesso
                     showSuccessPopup("PIN changed successfully!");
                     // Envia email informativo
-                    String recipientEmail = query.getClientEmail(clientCardNumber);
+                    String recipientEmail = query.getClientEmail(clientAccountNumber);
                     String subject = "PIN Changed";
                     String messageBody = "Subject: PIN Change Notification for Your Bank Account\n" +
                             "Dear " + query.getClientName(clientCardNumber) + ",\n" +
@@ -212,9 +218,9 @@ public class ControllerChangePIN {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = query.getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientAccountNumber);
         menuController.setClientName(clientName);
-        menuController.setClientCardNumber(clientCardNumber);
+        menuController.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

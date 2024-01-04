@@ -43,14 +43,14 @@
             </ImageView>
          </graphic>
       </Button>
-      <Pane layoutX="254.0" layoutY="116.0" prefHeight="420.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
+      <Pane layoutX="254.0" layoutY="90.0" prefHeight="420.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
          <children>
             <Button fx:id="buttonTransfer" layoutX="24.0" layoutY="366.0" mnemonicParsing="false" onAction="#transfer" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="TRANSFER" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="targetCardNumber" layoutX="24.0" layoutY="240.0" prefHeight="32.0" prefWidth="295.0" promptText="Card Number..." style="-fx-background-radius: 6;" />
+            <TextField fx:id="targetAccountNumber" layoutX="24.0" layoutY="240.0" prefHeight="32.0" prefWidth="295.0" promptText="Account Number..." style="-fx-background-radius: 6;" />
             <TextField fx:id="transferAmount" layoutX="24.0" layoutY="285.0" prefHeight="32.0" prefWidth="295.0" promptText="Amount..." style="-fx-background-radius: 6;" />
             <Label fx:id="labelValidation" layoutX="24.0" layoutY="218.0" prefHeight="17.0" prefWidth="295.0" textFill="WHITE" />
             <ProgressBar fx:id="progressTransfer" layoutX="24.0" layoutY="343.0" prefWidth="295.0" progress="0.0" />

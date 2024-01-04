@@ -111,9 +111,9 @@ public class ControllerMenu {
     private String clientName;
 
     /**
-     * Número do cartão do cliente.
+     * Número da conta do cliente.
      */
-    private String clientCardNumber;
+    private String clientAccountNumber;
 
     /**
      * Objeto para executar consultas no banco de dados.
@@ -126,12 +126,12 @@ public class ControllerMenu {
     DropShadow shadow = new DropShadow();
 
     /**
-     * Define o número do cartão do cliente.
+     * Define o número da conta do cliente.
      *
-     * @param cardNumber O número do cartão do cliente.
+     * @param accountNumber O número da conta do cliente.
      */
-    public void setClientCardNumber(String cardNumber) {
-        this.clientCardNumber = cardNumber;
+    public void setClientAccountNumber(String accountNumber) {
+        this.clientAccountNumber = accountNumber;
         initialize();
     }
 
@@ -156,7 +156,7 @@ public class ControllerMenu {
         if (clientName != null) {
             labelWelcome.setText("Welcome " + clientName);
 
-            String gender = query.getGenderFromDatabase(clientCardNumber);
+            String gender = query.getGenderFromDatabase(clientAccountNumber);
 
             if ("Male".equals(gender)) {
                 maleAvatar.setVisible(true);
@@ -405,7 +405,7 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ChangePIN.fxml"));
         Parent root = loader.load();
         ControllerChangePIN controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonChangePIN.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -422,7 +422,7 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ChargePhone.fxml"));
         Parent root = loader.load();
         ControllerChargePhone controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonChargePhone.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -439,7 +439,7 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("CheckBalance.fxml"));
         Parent root = loader.load();
         ControllerCheckBalance controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         controller.checkBalance();
         Stage stage = (Stage) buttonBalance.getScene().getWindow();
         Scene scene = new Scene(root);
@@ -457,7 +457,7 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Deposit.fxml"));
         Parent root = loader.load();
         ControllerDeposit controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonDeposit.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -474,7 +474,7 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("FundTransfer.fxml"));
         Parent root = loader.load();
         ControllerFundTransfer controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonTransfer.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -491,7 +491,7 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuPayment.fxml"));
         Parent root = loader.load();
         ControllerMenuPayment controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonPayment.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -508,7 +508,7 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MiniStatement.fxml"));
         Parent root = loader.load();
         ControllerMiniStatement controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonMiniStatement.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -525,7 +525,7 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Options.fxml"));
         Parent root = loader.load();
         ControllerOptions controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonOptions.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -542,7 +542,7 @@ public class ControllerMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Withdraw.fxml"));
         Parent root = loader.load();
         ControllerWithdraw controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonWithdraw.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

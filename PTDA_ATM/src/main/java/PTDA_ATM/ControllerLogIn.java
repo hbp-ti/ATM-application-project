@@ -74,6 +74,11 @@ public class ControllerLogIn {
     private String clientCardNumber;
 
     /**
+     * Número da conta do cliente.
+     */
+    private String clientAccountNumber;
+
+    /**
      * Senha do cliente.
      */
     private String password;
@@ -132,7 +137,8 @@ public class ControllerLogIn {
         if (verifyCard) {
                 labelValidation.setText("Valid Data!");
                 applyCorrectStyle();
-                this.clientName = query.getClientName(clientCardNumber);
+                clientAccountNumber = query.getAccountNumber(clientCardNumber);
+                this.clientName = query.getClientName(clientAccountNumber);
 
                 PauseTransition pauseValidation = new PauseTransition(Duration.seconds(2));
                 pauseValidation.setOnFinished(events -> {
@@ -161,7 +167,7 @@ public class ControllerLogIn {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        menuController.setClientCardNumber(clientCardNumber);
+        menuController.setClientAccountNumber(clientAccountNumber);
         menuController.setClientName(clientName);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -179,9 +185,10 @@ public class ControllerLogIn {
      */
     public void switchToSignUp(ActionEvent event) throws IOException {
         // Lógica para transição para a página de registo.
-        Parent root = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

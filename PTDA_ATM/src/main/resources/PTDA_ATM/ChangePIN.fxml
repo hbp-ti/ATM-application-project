@@ -17,7 +17,7 @@
             <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
-      <Pane layoutX="254.0" layoutY="97.0" prefHeight="438.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
+      <Pane layoutX="254.0" layoutY="81.0" prefHeight="438.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
          <children>
             <PasswordField fx:id="newPINInput" layoutX="24.0" layoutY="257.0" prefHeight="32.0" prefWidth="295.0" promptText="New PIN..." style="-fx-background-radius: 6;" />
             <Button fx:id="buttonConfirm" layoutX="24.0" layoutY="382.0" mnemonicParsing="false" onAction="#changePIN" prefHeight="32.0" prefWidth="295.0" style="-fx-background-color: #1464b4; -fx-background-radius: 6;" text="CHANGE PIN" textFill="WHITE">

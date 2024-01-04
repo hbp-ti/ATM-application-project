@@ -8,12 +8,12 @@ BEGIN
         -- Atualizar o saldo da conta
         UPDATE BankAccount
         SET accountBalance = accountBalance + NEW.movementValue
-        WHERE accountNumber = (SELECT accountNumber FROM Card WHERE cardNumber = NEW.cardNumber);
+        WHERE accountNumber = NEW.accountNumber;
     ELSEIF (NEW.movementType = 'Debit') THEN
         -- Atualizar o saldo da conta
         UPDATE BankAccount
         SET accountBalance = accountBalance - NEW.movementValue
-        WHERE accountNumber = (SELECT accountNumber FROM Card WHERE cardNumber = NEW.cardNumber);
+        WHERE accountNumber = NEW.accountNumber;
     END IF;
 END $$
 DELIMITER ;

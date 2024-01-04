@@ -37,9 +37,9 @@ public class ControllerMenuPayment {
     private Button buttonGoBack;
 
     /**
-     * Número do cartão do cliente.
+     * Número da conta do cliente.
      */
-    private String clientCardNumber;
+    private String clientAccountNumber;
 
     /**
      * Nome do cliente.
@@ -117,12 +117,12 @@ public class ControllerMenuPayment {
     }
 
     /**
-     * Define o número do cartão do cliente.
+     * Define o número da conta do cliente.
      *
-     * @param clientCardNumber Número do cartão do cliente.
+     * @param clientAccountNumber Número da conta do cliente.
      */
-    public void setClientCardNumber(String clientCardNumber) {
-        this.clientCardNumber = clientCardNumber;
+    public void setClientAccountNumber(String clientAccountNumber) {
+        this.clientAccountNumber = clientAccountNumber;
         initialize();
     }
 
@@ -145,9 +145,9 @@ public class ControllerMenuPayment {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = query.getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientAccountNumber);
         menuController.setClientName(clientName);
-        menuController.setClientCardNumber(clientCardNumber);
+        menuController.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -164,7 +164,7 @@ public class ControllerMenuPayment {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ServicePayment.fxml"));
         Parent root = loader.load();
         ControllerServicePayment controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonServicePay.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -181,7 +181,7 @@ public class ControllerMenuPayment {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TheStatePayment.fxml"));
         Parent root = loader.load();
         ControllerTheStatePayment controller = loader.getController();
-        controller.setClientCardNumber(clientCardNumber);
+        controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonStatePay.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

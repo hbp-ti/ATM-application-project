@@ -65,9 +65,9 @@ public class ControllerWithdraw {
     private Label labelValidacao;
 
     /**
-     * Número do cartão do cliente.
+     * Número da conta do cliente.
      */
-    private String clientCardNumber;
+    private String clientAccountNumber;
 
     /**
      * Objeto para executar consultas no banco de dados.
@@ -80,12 +80,12 @@ public class ControllerWithdraw {
     DropShadow shadow = new DropShadow();
 
     /**
-     * Define o número do cartão do cliente.
+     * Define o número da conta do cliente.
      *
-     * @param clientCardNumber Número do cartão do cliente.
+     * @param clientAccountNumber Número do cartão do cliente.
      */
-    public void setClientCardNumber(String clientCardNumber) {
-        this.clientCardNumber = clientCardNumber;
+    public void setClientAccountNumber(String clientAccountNumber) {
+        this.clientAccountNumber = clientAccountNumber;
         initialize();
     }
 
@@ -135,7 +135,7 @@ public class ControllerWithdraw {
             applyValidationStyle();
         } else {
             float withdrawalAmount = Float.parseFloat(amount.getText());
-            float availableBalance = query.getAvailableBalance(clientCardNumber);
+            float availableBalance = query.getAvailableBalance(clientAccountNumber);
 
             if (withdrawalAmount > availableBalance) {
                 labelValidacao.setText("Insufficient funds");
@@ -155,14 +155,14 @@ public class ControllerWithdraw {
 
                         float remainingBalance = availableBalance - withdrawalAmount;
 
-                        if (query.movement(clientCardNumber, "Debit", withdrawalAmount, "Withdraw")) {
+                        if (query.movement(clientAccountNumber, "Debit", withdrawalAmount, "Withdraw")) {
                             labelValidacao.setText(String.format("%.2f€ has been withdrawn from your account!", withdrawalAmount));
                             labelValidacao.setTextFill(Color.GREEN);
 
-                            String recipientEmail = query.getClientEmail(clientCardNumber);
+                            String recipientEmail = query.getClientEmail(clientAccountNumber);
                             String subject = "Withdraw";
                             String message = "Subject: Withdraw Notification\n" +
-                                    "Dear " + query.getClientName(clientCardNumber) + ",\n" +
+                                    "Dear " + query.getClientName(clientAccountNumber) + ",\n" +
                                     "We are pleased to inform you that a withdraw of " + String.format("%.2f€", withdrawalAmount) +
                                     " has been successfully withdrawn from your account. This withdraw was processed on " +
                                     formatter.format(now) + ".\n" +
@@ -202,9 +202,9 @@ public class ControllerWithdraw {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = query.getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientAccountNumber);
         menuController.setClientName(clientName);
-        menuController.setClientCardNumber(clientCardNumber);
+        menuController.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -81,9 +81,9 @@ public class ControllerTheStatePayment {
     DropShadow shadow = new DropShadow();
 
     /**
-     * Número do cartão do cliente.
+     * Número da conta do cliente.
      */
-    private String clientCardNumber;
+    private String clientAccountNumber;
 
     /**
      * Inicializa o controlador.
@@ -121,12 +121,12 @@ public class ControllerTheStatePayment {
     }
 
     /**
-     * Define o número do cartão do cliente.
+     * Define o número da conta do cliente.
      *
-     * @param clientCardNumber Número do cartão do cliente.
+     * @param clientAccountNumber Número da conta do cliente.
      */
-    public void setClientCardNumber(String clientCardNumber) {
-        this.clientCardNumber = clientCardNumber;
+    public void setClientAccountNumber(String clientAccountNumber) {
+        this.clientAccountNumber = clientAccountNumber;
         initialize();
     }
 
@@ -147,7 +147,7 @@ public class ControllerTheStatePayment {
             float payAmount = Float.parseFloat(am);
 
             // Verifica se o valor do pagamento é maior que o saldo disponível
-            float availableBalance = query.getAvailableBalance(clientCardNumber);
+            float availableBalance = query.getAvailableBalance(clientAccountNumber);
             if (payAmount > availableBalance) {
                 labelValidation.setText("Insufficient funds");
                 applyValidationStyle();
@@ -165,7 +165,7 @@ public class ControllerTheStatePayment {
                     } else {
                         boolean success = false;
                         try {
-                            success = performStatePayment(clientCardNumber, Float.parseFloat(am));
+                            success = performStatePayment(clientAccountNumber, Float.parseFloat(am));
                         } catch (SQLException ex) {
                             throw new RuntimeException(ex);
                         }
@@ -177,10 +177,10 @@ public class ControllerTheStatePayment {
                             labelValidation.setText("Bill " + ref + " payment was successful!");
                             labelValidation.setTextFill(Color.GREEN);
 
-                            String recipientEmail = query.getClientEmail(clientCardNumber);
+                            String recipientEmail = query.getClientEmail(clientAccountNumber);
                             String subject = "Bill Payment";
                             String message = "Subject: Bill Payment Notification\n" +
-                                    "Dear " + query.getClientName(clientCardNumber) + ",\n" +
+                                    "Dear " + query.getClientName(clientAccountNumber) + ",\n" +
                                     "Reference: " + ref + "\n" +
                                     "Amount: " + am + "€\n" +
                                     "has been successfully made from your account. This payment was processed on " + formatter.format(now) + ".\n" +
@@ -217,9 +217,9 @@ public class ControllerTheStatePayment {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuPayment.fxml"));
         Parent root = loader.load();
         ControllerMenuPayment Controller = loader.getController();
-        String clientName = query.getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientAccountNumber);
         Controller.setClientName(clientName);
-        Controller.setClientCardNumber(clientCardNumber);
+        Controller.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -229,20 +229,20 @@ public class ControllerTheStatePayment {
     /**
      * Realiza o pagamento das taxas estatais.
      *
-     * @param clientCardNumber O número do cartão do cliente.
+     * @param clientAccountNumber O número da conta do cliente.
      * @param amount O valor do pagamento.
      * @return Verdadeiro se o pagamento for bem-sucedido, falso caso contrário.
      * @throws SQLException Se ocorrer um erro durante a execução de consultas no banco de dados.
      */
-    private boolean performStatePayment(String clientCardNumber, float amount) throws SQLException {
-        // Verifica se o cartão de origem tem saldo suficiente
-        float Balance = query.getAvailableBalance(clientCardNumber);
+    private boolean performStatePayment(String clientAccountNumber, float amount) throws SQLException {
+        // Verifica se a conta de origem tem saldo suficiente
+        float Balance = query.getAvailableBalance(clientAccountNumber);
         if (Balance < amount) {
             return false; // Saldo insuficiente
         }
 
         // Executa a lógica de pagamento das taxas estatais
-        boolean debitSuccess = query.movement(clientCardNumber, "Debit", amount, "State Payment");
+        boolean debitSuccess = query.movement(clientAccountNumber, "Debit", amount, "State Payment");
 
         return debitSuccess;
     }

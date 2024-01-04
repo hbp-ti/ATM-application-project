@@ -54,9 +54,9 @@ public class ControllerMiniStatement {
     private StringBuilder miniStatement = new StringBuilder();
 
     /**
-     * Número do cartão do cliente.
+     * Número da conta do cliente.
      */
-    private String clientCardNumber;
+    private String clientAccountNumber;
 
     /**
      * Objeto para executar consultas no banco de dados.
@@ -102,13 +102,13 @@ public class ControllerMiniStatement {
     }
 
     /**
-     * Define o número do cartão do cliente.
+     * Define o número da conta do cliente.
      *
-     * @param clientCardNumber Número do cartão do cliente.
+     * @param clientAccountNumber Número da conta do cliente.
      */
-    public void setClientCardNumber(String clientCardNumber) {
-        this.clientCardNumber = clientCardNumber;
-        miniStatement = query.loadMiniStatement(clientCardNumber);
+    public void setClientAccountNumber(String clientAccountNumber) {
+        this.clientAccountNumber = clientAccountNumber;
+        miniStatement = query.loadMiniStatement(clientAccountNumber);
         miniStatementLabel.setText(miniStatement.toString());
         initialize();
     }
@@ -123,10 +123,10 @@ public class ControllerMiniStatement {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
-        String recipientEmail = query.getClientEmail(clientCardNumber);
+        String recipientEmail = query.getClientEmail(clientAccountNumber);
         String subject = "Mini Statement";
         String message = "Subject: Account Statement\n" +
-                "Dear " + query.getClientName(clientCardNumber) + ",\n" +
+                "Dear " + query.getClientName(clientAccountNumber) + ",\n" +
                 "We are pleased to provide your account statement as of " + formatter.format(now) + ":\n\n" +
                 miniStatement.toString() + "\n" +
                 "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
@@ -147,9 +147,9 @@ public class ControllerMiniStatement {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = query.getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientAccountNumber);
         menuController.setClientName(clientName);
-        menuController.setClientCardNumber(clientCardNumber);
+        menuController.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

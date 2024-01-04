@@ -64,9 +64,9 @@ public class ControllerDeposit {
     private Label labelValidacao;
 
     /**
-     * Número do cartão do cliente.
+     * Número da conta do cliente.
      */
-    private String clientCardNumber;
+    private String clientAccountNumber;
 
     /**
      * Objeto para executar consultas no banco de dados.
@@ -84,12 +84,12 @@ public class ControllerDeposit {
     private boolean success;
 
     /**
-     * Define o número do cartão do cliente.
+     * Define o número da conta do cliente.
      *
-     * @param clientCardNumber Número do cartão do cliente.
+     * @param clientAccountNumber Número da conta do cliente.
      */
-    public void setClientCardNumber(String clientCardNumber) {
-        this.clientCardNumber = clientCardNumber;
+    public void setClientAccountNumber(String clientAccountNumber) {
+        this.clientAccountNumber = clientAccountNumber;
         initialize();
     }
 
@@ -152,14 +152,14 @@ public class ControllerDeposit {
                 float depositAmount = Float.parseFloat(amount.getText());
 
                 try {
-                    query.movement(clientCardNumber, "Credit", depositAmount, "Deposit");
+                    query.movement(clientAccountNumber, "Credit", depositAmount, "Deposit");
                     labelValidacao.setText(String.format("%.2f€ has been credited to your account!", depositAmount));
                     labelValidacao.setTextFill(Color.GREEN);
 
-                    String recipientEmail = query.getClientEmail(clientCardNumber);
+                    String recipientEmail = query.getClientEmail(clientAccountNumber);
                     String subject = "Deposit";
                     String message = "Subject: Deposit Notification\n" +
-                            "Dear " + query.getClientName(clientCardNumber) + ",\n" +
+                            "Dear " + query.getClientName(clientAccountNumber) + ",\n" +
                             "We are pleased to inform you that a deposit of " + String.format("%.2f€", depositAmount) +
                             " has been successfully credited to your account. This deposit was processed on " +
                             formatter.format(now) + " and is now available for your use.\n" +
@@ -194,9 +194,9 @@ public class ControllerDeposit {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = query.getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientAccountNumber);
         menuController.setClientName(clientName);
-        menuController.setClientCardNumber(clientCardNumber);
+        menuController.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -63,9 +63,9 @@ public class ControllerChargePhone {
     private TextField phoneNumber;
 
     /**
-     * Número do cartão do cliente.
+     * Número da conta do cliente.
      */
-    private String clientCardNumber;
+    private String clientAccountNumber;
 
     /**
      * Objeto para executar consultas no banco de dados.
@@ -77,6 +77,16 @@ public class ControllerChargePhone {
      */
     DropShadow shadow = new DropShadow();
 
+
+    /**
+     * Define o número da conta do cliente.
+     *
+     * @param clientAccountNumber Número da conta do cliente.
+     */
+    public void setClientAccountNumber(String clientAccountNumber) {
+        this.clientAccountNumber = clientAccountNumber;
+        initialize();
+    }
 
     /**
      * Inicializa o controlador.
@@ -115,16 +125,6 @@ public class ControllerChargePhone {
     }
 
     /**
-     * Define o número do cartão do cliente.
-     *
-     * @param clientCardNumber Número do cartão do cliente.
-     */
-    public void setClientCardNumber(String clientCardNumber) {
-        this.clientCardNumber = clientCardNumber;
-        initialize();
-    }
-
-    /**
      * Realiza o carregamento do telefone.
      *
      * @param event O evento associado à ação.
@@ -141,13 +141,13 @@ public class ControllerChargePhone {
         } else {
             float chargeAmount = Float.parseFloat(amountt);
 
-            float availableBalance = query.getAvailableBalance(clientCardNumber);
+            float availableBalance = query.getAvailableBalance(clientAccountNumber);
 
             if (chargeAmount > availableBalance) {
                 labelValidacao.setText("Insufficient funds");
                 applyValidationStyle();
             } else {
-                boolean success = performPhoneCharge(clientCardNumber, phoneNumberr, chargeAmount);
+                boolean success = performPhoneCharge(clientAccountNumber, phoneNumberr, chargeAmount);
 
                 if (success) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
@@ -156,10 +156,10 @@ public class ControllerChargePhone {
                     labelValidacao.setText(amountt + "€ has been charged to "+phoneNumberr+"!");
                     labelValidacao.setTextFill(Color.GREEN);
 
-                    String recipientEmail = query.getClientEmail(clientCardNumber);
+                    String recipientEmail = query.getClientEmail(clientAccountNumber);
                     String subject = "Transfer";
                     String message = "Subject: Phone Credit Notification\n" +
-                            "Dear " + query.getClientName(clientCardNumber) + ",\n" +
+                            "Dear " + query.getClientName(clientAccountNumber) + ",\n" +
                             "We are pleased to inform you that a credit of " + amountt + "€ has been successfully loaded onto the phone: "+phoneNumberr+". This credit was processed on " + formatter.format(now) + ".\n" +
                             "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                             "Best regards,\n" +
@@ -186,21 +186,21 @@ public class ControllerChargePhone {
     /**
      * Executa a lógica de carregamento do telefone.
      *
-     * @param clientCardNumber Número do cartão do cliente.
+     * @param clientAccountNumber Número da conta do cliente.
      * @param phoneNumber      Número de telefone.
      * @param amount           Valor a ser carregado.
      * @return True se o carregamento for bem-sucedido, False caso contrário.
      * @throws SQLException Exceção SQL.
      */
-    private boolean performPhoneCharge(String clientCardNumber, String phoneNumber, float amount) throws SQLException {
-        // Check if the source card has sufficient balance
-        float sourceBalance = query.getAvailableBalance(clientCardNumber);
+    private boolean performPhoneCharge(String clientAccountNumber, String phoneNumber, float amount) throws SQLException {
+        // Verifica se a conta tem fundos suficientes
+        float sourceBalance = query.getAvailableBalance(clientAccountNumber);
         if (sourceBalance < amount) {
-            return false; // Insufficient balance
+            return false; // Fundos insuficientes
         }
 
-        // Perform the fund transfer logic
-        boolean debitSuccess = query.movementPhone(phoneNumber, clientCardNumber, "Debit", amount, "Phone Charge");
+        // Logica para fazer o carregamento
+        boolean debitSuccess = query.movementPhone(phoneNumber, clientAccountNumber, "Debit", amount, "Phone Charge");
 
         return debitSuccess;
     }
@@ -215,9 +215,9 @@ public class ControllerChargePhone {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = query.getClientName(clientCardNumber);
+        String clientName = query.getClientName(clientAccountNumber);
         menuController.setClientName(clientName);
-        menuController.setClientCardNumber(clientCardNumber);
+        menuController.setClientAccountNumber(clientAccountNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

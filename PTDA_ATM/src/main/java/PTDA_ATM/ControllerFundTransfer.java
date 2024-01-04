@@ -34,10 +34,10 @@ import java.util.Random;
 public class ControllerFundTransfer {
 
     /**
-     * Campo de texto para o número do cartão de destino da transferência.
+     * Campo de texto para o número da conta de destino da transferência.
      */
     @FXML
-    private TextField targetCardNumber;
+    private TextField targetAccountNumber;
 
     /**
      * Campo de texto para o valor da transferência.
@@ -70,9 +70,9 @@ public class ControllerFundTransfer {
     private Label labelValidation;
 
     /**
-     * Número do cartão de origem da transferência.
+     * Número da conta de origem da transferência.
      */
-    private String sourceCardNumber;
+    private String sourceAccountNumber;
 
     /**
      * Objeto para executar consultas no banco de dados.
@@ -87,10 +87,10 @@ public class ControllerFundTransfer {
     /**
      * Define o número do cartão do cliente de origem.
      *
-     * @param sourceCardNumber Número do cartão do cliente de origem.
+     * @param sourceAccountNumber Número da conta do cliente de origem.
      */
-    public void setClientCardNumber(String sourceCardNumber) {
-        this.sourceCardNumber = sourceCardNumber;
+    public void setClientAccountNumber(String sourceAccountNumber) {
+        this.sourceAccountNumber = sourceAccountNumber;
         initialize();
     }
 
@@ -98,7 +98,7 @@ public class ControllerFundTransfer {
      * Inicializa o controlador.
      */
     public void initialize() {
-        targetCardNumber.setOnKeyTyped(event -> clearValidationStyles());
+        targetAccountNumber.setOnKeyTyped(event -> clearValidationStyles());
         transferAmount.setOnKeyTyped(event -> clearValidationStyles());
 
         buttonGoBack.setOnMouseEntered(e -> {
@@ -136,15 +136,15 @@ public class ControllerFundTransfer {
      * @throws IOException Exceção de entrada/saída.
      */
     public void transfer(ActionEvent event) throws IOException {
-        String targetCard = targetCardNumber.getText();
+        String targetAccount = targetAccountNumber.getText();
         String amount = transferAmount.getText();
 
-        if (!validateInput(targetCard, amount)) {
+        if (!validateInput(targetAccount, amount)) {
             labelValidation.setText("Invalid input. Check and try again.");
             applyValidationStyle();
         } else {
-            // Verificar se o número do cartão de destino existe
-            if (!query.doesCardExist(targetCard)) {
+            // Verificar se o número da conta de destino existe
+            if (!query.doesAccountExist(targetAccount)) {
                 showError("Target card does not exist. Please enter a valid one.");
                 return; // Retorna sem realizar a transferência
             }
@@ -152,7 +152,7 @@ public class ControllerFundTransfer {
             float transferAmount = Float.parseFloat(amount);
 
             // Verifica se o valor da transferência é maior que o saldo disponível
-            float availableBalance = query.getAvailableBalance(sourceCardNumber);
+            float availableBalance = query.getAvailableBalance(sourceAccountNumber);
             if (transferAmount > availableBalance) {
                 labelValidation.setText("Insufficient funds");
                 applyValidationStyle();
@@ -166,7 +166,7 @@ public class ControllerFundTransfer {
                 timeline.setOnFinished(e -> {
                     boolean success = false;
                     try {
-                        success = performFundTransfer(sourceCardNumber, targetCard, transferAmount);
+                        success = performFundTransfer(sourceAccountNumber, targetAccount, transferAmount);
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -178,10 +178,10 @@ public class ControllerFundTransfer {
                         labelValidation.setText(amount + "€ has been withdrawn from your account!");
                         labelValidation.setTextFill(Color.GREEN);
 
-                        String recipientEmail = query.getClientEmail(sourceCardNumber);
+                        String recipientEmail = query.getClientEmail(sourceAccountNumber);
                         String subject = "Transfer";
                         String message = "Subject: Transfer Notification\n" +
-                                "Dear "+query.getClientName(sourceCardNumber)+",\n" +
+                                "Dear "+query.getClientName(sourceAccountNumber)+",\n" +
                                 "We are pleased to inform you that a transfer of "+ amount +"€ has been successfully made from your account. This transfer was processed on "+ formatter.format(now) +".\n" +
                                 "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                                 "Best regards,\n" +
@@ -190,11 +190,11 @@ public class ControllerFundTransfer {
 
                         // Não é necessário chamar movement novamente aqui
 
-                        String recipientEmailTarget = query.getClientEmail(targetCard);
+                        String recipientEmailTarget = query.getClientEmail(targetAccount);
                         String subjectTarget = "Transfer";
 
                         String messageTarget = "Subject: Transfer Notification\n"+
-                                "Dear "+query.getClientName(targetCard)+",\n" +
+                                "Dear "+query.getClientName(targetAccount)+",\n" +
                                 "We are pleased to inform you that a transfer of "+ amount +"€ has been successfully made to your account. This transfer was processed on "+ formatter.format(now) +".\n" +
                                 "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                                 "Best regards,\n" +
@@ -219,22 +219,22 @@ public class ControllerFundTransfer {
     /**
      * Executa a lógica de transferência de fundos no banco de dados.
      *
-     * @param sourceCard   Número do cartão de origem.
-     * @param targetCard   Número do cartão de destino.
+     * @param sourceAccount   Número da conta de origem.
+     * @param targetAccount   Número da conta de destino.
      * @param amount       Valor da transferência.
      * @return True se a transferência for bem-sucedida, False caso contrário.
      * @throws SQLException Exceção de SQL.
      */
-    private boolean performFundTransfer(String sourceCard, String targetCard, float amount) throws SQLException {
-        // Verifica se o cartão de origem tem saldo suficiente
-        float sourceBalance = query.getAvailableBalance(sourceCard);
+    private boolean performFundTransfer(String sourceAccount, String targetAccount, float amount) throws SQLException {
+        // Verifica se a conta de origem tem saldo suficiente
+        float sourceBalance = query.getAvailableBalance(sourceAccount);
         if (sourceBalance < amount) {
             return false; // Saldo insuficiente
         }
 
         // Executa a lógica de transferência de fundos
-        boolean debitSuccess = query.movement(sourceCard,"Debit",amount , "Transfer");
-        boolean creditSuccess = query.movement(targetCard,"Credit",amount , "Transfer");
+        boolean debitSuccess = query.movement(sourceAccount,"Debit",amount , "Transfer");
+        boolean creditSuccess = query.movement(targetAccount,"Credit",amount , "Transfer");
 
         return debitSuccess && creditSuccess; // Transferência bem-sucedida se ambas as operações forem bem-sucedidas
     }
@@ -288,9 +288,9 @@ public class ControllerFundTransfer {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = loader.load();
         ControllerMenu menuController = loader.getController();
-        String clientName = query.getClientName(sourceCardNumber);
+        String clientName = query.getClientName(sourceAccountNumber);
         menuController.setClientName(clientName);
-        menuController.setClientCardNumber(sourceCardNumber);
+        menuController.setClientAccountNumber(sourceAccountNumber);
         Stage stage = (Stage) buttonGoBack.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -298,16 +298,16 @@ public class ControllerFundTransfer {
     }
 
     /**
-     * Valida a entrada do user para o número do cartão de destino e o valor da transferência.
+     * Valida a entrada do user para o número da conta de destino e o valor da transferência.
      *
-     * @param targetCard Número do cartão de destino.
+     * @param targetAccount Número da conta de destino.
      * @param amount     Valor da transferência.
      * @return True se a entrada for válida, False caso contrário.
      */
-    private boolean validateInput(String targetCard, String amount) {
-        // Valida se o cartão de destino existe e o valor é um número float válido
-        if (!targetCard.matches("^\\d{10}$")) {
-            return false; // O número do cartão de destino deve ser um número de 16 dígitos
+    private boolean validateInput(String targetAccount, String amount) {
+        // Valida se a conta de destino existe e o valor é um número float válido
+        if (!targetAccount.matches("^\\d{20}$")) {
+            return false; // O número da conta de destino deve ser um número de 20 dígitos
         }
 
         if (!amount.matches("^\\d+(\\.\\d+)?$")) {

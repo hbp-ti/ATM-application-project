@@ -5,9 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Diagramas/DiagramaClassesBD_PTDA.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Diagramas/DiagramaClassesBD_PTDA.vpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Diagramas/DiagramaClassesBD_PTDA.vpp.bak_000f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Diagramas/DiagramaClassesBD_PTDA.vpp.bak_001d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Diagramas/DiagramaClassesBD_PTDA.vpp.bak_002d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Diagramas/DiagramaClassesBD_PTDA.vpp.bak_003d" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChangePIN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChangePIN.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerCheckBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerCheckBalance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerDeposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerDeposit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerFundTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerFundTransfer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerLogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerLogIn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenuPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenuPayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMiniStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMiniStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerServicePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerServicePayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerTheStatePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerTheStatePayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerWithdraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerWithdraw.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/SQL/Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SQL/Query.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ChangePIN.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ChangePIN.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/FundTransfer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/FundTransfer.fxml" afterDir="false" />
+    </list>
+    <list id="75c53dd9-cf80-4ee9-84f6-0676f95f9739" name="Changes by goncalo farias" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerCheckBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerCheckBalance.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +71,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/PTDA_ATM/Bills.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChangePIN.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerCheckBalance.java" root0="SKIP_INSPECTION" />
@@ -63,7 +87,40 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerTheStatePayment.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerWithdraw.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/PTDA_ATM/Main.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/SQL/Conn.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/main/java/SQL/Query.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerCheckBalance.java">
+      <ranges>
+        <range start1="34" end1="35" start2="34" end2="35" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="36" end1="37" start2="36" end2="37" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="68" end1="69" start2="68" end2="69" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+        <range start1="70" end1="71" start2="70" end2="71" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+        <range start1="72" end1="74" start2="72" end2="74" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+        <range start1="81" end1="82" start2="81" end2="82" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="95" end1="96" start2="95" end2="96" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="97" end1="98" start2="97" end2="98" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java">
+      <ranges>
+        <range start1="65" end1="66" start2="65" end2="66" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+        <range start1="67" end1="68" start2="67" end2="68" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+        <range start1="79" end1="79" start2="79" end2="89" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+        <range start1="116" end1="126" start2="126" end2="126" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+        <range start1="143" end1="144" start2="143" end2="144" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="149" end1="150" start2="149" end2="150" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="158" end1="159" start2="158" end2="159" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="161" end1="162" start2="161" end2="162" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="188" end1="189" start2="188" end2="189" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+        <range start1="194" end1="197" start2="194" end2="197" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="198" end1="199" start2="198" end2="199" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+        <range start1="201" end1="203" start2="201" end2="203" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="217" end1="218" start2="217" end2="218" changelist="75c53dd9-cf80-4ee9-84f6-0676f95f9739" />
+        <range start1="219" end1="220" start2="219" end2="220" changelist="4e91c7cf-0df8-45b2-9e58-8396ffe425e3" />
+      </ranges>
+    </file>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -80,32 +137,32 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build PTDA_ATM.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PTDA_ATM [:Main.main()].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/UTILIZADOR/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Main.executor": "Run",
+    "Gradle.Build PTDA_ATM.executor": "Run",
+    "Gradle.PTDA_ATM [:Main.main()].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/PTDA/PTDA/PTDA_ATM",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\UTILIZADOR\Documents\Escola\Universidade Aveiro - ESTGA\2º Ano\1º Semestre\Projeto Temático em desenvolvimento de aplicacoes\PTDA\PTDA_ATM\src\main\resources\images" />
@@ -151,8 +208,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.9-jbrsdk-17.0.9-3183f394aec4-8d7b1619" />
-        <option value="jdk-20.0.2-azul-20.0.2-8336523bb0d9-ce1e98ff" />
+        <option value="jdk-20.0.2-azul-20.0.2-3183f394aec4-4edb7f01" />
       </set>
     </attachedChunks>
   </component>
@@ -211,6 +267,8 @@
       <workItem from="1704288362067" duration="5000" />
       <workItem from="1704325080949" duration="4600000" />
       <workItem from="1704377870832" duration="2178000" />
+      <workItem from="1704394189175" duration="47000" />
+      <workItem from="1704394261184" duration="9878000" />
     </task>
     <servers />
   </component>

@@ -31,6 +31,16 @@ public class Query {
     private ResultSet rsName;
 
     /**
+     * Resultado de uma consulta SQL para obter número de cartões.
+     */
+    private ResultSet rsCard;
+
+    /**
+     * Resultado de uma consulta SQL para obter numero da conta.
+     */
+    private ResultSet rsAccount;
+
+    /**
      * Conexão com o banco de dados obtida da classe Conn.
      */
     private Connection connection = Conn.getConnection();
@@ -38,14 +48,14 @@ public class Query {
     /**
      * Obtém o saldo disponível para uma determinada conta.
      *
-     * @param clientCardNumber Número do cartão do cliente.
-     * @return O saldo disponível para a conta associada ao número do cartão.
+     * @param clientAccountNumber Número da conta do cliente.
+     * @return O saldo disponível da conta.
      */
-    public float getAvailableBalance(String clientCardNumber) {
+    public float getAvailableBalance(String clientAccountNumber) {
         try {
-            String query = "SELECT accountBalance FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber  = ?)";
+            String query = "SELECT accountBalance FROM BankAccount WHERE accountNumber = ?";
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, clientCardNumber);
+            preparedStatement.setString(1, clientAccountNumber);
             rs = preparedStatement.executeQuery();
 
             if (rs.next()) {
@@ -68,17 +78,18 @@ public class Query {
         return 0.0f;  // Return 0.0 in case of an error
     }
 
+
     /**
      * Verifica o saldo de uma determinada conta.
      *
-     * @param clientCardNumber Número do cartão do cliente.
-     * @return O saldo da conta associada ao número do cartão.
+     * @param clientAccountNumber Número da conta do cliente.
+     * @return O saldo da conta.
      */
-    public BigDecimal checkBalance(String clientCardNumber) {
+    public BigDecimal checkBalance(String clientAccountNumber) {
         try {
-            String query = "SELECT accountBalance FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
+            String query = "SELECT accountBalance FROM BankAccount WHERE accountNumber = ?";
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, clientCardNumber);
+            preparedStatement.setString(1, clientAccountNumber);
             rs = preparedStatement.executeQuery();
 
             if (rs.next()) {
@@ -104,17 +115,17 @@ public class Query {
     /**
      * Registra uma operação de movimentação na conta do cliente.
      *
-     * @param clientCardNumber Número do cartão do cliente.
+     * @param clientAccountNumber Número da conta do cliente.
      * @param type             Tipo de movimentação (por exemplo, "Débito" ou "Crédito").
      * @param value            Valor da movimentação.
      * @param description      Descrição da movimentação.
      * @return True se a movimentação for registrada com sucesso; false, caso contrário.
      * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
      */
-    public boolean movement(String clientCardNumber, String type, float value, String description) throws SQLException {
+    public boolean movement(String clientAccountNumber, String type, float value, String description) throws SQLException {
         try {
-            preparedStatement = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
-            preparedStatement.setString(1, clientCardNumber);
+            preparedStatement = connection.prepareStatement("INSERT INTO Movement (accountNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
+            preparedStatement.setString(1, clientAccountNumber);
             preparedStatement.setString(2, type);
             preparedStatement.setFloat(3, value);
             preparedStatement.setString(4, description);
@@ -134,18 +145,18 @@ public class Query {
      * Registra uma operação de movimentação associada a um número de telefone.
      *
      * @param phoneNumber      Número de telefone do cliente.
-     * @param clientCardNumber Número do cartão do cliente.
+     * @param clientAccountNumber Número da conta do cliente.
      * @param type             Tipo de movimentação (por exemplo, "Débito" ou "Crédito").
      * @param value            Valor da movimentação.
      * @param description      Descrição da movimentação.
      * @return True se a movimentação for registrada com sucesso; false, caso contrário.
      * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
      */
-    public boolean movementPhone(String phoneNumber, String clientCardNumber, String type, float value, String description) throws SQLException {
+    public boolean movementPhone(String phoneNumber, String clientAccountNumber, String type, float value, String description) throws SQLException {
         if(doesPhoneNumberExist(phoneNumber)) {
             try {
-                preparedStatement = connection.prepareStatement("INSERT INTO Movement (cardNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
-                preparedStatement.setString(1, clientCardNumber);
+                preparedStatement = connection.prepareStatement("INSERT INTO Movement (accountNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
+                preparedStatement.setString(1, clientAccountNumber);
                 preparedStatement.setString(2, type);  // ou qualquer valor padrão para movimentos de depósito
                 preparedStatement.setFloat(3, value);
                 preparedStatement.setString(4, description);
@@ -167,44 +178,75 @@ public class Query {
     }
 
     /**
-     * Verifica se um número de cartão existe na tabela Card do banco de dados.
+     * Verifica se um número de conta existe na tabela BankAccount do banco de dados.
      *
-     * @param cardNumber Número do cartão a ser verificado.
+     * @param accountNumberClient Número da conta a ser verificada.
      * @return true se o número do cartão existe na tabela Card, false caso contrário.
      */
-    public boolean doesCardExist(String cardNumber) {
-        // Lógica para verificar se o número do cartão existe na tabela Card
-        String sql = "SELECT COUNT(*) FROM Card WHERE cardNumber = ?";
+    public boolean doesAccountExist(String accountNumberClient) {
+        // Lógica para verificar se o número da conta existe na tabela BankAccount
+        String sql = "SELECT COUNT(*) FROM BankAccount WHERE accountNumber = ?";
 
         try {
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, cardNumber);
+            preparedStatement.setString(1, accountNumberClient);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 int count = resultSet.getInt(1);
-                return count > 0; // Retorna true se o cartão existe
+                return count > 0; // Retorna true se a conta existe
             }
         } catch (SQLException e) {
             e.printStackTrace(); // Trate adequadamente a exceção
         }
 
-        return false; // Retorna false se houver um erro ou o cartão não existir
+        return false; // Retorna false se houver um erro ou conta não existir
     }
 
+    /**
+     * Obtém o número do cartão do cliente associado a um número de conta.
+     *
+     * @param clientAccountNumber Número da conta do cliente.
+     * @return O número do cartão do cliente associado ao número da conta.
+     */
+    public String getClientCardNumber(String clientAccountNumber) {
+        try {
+            String query = "SELECT cardNumber FROM Card WHERE accountNumber = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, clientAccountNumber);
+            rsCard = preparedStatement.executeQuery();
 
+            if (rsCard.next()) {
+                return rsCard.getString("cardNumber");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rsCard != null) {
+                    rsCard.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error closing resources: " + e.getMessage());
+            }
+        }
+        return null;  // Retorna null se não conseguir obter o clientName
+    }
 
     /**
-     * Obtém o nome do cliente associado a um número de cartão.
+     * Obtém o nome do cliente associado a um número de conta.
      *
-     * @param clientCardNumber Número do cartão do cliente.
-     * @return O nome do cliente associado ao número do cartão.
+     * @param clientAccountNumber Número da conta do cliente.
+     * @return O nome do cliente associado ao número da conta.
      */
-    public String getClientName(String clientCardNumber) {
+    public String getClientName(String clientAccountNumber) {
         try {
-            String query = "SELECT clientName FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
+            String query = "SELECT clientName FROM BankAccount WHERE accountNumber = ?";
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, clientCardNumber);
+            preparedStatement.setString(1, clientAccountNumber);
             rsName = preparedStatement.executeQuery();
 
             if (rsName.next()) {
@@ -228,16 +270,16 @@ public class Query {
     }
 
     /**
-     * Obtém o endereço de e-mail do cliente associado a um número de cartão.
+     * Obtém o endereço de e-mail do cliente associado a um número de conta.
      *
-     * @param clientCardNumber Número do cartão do cliente.
-     * @return O endereço de e-mail do cliente associado ao número do cartão.
+     * @param clientAccountNumber Número da conta do cliente.
+     * @return O endereço de e-mail do cliente associado ao número da conta.
      */
-    public String getClientEmail(String clientCardNumber) {
+    public String getClientEmail(String clientAccountNumber) {
         try {
-            String query = "SELECT email FROM BankAccount WHERE accountNumber IN (SELECT accountNumber FROM Card WHERE cardNumber = ?)";
+            String query = "SELECT email FROM BankAccount WHERE accountNumber = ?";
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, clientCardNumber);
+            preparedStatement.setString(1, clientAccountNumber);
             rsEmail = preparedStatement.executeQuery();
 
             if (rsEmail.next()) {
@@ -320,9 +362,42 @@ public class Query {
     }
 
     /**
-     * Carrega um extrato bancário resumido para um determinado cliente.
+     * Obtém o número da conta do cliente associado a um número de cartão.
      *
      * @param clientCardNumber Número do cartão do cliente.
+     * @return O número da conta do cliente associado ao número do cartão.
+     */
+    public String getAccountNumber(String clientCardNumber) {
+        try {
+            String query = "SELECT accountNumber FROM Card WHERE cardNumber = ?";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, clientCardNumber);
+            rsAccount = preparedStatement.executeQuery();
+
+            if (rsAccount.next()) {
+                return rsAccount.getString("accountNumber");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rsAccount != null) {
+                    rsAccount.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                System.err.println("Error closing resources: " + e.getMessage());
+            }
+        }
+        return null;  // Retorna null se não conseguir obter o email
+    }
+
+    /**
+     * Carrega um extrato bancário resumido para um determinado cliente.
+     *
+     * @param clientAccountNumber Número da conta do cliente.
      * @return Um StringBuilder contendo as últimas 15 movimentações da conta do cliente.
      */
     public StringBuilder loadMiniStatement(String clientAccountNumber) {
@@ -361,37 +436,25 @@ public class Query {
     }
 
     /**
-     * Obtém o gênero associado a um número de cartão.
+     * Obtém o gênero associado a um número de conta.
      *
-     * @param cardNumber Número do cartão para o qual se deseja obter o gênero.
-     * @return O gênero associado à conta bancária vinculada ao número do cartão.
+     * @param clientAccountNumber Número da conta para o qual se deseja obter o gênero.
+     * @return O gênero associado à conta bancária vinculada ao número da conta.
      */
-    public String getGenderFromDatabase(String cardNumber) {
+    public String getGenderFromDatabase(String clientAccountNumber) {
         String gender = null;
-
-        // Obtém o número da conta associado ao número do cartão
-        String getAccountNumberQuery = "SELECT accountNumber FROM Card WHERE cardNumber = ?";
-        try (PreparedStatement accountNumberStatement = connection.prepareStatement(getAccountNumberQuery)) {
-            accountNumberStatement.setString(1, cardNumber);
-            ResultSet accountNumberResultSet = accountNumberStatement.executeQuery();
-
-            if (accountNumberResultSet.next()) {
-                String accountNumber = accountNumberResultSet.getString("accountNumber");
-
                 // Obtém o gênero usando o número da conta
                 String getGenderQuery = "SELECT gender FROM BankAccount WHERE accountNumber = ?";
                 try (PreparedStatement genderStatement = connection.prepareStatement(getGenderQuery)) {
-                    genderStatement.setString(1, accountNumber);
+                    genderStatement.setString(1, clientAccountNumber);
                     ResultSet genderResultSet = genderStatement.executeQuery();
 
                     if (genderResultSet.next()) {
                         gender = genderResultSet.getString("gender");
                     }
+                } catch (SQLException e) {
+                    System.out.println("Erro a obter género da base de dados: " + e.getMessage());
                 }
-            }
-        } catch (SQLException e) {
-            System.out.println("Erro a obter género da base de dados: " + e.getMessage());
-        }
         return gender;
     }
 
