@@ -443,18 +443,18 @@ public class Query {
      */
     public String getGenderFromDatabase(String clientAccountNumber) {
         String gender = null;
-                // Obtém o gênero usando o número da conta
-                String getGenderQuery = "SELECT gender FROM BankAccount WHERE accountNumber = ?";
-                try (PreparedStatement genderStatement = connection.prepareStatement(getGenderQuery)) {
-                    genderStatement.setString(1, clientAccountNumber);
-                    ResultSet genderResultSet = genderStatement.executeQuery();
+        // Obtém o gênero usando o número da conta
+        String getGenderQuery = "SELECT gender FROM BankAccount WHERE accountNumber = ?";
+        try (PreparedStatement genderStatement = connection.prepareStatement(getGenderQuery)) {
+            genderStatement.setString(1, clientAccountNumber);
+            ResultSet genderResultSet = genderStatement.executeQuery();
 
-                    if (genderResultSet.next()) {
-                        gender = genderResultSet.getString("gender");
-                    }
-                } catch (SQLException e) {
-                    System.out.println("Erro a obter género da base de dados: " + e.getMessage());
-                }
+            if (genderResultSet.next()) {
+                gender = genderResultSet.getString("gender");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro a obter género da base de dados: " + e.getMessage());
+        }
         return gender;
     }
 

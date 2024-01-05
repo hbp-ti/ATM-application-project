@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="850.0">
          <image>
-            <Image url="@../images/background.jpg" />
+            <Image url="@../Images/background.jpg" />
          </image>
       </ImageView>
       <Pane layoutX="254.0" layoutY="41.0" prefHeight="519.0" prefWidth="343.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
@@ -39,7 +39,7 @@
             </Label>
             <ImageView fx:id="bankLogo" fitHeight="175.0" fitWidth="175.0" layoutX="84.0" layoutY="82.0">
                <image>
-                  <Image url="@../images/logo2.png" />
+                  <Image url="@../Images/logo2.png" />
                </image>
             </ImageView>
             <Hyperlink fx:id="signupLink" layoutX="217.0" layoutY="475.0" onAction="#switchToSignUp" text="Sign up" textFill="#1464b4">

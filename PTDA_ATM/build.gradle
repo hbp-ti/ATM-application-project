@@ -6,7 +6,7 @@ plugins {
   id 'org.beryx.jlink' version '2.25.0'
 }
 
-group 'ATM'
+group 'PTDA_ATM'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -14,11 +14,11 @@ repositories {
 }
 
 ext {
-  junitVersion = '5.9.2'
+  junitVersion = '5.10.0'
 }
 
-sourceCompatibility = '20'
-targetCompatibility = '20'
+sourceCompatibility = '19'
+targetCompatibility = '19'
 
 tasks.withType(JavaCompile) {
   options.encoding = 'UTF-8'
@@ -30,7 +30,7 @@ application {
 }
 
 javafx {
-  version = '20.0.1'
+  version = '19.0.2'
   modules = ['javafx.controls', 'javafx.fxml']
 }
 
@@ -46,7 +46,8 @@ dependencies {
 }
 
 test {
-useJUnitPlatform()}
+useJUnitPlatform()
+}
 
 jlink {
   imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")

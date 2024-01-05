@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="850.0">
          <image>
-            <Image url="@../images/background.jpg" />
+            <Image url="@../Images/background.jpg" />
          </image>
       </ImageView>
       <Pane layoutX="175.0" layoutY="56.0" prefHeight="489.0" prefWidth="500.0" style="-fx-background-color: #eeeeee; -fx-background-radius: 8;">
@@ -40,7 +40,7 @@
       </Pane>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="51.0" layoutY="549.0">
          <image>
-            <Image url="@../images/logo2.png" />
+            <Image url="@../Images/logo2.png" />
          </image>
       </ImageView>
       <Label layoutX="107.0" layoutY="552.0" prefHeight="34.0" prefWidth="216.0" text="ByteBank" textFill="WHITE">
@@ -55,7 +55,7 @@
          <graphic>
             <ImageView fitHeight="27.0" fitWidth="27.0">
                <image>
-                  <Image url="@../images/gobackArrow.png" />
+                  <Image url="@../Images/gobackArrow.png" />
                </image>
                <effect>
                   <ColorAdjust brightness="1.0" />

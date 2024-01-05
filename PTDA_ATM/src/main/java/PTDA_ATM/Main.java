@@ -36,7 +36,7 @@ public class Main extends Application {
             if (connection.isConnected()) {
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LogIn.fxml"));
                 Scene scene = new Scene(fxmlLoader.load(), 850, 600);
-                stage.getIcons().add(new Image(Main.class.getResourceAsStream("/images/atm.png")));
+                stage.getIcons().add(new Image(Main.class.getResourceAsStream("/Images/atm.png")));
                 stage.setTitle("ATM");
                 stage.setScene(scene);
                 stage.setResizable(false);

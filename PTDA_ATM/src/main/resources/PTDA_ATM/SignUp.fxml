@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="850.0">
          <image>
-            <Image url="@../images/background.jpg" />
+            <Image url="@../Images/background.jpg" />
          </image>
       </ImageView>
       <Pane layoutX="250.0" layoutY="31.0" prefHeight="539.0" prefWidth="351.0" style="-fx-background-color: #EEEEEE; -fx-background-radius: 8;">
@@ -76,14 +76,14 @@
                </font></Button>
             <ImageView fx:id="goBackArrow" fitHeight="34.0" fitWidth="36.0" layoutX="24.0" layoutY="4.0" onMouseClicked="#switchLogInArrow">
                <image>
-                  <Image url="@../images/gobackArrow.png" />
+                  <Image url="@../Images/gobackArrow.png" />
                </image>
             </ImageView>
          </children>
       </Pane>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="59.0" layoutY="549.0">
          <image>
-            <Image url="@../images/logo2.png" />
+            <Image url="@../Images/logo2.png" />
          </image>
       </ImageView>
       <Label layoutX="107.0" layoutY="556.0" text="ByteBank" textFill="WHITE">
