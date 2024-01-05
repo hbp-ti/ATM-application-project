@@ -5,30 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6faf0976-2b59-4273-abdb-11e79217a189" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SQL/Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SQL/Query.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ChangePIN.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ChangePIN.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ChargePhone.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ChargePhone.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/CheckBalance.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/CheckBalance.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Deposit.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Deposit.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/FundTransfer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/FundTransfer.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/LogIn.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/LogIn.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Menu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Menu.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/MenuPayment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/MenuPayment.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/MiniStatement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/MiniStatement.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Options.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Options.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ServicePayment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/ServicePayment.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/SignUp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/SignUp.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/TheStatePayment.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/TheStatePayment.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Withdraw.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/PTDA_ATM/Withdraw.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,41 +44,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.BillsTest.executor": "Run",
-    "Gradle.Build PTDA_ATM.executor": "Run",
-    "Gradle.ConTest.executor": "Run",
-    "Gradle.ConTest.testDoConnection.executor": "Run",
-    "Gradle.ConnTest.testDoConnection.executor": "Run",
-    "Gradle.PTDA_ATM [:Main.main()].executor": "Run",
-    "Gradle.ServicesTest.executor": "Run",
-    "Gradle.ServicesTest.testServicesToString.executor": "Run",
-    "JUnit.BillsTest.executor": "Run",
-    "JUnit.BillsTest.testGetPayment_MapSize.executor": "Run",
-    "JUnit.ConnTest.executor": "Run",
-    "JUnit.QueryTest.executor": "Run",
-    "JUnit.ServicesTest.executor": "Run",
-    "JUnit.TheStateTest.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/PTDA - Projeto/PTDA/PTDA_ATM",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.47931033",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.BillsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build PTDA_ATM.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConTest.testDoConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConnTest.testDoConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PTDA_ATM [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ServicesTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ServicesTest.testServicesToString.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BillsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BillsTest.testGetPayment_MapSize.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConnTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QueryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ServicesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TheStateTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/PTDA - Projeto/PTDA/PTDA_ATM&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.47931033&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -114,7 +91,7 @@
       <recent name="PTDA_ATM" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="PTDA_ATM.Main" />
       <module name="PTDA_ATM.main" />
@@ -209,6 +186,7 @@
       <workItem from="1704486520054" duration="3822000" />
       <workItem from="1704490364415" duration="2838000" />
       <workItem from="1704493310693" duration="148000" />
+      <workItem from="1704493768796" duration="112000" />
     </task>
     <servers />
   </component>
