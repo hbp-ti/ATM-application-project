@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6faf0976-2b59-4273-abdb-11e79217a189" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Diagramas/DiagramaClasses_PTDA.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Diagramas/DiagramaClasses_PTDA.vpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/ConnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/ConnTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/QueryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/QueryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,42 +46,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.BillsTest.executor": "Run",
-    "Gradle.Build PTDA_ATM.executor": "Run",
-    "Gradle.ConTest.executor": "Run",
-    "Gradle.ConTest.testDoConnection.executor": "Run",
-    "Gradle.ConnTest.testDoConnection.executor": "Run",
-    "Gradle.PTDA_ATM [:Main.main()].executor": "Run",
-    "Gradle.ServicesTest.executor": "Run",
-    "Gradle.ServicesTest.testServicesToString.executor": "Run",
-    "JUnit.BillsTest.executor": "Run",
-    "JUnit.BillsTest.testGetPayment_MapSize.executor": "Run",
-    "JUnit.ConnTest.executor": "Run",
-    "JUnit.QueryTest.executor": "Run",
-    "JUnit.QueryTest.testGetAvailableBalance_ValidAccount.executor": "Run",
-    "JUnit.ServicesTest.executor": "Run",
-    "JUnit.TheStateTest.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/PTDA - Projeto/PTDA/PTDA_ATM",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.47931033",
-    "settings.editor.selected.configurable": "terminal",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.BillsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build PTDA_ATM.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConTest.testDoConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConnTest.testDoConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PTDA_ATM [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ServicesTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ServicesTest.testServicesToString.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BillsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BillsTest.testGetPayment_MapSize.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConnTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QueryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QueryTest.testGetAvailableBalance_ValidAccount.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ServicesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TheStateTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/UTILIZADOR/Desktop/ptda test&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.47931033&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -95,7 +94,7 @@
       <recent name="PTDA_ATM" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ConnTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="PTDA_ATM.Main" />
       <module name="PTDA_ATM.main" />
@@ -210,6 +209,9 @@
       <workItem from="1704532991351" duration="339000" />
       <workItem from="1704533353613" duration="1433000" />
       <workItem from="1704534808140" duration="1807000" />
+      <workItem from="1704537260738" duration="37000" />
+      <workItem from="1704539725047" duration="97000" />
+      <workItem from="1704541931440" duration="33000" />
     </task>
     <servers />
   </component>
