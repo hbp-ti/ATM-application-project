@@ -10,11 +10,11 @@ import java.sql.Connection;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConnTest {
-    private Conn conn;
+    private Conn conn = new Conn();;
 
     @BeforeEach
     void setUp() {
-        conn = new Conn();
+
     }
 
     @AfterEach

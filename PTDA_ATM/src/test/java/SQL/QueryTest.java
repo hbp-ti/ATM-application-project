@@ -9,18 +9,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class QueryTest {
-    private Conn conn;
+    private Conn conn = new Conn();
     private Query query;
 
     @BeforeEach
     public void setUp() {
-        conn = new Conn();
-        conn.doConnection();
         query = new Query();
     }
 
     @AfterEach
     void tearDown() {
+
         if (conn.isConnected()) {
             conn.close();
         }
