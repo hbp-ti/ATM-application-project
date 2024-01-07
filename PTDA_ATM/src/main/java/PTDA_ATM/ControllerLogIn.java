@@ -26,13 +26,13 @@ public class ControllerLogIn {
      * Campo de entrada para o número do cartão do cliente.
      */
     @FXML
-    private TextField cardNumberInput;
+    protected TextField cardNumberInput;
 
     /**
      * Campo de entrada para a senha do cliente.
      */
     @FXML
-    private PasswordField passwordInput;
+    protected PasswordField passwordInput;
 
     /**
      * Botão de login.
@@ -44,7 +44,7 @@ public class ControllerLogIn {
      * Rótulo para exibir mensagens de validação ou erro.
      */
     @FXML
-    private Label labelValidation;
+    protected Label labelValidation;
 
     /**
      * Hiperlink para a página de cadastro.
@@ -76,7 +76,7 @@ public class ControllerLogIn {
     /**
      * Número da conta do cliente.
      */
-    private String clientAccountNumber;
+    protected String clientAccountNumber;
 
     /**
      * Senha do cliente.
@@ -86,7 +86,7 @@ public class ControllerLogIn {
     /**
      * Nome do cliente.
      */
-    private String clientName;
+    protected String clientName;
 
     /**
      * Objeto para executar consultas no banco de dados.

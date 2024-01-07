@@ -504,7 +504,7 @@ public class Query {
      * @return True se o número de telefone já existir; false, caso contrário.
      * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
      */
-    private boolean doesPhoneNumberExist(String phoneNumber) throws SQLException {
+    public boolean doesPhoneNumberExist(String phoneNumber) throws SQLException {
         String query = "SELECT phoneNumber FROM BankAccount WHERE phoneNumber = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, phoneNumber);
@@ -595,7 +595,7 @@ public class Query {
      * @return O número de conta gerado.
      * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
      */
-    private String generateAccountNumber() throws SQLException {
+    public String generateAccountNumber() throws SQLException {
         while (true) {
             String accountNumber = generateRandomNumber(20);
             if (!isAccountNumberExists(accountNumber)) {
@@ -611,7 +611,7 @@ public class Query {
      * @return True se o número de conta já existir; false, caso contrário.
      * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
      */
-    private boolean isAccountNumberExists(String accountNumber) throws SQLException {
+    boolean isAccountNumberExists(String accountNumber) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM BankAccount WHERE accountNumber = ?");
         preparedStatement.setString(1, accountNumber);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -626,7 +626,7 @@ public class Query {
      * @param length Comprimento do número gerado.
      * @return O número aleatório gerado.
      */
-    private String generateRandomNumber(int length) {
+    public String generateRandomNumber(int length) {
         StringBuilder number = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < length; i++) {
@@ -673,7 +673,7 @@ public class Query {
      * @return True se o número de cartão já existir; false, caso contrário.
      * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
      */
-    private boolean isCardNumberExists(String cardNumber) throws SQLException {
+    public boolean isCardNumberExists(String cardNumber) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Card WHERE cardNumber = ?");
         preparedStatement.setString(1, cardNumber);
         ResultSet resultSet = preparedStatement.executeQuery();

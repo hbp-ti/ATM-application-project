@@ -21,6 +21,17 @@ public class Main extends Application {
      */
     private Conn connection;
 
+
+    /**
+     * Retrieves the connection object.
+     *
+     * @return The connection object.
+     */
+    public Conn getConnection() {
+        return connection;
+    }
+
+
     /**
      * O método start é chamado quando a aplicação é iniciada.
      * Ele configura a interface gráfica do user e exibe a tela de login.
