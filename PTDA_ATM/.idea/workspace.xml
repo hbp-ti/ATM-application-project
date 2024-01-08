@@ -5,45 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6faf0976-2b59-4273-abdb-11e79217a189" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerLogInTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/MainTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SQL/Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SQL/Query.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/DepositLogoAlternativo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/DepositLogoAlternativo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/FundTransferLogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/FundTransferLogo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/PINLogoAlternativo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/PINLogoAlternativo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/Payments.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/Payments.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/StatePaymentLogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/StatePaymentLogo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/WithdrawLogoAlternativo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/WithdrawLogoAlternativo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/atm.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/atm.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/avatar_female.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/avatar_female.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/avatar_male.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/avatar_male.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/avatar_other.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/avatar_other.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/background.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/background.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/balance.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/balance.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/bankLogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/bankLogo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/changePin.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/changePin.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/changePinLogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/changePinLogo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/chargePhone.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/chargePhone.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/checkBalanceLogo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/checkBalanceLogo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/deposit.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/deposit.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/gobackArrow.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/gobackArrow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/leftArrow.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/leftArrow.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/logo2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/logo2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/ministatement.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/ministatement.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/options.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/options.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/phoneCharge.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/phoneCharge.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/servicePayment.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/servicePayment.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/theStatePayment.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/theStatePayment.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/transfer.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/transfer.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/withdraw.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Images/withdraw.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/QueryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/QueryTest.java" afterDir="false" />
     </list>
-    <list id="910dc2de-6e06-480e-a525-d03ca263df6c" name="Changes by goncalo farias" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerLogIn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerLogIn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/QueryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/QueryTest.java" afterDir="false" />
-    </list>
+    <list id="910dc2de-6e06-480e-a525-d03ca263df6c" name="Changes by goncalo farias" comment="" />
     <list id="20b4ae41-4a36-45d4-9b9e-e650ad18d3f0" name="Changes by rrodr" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,23 +37,6 @@
     <setting file="file://$PROJECT_DIR$/src/main/java/SQL/Query.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/test/java/SQL/QueryTest.java" root0="SKIP_INSPECTION" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/test/java/SQL/QueryTest.java">
-      <ranges>
-        <range start1="3" end1="3" start2="3" end2="4" changelist="6faf0976-2b59-4273-abdb-11e79217a189" />
-        <range start1="8" end1="8" start2="9" end2="14" changelist="910dc2de-6e06-480e-a525-d03ca263df6c" />
-        <range start1="31" end1="32" start2="37" end2="37" changelist="6faf0976-2b59-4273-abdb-11e79217a189" />
-        <range start1="34" end1="35" start2="39" end2="39" changelist="6faf0976-2b59-4273-abdb-11e79217a189" />
-        <range start1="42" end1="43" start2="46" end2="46" changelist="6faf0976-2b59-4273-abdb-11e79217a189" />
-        <range start1="45" end1="46" start2="48" end2="48" changelist="6faf0976-2b59-4273-abdb-11e79217a189" />
-        <range start1="53" end1="54" start2="55" end2="55" changelist="6faf0976-2b59-4273-abdb-11e79217a189" />
-        <range start1="55" end1="57" start2="56" end2="56" changelist="6faf0976-2b59-4273-abdb-11e79217a189" />
-        <range start1="64" end1="65" start2="63" end2="63" changelist="6faf0976-2b59-4273-abdb-11e79217a189" />
-        <range start1="66" end1="68" start2="64" end2="64" changelist="6faf0976-2b59-4273-abdb-11e79217a189" />
-        <range start1="70" end1="71" start2="66" end2="1174" changelist="6faf0976-2b59-4273-abdb-11e79217a189" />
-      </ranges>
-    </file>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -98,43 +45,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.BillsTest.executor": "Run",
-    "Gradle.Build PTDA_ATM.executor": "Run",
-    "Gradle.ConTest.executor": "Run",
-    "Gradle.ConTest.testDoConnection.executor": "Run",
-    "Gradle.ConnTest.testDoConnection.executor": "Run",
-    "Gradle.PTDA_ATM [:Main.main()].executor": "Run",
-    "Gradle.ServicesTest.executor": "Run",
-    "Gradle.ServicesTest.testServicesToString.executor": "Run",
-    "JUnit.BillsTest.executor": "Run",
-    "JUnit.BillsTest.testGetPayment_MapSize.executor": "Run",
-    "JUnit.ConnTest.executor": "Run",
-    "JUnit.ControllerLogInTest.executor": "Run",
-    "JUnit.QueryTest.executor": "Run",
-    "JUnit.QueryTest.testGetAvailableBalance_ValidAccount.executor": "Run",
-    "JUnit.ServicesTest.executor": "Run",
-    "JUnit.TheStateTest.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/PTDA - Projeto/PTDA/PTDA_ATM",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.47931033",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.BillsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build PTDA_ATM.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConTest.testDoConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConnTest.testDoConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PTDA_ATM [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ServicesTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ServicesTest.testServicesToString.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BillsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BillsTest.testGetPayment_MapSize.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConnTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerLogInTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QueryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QueryTest.testGetAvailableBalance_ValidAccount.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ServicesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TheStateTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/PTDA - Projeto/PTDA/PTDA_ATM&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.47931033&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.General&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -147,7 +94,7 @@
       <recent name="SQL" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.ControllerLogInTest">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="PTDA_ATM.Main" />
       <method v="2">
@@ -273,6 +220,8 @@
       <workItem from="1704638922794" duration="164000" />
       <workItem from="1704639107027" duration="80000" />
       <workItem from="1704639199519" duration="3728000" />
+      <workItem from="1704654081290" duration="667000" />
+      <workItem from="1704654929986" duration="96000" />
     </task>
     <servers />
   </component>
