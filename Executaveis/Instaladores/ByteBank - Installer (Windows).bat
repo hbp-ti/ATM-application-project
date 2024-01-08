@@ -59,3 +59,16 @@ echo oLink.IconLocation = "%USERPROFILE%\ByteBankData\Resources\logo2.ico" >> cr
 echo oLink.Save >> createShortcut.vbs
 cscript createShortcut.vbs
 del createShortcut.vbs
+
+REM Cria um atalho para o script em batch com o nome ByteBank na área de trabalho do oneDrive
+if exist "%UserProfile%\OneDrive" (
+    echo Set oWS = WScript.CreateObject("WScript.Shell") > createShortcut.vbs
+    echo sLinkFile = "%USERPROFILE%\OneDrive\Desktop\ByteBank.lnk" >> createShortcut.vbs
+    echo Set oLink = oWS.CreateShortcut(sLinkFile) >> createShortcut.vbs
+    echo oLink.TargetPath = "%USERPROFILE%\ByteBankData\runByteBank.bat" >> createShortcut.vbs
+    echo oLink.WorkingDirectory = "%USERPROFILE%\ByteBankData\Resources" >> createShortcut.vbs
+    echo oLink.IconLocation = "%USERPROFILE%\ByteBankData\Resources\logo2.ico" >> createShortcut.vbs
+    echo oLink.Save >> createShortcut.vbs
+    cscript createShortcut.vbs
+    del createShortcut.vbs
+)
