@@ -15,17 +15,17 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 class QueryTest {
-    private Conn conn = new Conn();
+    private ConnSimulated conn;
     private Query query;
 
     @BeforeEach
     public void setUp() {
+        conn = new ConnSimulated();
         query = new Query();
     }
 
     @AfterEach
     void tearDown() {
-
         if (conn.isConnected()) {
             conn.close();
         }
@@ -174,7 +174,7 @@ class QueryTest {
             query.movement(clientAccountNumber, type, value, description);
         });
     }
-
+//aqui
     @DisplayName("Test: Movement - Negative Value")
     @Test
     void testMovement_NegativeValue() {

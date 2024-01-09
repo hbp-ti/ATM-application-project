@@ -40,6 +40,7 @@ public class Query {
      */
     private ResultSet rsAccount;
 
+
     /**
      * Conexão com o banco de dados obtida da classe Conn.
      */
@@ -681,5 +682,4 @@ public class Query {
         int count = resultSet.getInt(1);
         return count > 0;
     }
-
 }
