@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6faf0976-2b59-4273-abdb-11e79217a189" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/SQL/ConnSimulated.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/SQL/ConnSimulatedTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/SQL/Query.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/SQL/Query.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/ConnTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/QueryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/QueryTest.java" afterDir="false" />
-    </list>
-    <list id="910dc2de-6e06-480e-a525-d03ca263df6c" name="Changes by goncalo farias" comment="" />
-    <list id="20b4ae41-4a36-45d4-9b9e-e650ad18d3f0" name="Changes by rrodr" comment="">
       <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerLogInTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerLogInTest.java" afterDir="false" />
     </list>
+    <list id="910dc2de-6e06-480e-a525-d03ca263df6c" name="Changes by goncalo farias" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,6 +55,7 @@
     "Gradle.ConTest.testDoConnection.executor": "Run",
     "Gradle.ConnTest.testDoConnection.executor": "Run",
     "Gradle.PTDA_ATM [:Main.main()].executor": "Run",
+    "Gradle.PTDA_ATM.executor": "Debug",
     "Gradle.ServicesTest.executor": "Run",
     "Gradle.ServicesTest.testServicesToString.executor": "Run",
     "JUnit.BillsTest.executor": "Run",
@@ -81,7 +75,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/UTILIZADOR/Documents/Escola/Universidade Aveiro - ESTGA/2º Ano/1º Semestre/PTDA - Projeto/PTDA/PTDA_ATM",
+    "last_opened_file_path": "C:/Users/UTILIZADOR/AppData/Local/SceneBuilder/SceneBuilder.exe",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -90,7 +84,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.47931033",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -106,12 +100,32 @@
       <recent name="PTDA_ATM" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.QueryTest.testGetAvailableBalance_ValidAccount">
+  <component name="RunManager" selected="Gradle.PTDA_ATM">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="PTDA_ATM.Main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="PTDA_ATM" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
     </configuration>
     <configuration name="ConnStubTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PTDA_ATM.test" />
@@ -124,22 +138,6 @@
       <option name="PACKAGE_NAME" value="SQL" />
       <option name="MAIN_CLASS_NAME" value="SQL.ConnStubTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ConnStubTest.testGetSimulatedConnection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PTDA_ATM.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="SQL.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="SQL" />
-      <option name="MAIN_CLASS_NAME" value="SQL.ConnStubTest" />
-      <option name="METHOD_NAME" value="testGetSimulatedConnection" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -192,19 +190,19 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Gradle.PTDA_ATM" />
       <item itemvalue="JUnit.ConnStubTest" />
-      <item itemvalue="JUnit.ConnStubTest.testGetSimulatedConnection" />
       <item itemvalue="JUnit.ConnStubTest.testGetSimulatedConnectionAfterFailure" />
       <item itemvalue="JUnit.ControllerLogInTest" />
       <item itemvalue="JUnit.QueryTest.testGetAvailableBalance_ValidAccount" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.QueryTest.testGetAvailableBalance_ValidAccount" />
+        <item itemvalue="Gradle.PTDA_ATM" />
         <item itemvalue="JUnit.ConnStubTest" />
-        <item itemvalue="JUnit.ConnStubTest.testGetSimulatedConnectionAfterFailure" />
-        <item itemvalue="JUnit.ConnStubTest.testGetSimulatedConnection" />
         <item itemvalue="JUnit.ControllerLogInTest" />
+        <item itemvalue="JUnit.QueryTest.testGetAvailableBalance_ValidAccount" />
+        <item itemvalue="JUnit.ConnStubTest.testGetSimulatedConnectionAfterFailure" />
       </list>
     </recent_temporary>
   </component>
@@ -237,6 +235,9 @@
       <workItem from="1704654081290" duration="667000" />
       <workItem from="1704654929986" duration="96000" />
       <workItem from="1704793353858" duration="6546000" />
+      <workItem from="1704804743895" duration="3209000" />
+      <workItem from="1704819256330" duration="616000" />
+      <workItem from="1704820038184" duration="97000" />
     </task>
     <servers />
   </component>
