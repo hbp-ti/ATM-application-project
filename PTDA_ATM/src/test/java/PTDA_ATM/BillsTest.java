@@ -12,31 +12,28 @@ class BillsTest {
     private Bills bills;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         bills = new Bills();
     }
 
-    // Input partition test
-    @DisplayName("Test: Get Map of Accounts and Services - Check for non-null")
     @Test
-    public void testGetPayment_NotNull() {
+    @DisplayName("NotNull: Get Payment Map")
+    void testGetPayment_NotNull() {
         HashMap<String, Object> payment = bills.getPayment();
-        assertNotNull(payment, "The map of accounts and services should not be null.");
+        assertNotNull(payment, "Map of accounts and services should not be null.");
     }
 
-    // Input partition test
-    @DisplayName("Test: Get Map of Accounts and Services - Check map size")
     @Test
-    public void testGetPayment_MapSize() {
+    @DisplayName("Map Size: Get Payment Map")
+    void testGetPayment_MapSize() {
         HashMap<String, Object> payment = bills.getPayment();
         int expectedSize = 16;
-        assertEquals(expectedSize, payment.size(), "The map size should match the expected size.");
+        assertEquals(expectedSize, payment.size(), "Map size should match the expected size.");
     }
 
-    // Structural test
-    @DisplayName("Test: Available Accounts and Services - Check correct instance")
     @Test
-    public void testBillsObject_InstanceOfServicesOrTheState() {
+    @DisplayName("InstanceOf: Accounts and Services")
+    void testBillsObject_InstanceOfServicesOrTheState() {
         HashMap<String, Object> payment = bills.getPayment();
 
         for (Object value : payment.values()) {

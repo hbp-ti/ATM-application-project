@@ -6,10 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="6faf0976-2b59-4273-abdb-11e79217a189" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerOptionsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerOptionsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/BillsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/BillsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerChangePINTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerChangePINTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerChargePhoneTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerChargePhoneTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerDepositTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerDepositTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerFundTransferTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerFundTransferTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerMenuPaymentTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerMenuPaymentTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerServicePaymentTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerServicePaymentTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerSignUpTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerSignUpTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerTheStatePaymentTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerTheStatePaymentTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerWithdrawTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerWithdrawTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/MainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ServicesTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ServicesTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/TheStateTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/TheStateTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/SQL/ConnSimulatedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SQL/ConnSimulatedTest.java" afterDir="false" />
     </list>
     <list id="910dc2de-6e06-480e-a525-d03ca263df6c" name="Changes by goncalo farias" comment="" />
-    <list id="4c3eedf6-94a6-43da-a9fa-043c889b1eb4" name="Changes by rrodr" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,83 +61,83 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.BillsTest.executor": "Run",
-    "Gradle.Build PTDA_ATM.executor": "Run",
-    "Gradle.ConTest.executor": "Run",
-    "Gradle.ConTest.testDoConnection.executor": "Run",
-    "Gradle.ConnTest.testDoConnection.executor": "Run",
-    "Gradle.PTDA_ATM [:ControllerTheStatePaymentTest.main()].executor": "Run",
-    "Gradle.PTDA_ATM [:Main.main()].executor": "Run",
-    "Gradle.PTDA_ATM.executor": "Debug",
-    "Gradle.ServicesTest.executor": "Run",
-    "Gradle.ServicesTest.testServicesToString.executor": "Run",
-    "JUnit.BillsTest.executor": "Run",
-    "JUnit.BillsTest.testGetPayment_MapSize.executor": "Run",
-    "JUnit.ConnStubTest.executor": "Run",
-    "JUnit.ConnStubTest.testGetSimulatedConnection.executor": "Run",
-    "JUnit.ConnStubTest.testGetSimulatedConnectionAfterFailure.executor": "Run",
-    "JUnit.ConnTest.executor": "Run",
-    "JUnit.ControllerChangePINTest.executor": "Run",
-    "JUnit.ControllerChargePhoneTest.executor": "Run",
-    "JUnit.ControllerDepositTest.executor": "Run",
-    "JUnit.ControllerFundTransferTest.executor": "Run",
-    "JUnit.ControllerLogInTest.executor": "Run",
-    "JUnit.ControllerMenuPaymentTest.executor": "Run",
-    "JUnit.ControllerMenuPaymentTest.testSetValidClientName.executor": "Run",
-    "JUnit.ControllerOptionsTest.executor": "Run",
-    "JUnit.ControllerServicePaymentTest.executor": "Run",
-    "JUnit.ControllerServicePaymentTest.testValidatePayment_ValidPayment_ReturnsTrue.executor": "Run",
-    "JUnit.ControllerSignUpTest.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.getHashMap_ReturnsHashMapWithExpectedContents.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.getHashMap_ReturnsNonNullHashMap.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.testSetClientAccountNumber_EmptyInput_Initialization.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.testSetClientAccountNumber_NullInput_Initialization.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.testSetClientAccountNumber_ValidInput_Initialization.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.testValidatePayment_IncorrectInputTypes_ReturnsFalse.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.testValidatePayment_ValidPayment_ReturnsTrue.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.validatePayment_IncorrectAmount_ShouldReturnFalse.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.validatePayment_Inval1dAmount_ShouldReturnFalse.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.validatePayment_InvalidAmount_ShouldReturnFalse.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.validatePayment_InvalidReference_ShouldReturnFalse.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.validatePayment_MissingReference_ShouldReturnFalse.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.validatePayment_ValidDetails_ShouldR3turnTrue.executor": "Run",
-    "JUnit.ControllerTheStatePaymentTest.validatePayment_ValidDetails_ShouldReturnTrue.executor": "Run",
-    "JUnit.ControllerWithdrawTest.executor": "Run",
-    "JUnit.ControllerWithdrawTest.testEmptyWithdrawAmount.executor": "Run",
-    "JUnit.ControllerWithdrawTest.testInvalidFormatWithdrawAmount.executor": "Run",
-    "JUnit.ControllerWithdrawTest.testMultipleDecimalPointsWithdrawAmount.executor": "Run",
-    "JUnit.ControllerWithdrawTest.testNegativeWithdrawAmount.executor": "Run",
-    "JUnit.ControllerWithdrawTest.testNonNumericWithdrawAmount.executor": "Run",
-    "JUnit.ControllerWithdrawTest.testValidWithdrawAmountt.executor": "Run",
-    "JUnit.ControllerWithdrawTest.testWhitespaceWithdrawAmount.executor": "Run",
-    "JUnit.MainTest.executor": "Run",
-    "JUnit.QueryTest.executor": "Run",
-    "JUnit.QueryTest.testGetAvailableBalance_ValidAccount.executor": "Run",
-    "JUnit.ServicesTest.executor": "Run",
-    "JUnit.TheStateTest.executor": "Run",
-    "JUnit.ValidateInputTest.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/UTILIZADOR/AppData/Local/SceneBuilder/SceneBuilder.exe",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.47931033",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.BillsTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build PTDA_ATM.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConTest.testDoConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ConnTest.testDoConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PTDA_ATM [:ControllerTheStatePaymentTest.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PTDA_ATM [:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PTDA_ATM.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.ServicesTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ServicesTest.testServicesToString.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BillsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BillsTest.testGetPayment_MapSize.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConnStubTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConnStubTest.testGetSimulatedConnection.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConnStubTest.testGetSimulatedConnectionAfterFailure.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ConnTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerChangePINTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerChargePhoneTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerDepositTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerFundTransferTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerLogInTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerMenuPaymentTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerMenuPaymentTest.testSetValidClientName.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerOptionsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerServicePaymentTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerServicePaymentTest.testValidatePayment_ValidPayment_ReturnsTrue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerSignUpTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.getHashMap_ReturnsHashMapWithExpectedContents.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.getHashMap_ReturnsNonNullHashMap.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.testSetClientAccountNumber_EmptyInput_Initialization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.testSetClientAccountNumber_NullInput_Initialization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.testSetClientAccountNumber_ValidInput_Initialization.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.testValidatePayment_IncorrectInputTypes_ReturnsFalse.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.testValidatePayment_ValidPayment_ReturnsTrue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.validatePayment_IncorrectAmount_ShouldReturnFalse.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.validatePayment_Inval1dAmount_ShouldReturnFalse.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.validatePayment_InvalidAmount_ShouldReturnFalse.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.validatePayment_InvalidReference_ShouldReturnFalse.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.validatePayment_MissingReference_ShouldReturnFalse.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.validatePayment_ValidDetails_ShouldR3turnTrue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerTheStatePaymentTest.validatePayment_ValidDetails_ShouldReturnTrue.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerWithdrawTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerWithdrawTest.testEmptyWithdrawAmount.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerWithdrawTest.testInvalidFormatWithdrawAmount.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerWithdrawTest.testMultipleDecimalPointsWithdrawAmount.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerWithdrawTest.testNegativeWithdrawAmount.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerWithdrawTest.testNonNumericWithdrawAmount.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerWithdrawTest.testValidWithdrawAmountt.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ControllerWithdrawTest.testWhitespaceWithdrawAmount.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MainTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QueryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QueryTest.testGetAvailableBalance_ValidAccount.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ServicesTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TheStateTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ValidateInputTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/UTILIZADOR/AppData/Local/SceneBuilder/SceneBuilder.exe&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.47931033&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -138,14 +150,14 @@
       <recent name="SQL" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ControllerFundTransferTest">
+  <component name="RunManager">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="PTDA_ATM.Main" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ControllerFundTransferTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ControllerTheStatePaymentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PTDA_ATM.test" />
       <extension name="coverage">
         <pattern>
@@ -154,13 +166,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="PTDA_ATM" />
-      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerFundTransferTest" />
+      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerTheStatePaymentTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ControllerMenuPaymentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ControllerWithdrawTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PTDA_ATM.test" />
       <extension name="coverage">
         <pattern>
@@ -169,13 +181,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="PTDA_ATM" />
-      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerMenuPaymentTest" />
+      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerWithdrawTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ControllerOptionsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MainTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PTDA_ATM.test" />
       <extension name="coverage">
         <pattern>
@@ -184,13 +196,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="PTDA_ATM" />
-      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerOptionsTest" />
+      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.MainTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ControllerServicePaymentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ServicesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PTDA_ATM.test" />
       <extension name="coverage">
         <pattern>
@@ -199,13 +211,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="PTDA_ATM" />
-      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerServicePaymentTest" />
+      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ServicesTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ControllerSignUpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TheStateTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PTDA_ATM.test" />
       <extension name="coverage">
         <pattern>
@@ -214,26 +226,26 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="PTDA_ATM" />
-      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerSignUpTest" />
+      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.TheStateTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.ControllerMenuPaymentTest" />
-      <item itemvalue="JUnit.ControllerOptionsTest" />
-      <item itemvalue="JUnit.ControllerServicePaymentTest" />
-      <item itemvalue="JUnit.ControllerSignUpTest" />
-      <item itemvalue="JUnit.ControllerFundTransferTest" />
+      <item itemvalue="JUnit.ControllerTheStatePaymentTest" />
+      <item itemvalue="JUnit.ControllerWithdrawTest" />
+      <item itemvalue="JUnit.MainTest" />
+      <item itemvalue="JUnit.ServicesTest" />
+      <item itemvalue="JUnit.TheStateTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ControllerFundTransferTest" />
-        <item itemvalue="JUnit.ControllerMenuPaymentTest" />
-        <item itemvalue="JUnit.ControllerOptionsTest" />
-        <item itemvalue="JUnit.ControllerServicePaymentTest" />
-        <item itemvalue="JUnit.ControllerSignUpTest" />
+        <item itemvalue="JUnit.MainTest" />
+        <item itemvalue="JUnit.TheStateTest" />
+        <item itemvalue="JUnit.ServicesTest" />
+        <item itemvalue="JUnit.ControllerWithdrawTest" />
+        <item itemvalue="JUnit.ControllerTheStatePaymentTest" />
       </list>
     </recent_temporary>
   </component>
@@ -274,6 +286,7 @@
       <workItem from="1704844754863" duration="583000" />
       <workItem from="1704845379748" duration="2248000" />
       <workItem from="1704847742997" duration="191000" />
+      <workItem from="1704921506423" duration="2313000" />
     </task>
     <servers />
   </component>

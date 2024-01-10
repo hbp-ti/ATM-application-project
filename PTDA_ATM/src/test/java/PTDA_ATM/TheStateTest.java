@@ -7,39 +7,35 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TheStateTest {
 
-    // Structural test
-    @DisplayName("Test: Check State Object Creation - Verify the correct value")
     @Test
-    public void testTheStateObject_CorrectValue() {
+    @DisplayName("Create State - Correct Value")
+    void createStateCorrectValue() {
         double expectedValue = 123.45;
         TheState state = new TheState(expectedValue);
-        assertEquals(expectedValue, state.getValue(), "The state object should have the correct value.");
+        assertEquals(expectedValue, state.getValue(), "State should have the correct value.");
     }
 
-    // Boundary input partition test
-    @DisplayName("Test: State Object Value - Minimum Value Allowed")
     @Test
-    public void testTheStateObject_MinimumValue() {
+    @DisplayName("State Value - Minimum Allowed")
+    void stateValueMinimumAllowed() {
         double minValue = Double.MIN_VALUE;
         TheState state = new TheState(minValue);
-        assertEquals(minValue, state.getValue(), "The state object should accept the minimum allowed value.");
+        assertEquals(minValue, state.getValue(), "State should accept the minimum allowed value.");
     }
 
-    // Boundary input partition test
-    @DisplayName("Test: State Object Value - Maximum Value Allowed")
     @Test
-    public void testTheStateObject_MaximumValue() {
+    @DisplayName("State Value - Maximum Allowed")
+    void stateValueMaximumAllowed() {
         double maxValue = Double.MAX_VALUE;
         TheState state = new TheState(maxValue);
-        assertEquals(maxValue, state.getValue(), "The state object should accept the maximum allowed value.");
+        assertEquals(maxValue, state.getValue(), "State should accept the maximum allowed value.");
     }
 
-    // Boundary input partition test
-    @DisplayName("Test: State Object Value - Zero Value")
     @Test
-    public void testTheStateObject_ZeroValue() {
+    @DisplayName("State Value - Zero Value")
+    void stateValueZero() {
         double zeroValue = 0.0;
         TheState state = new TheState(zeroValue);
-        assertEquals(zeroValue, state.getValue(), "The state object should accept a zero value.");
+        assertEquals(zeroValue, state.getValue(), "State should accept a zero value.");
     }
 }

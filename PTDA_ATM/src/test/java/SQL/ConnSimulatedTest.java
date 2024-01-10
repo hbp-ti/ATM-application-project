@@ -6,7 +6,7 @@ import java.sql.Connection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ConnStubTest {
+class ConnSimulatedTest {
 
     private ConnSimulated conn;
 

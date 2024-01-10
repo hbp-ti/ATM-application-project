@@ -1,9 +1,6 @@
 package PTDA_ATM;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerDepositTest {
@@ -18,41 +15,38 @@ class ControllerDepositTest {
     void tearDown() {
         controller = null;
     }
+
     @Test
     @DisplayName("Valid Deposit Amount")
-    public void testValidDepositAmount() {
+    void testValidDepositAmount() {
         boolean isValid = controller.validateInput("100.00");
         assertTrue(isValid, "Expected valid input, but returned false.");
     }
 
     @Test
     @DisplayName("Invalid Deposit Amount: Non-Numeric")
-    public void testInvalidDepositAmount_NonNumeric() {
-        ControllerDeposit controller = new ControllerDeposit();
+    void testInvalidDepositAmount_NonNumeric() {
         boolean isValid = controller.validateInput("abc");
-        assertFalse(isValid, "Expected invalid deposit amount (non-numeric), but returned true.");
+        assertFalse(isValid, "Expected invalid amount (non-numeric), but returned true.");
     }
 
     @Test
     @DisplayName("Invalid Deposit Amount: Invalid Format")
-    public void testInvalidDepositAmount_InvalidFormat() {
-        ControllerDeposit controller = new ControllerDeposit();
+    void testInvalidDepositAmount_InvalidFormat() {
         boolean isValid = controller.validateInput("1.2.3");
-        assertFalse(isValid, "Expected invalid deposit amount (invalid format), but returned true.");
+        assertFalse(isValid, "Expected invalid amount (invalid format), but returned true.");
     }
 
     @Test
     @DisplayName("Invalid Deposit Amount: No Decimal Part")
-    public void testInvalidDepositAmount_NoDecimalPart() {
-        ControllerDeposit controller = new ControllerDeposit();
+    void testInvalidDepositAmount_NoDecimalPart() {
         boolean isValid = controller.validateInput("100");
         assertTrue(isValid, "Expected valid input (integer), but returned false.");
     }
 
     @Test
     @DisplayName("Invalid Deposit Amount: Negative Value")
-    public void testInvalidDepositAmount_NegativeValue() {
-        ControllerDeposit controller = new ControllerDeposit();
+    void testInvalidDepositAmount_NegativeValue() {
         boolean isValid = controller.validateInput("-100.00");
         assertFalse(isValid, "Expected invalid input (negative value), but returned true.");
     }

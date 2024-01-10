@@ -13,6 +13,7 @@ class MainTest {
 
     private Main main;
     private ConnSimulated conn;
+
     @BeforeEach
     public void setUp() {
         main = new Main();
@@ -24,30 +25,30 @@ class MainTest {
         main = null;
     }
 
-    @DisplayName("Test: Get Connection")
     @Test
+    @DisplayName("Get Connection")
     public void testGetConnection() {
         main.setConnection(conn);
         assertEquals(conn, main.getConnection(), "Should get the connection set");
     }
 
-    @DisplayName("Test: Set Connection")
     @Test
+    @DisplayName("Set Connection")
     public void testSetConnection() {
         main.setConnection(conn);
         assertEquals(conn, main.getConnection(), "Should set the connection");
     }
 
-    @DisplayName("Test: Stop Method with Open Connection")
     @Test
+    @DisplayName("Stop with Open Connection")
     public void testStopWithOpenConnection() {
         main.setConnection(conn);
         main.stop();
         assertFalse(conn.isConnected(), "Connection should be closed after stopping the application");
     }
 
-    @DisplayName("Test: Stop Method with Closed Connection")
     @Test
+    @DisplayName("Stop with Closed Connection")
     public void testStopWithClosedConnection() {
         main.setConnection(conn);
         conn.doConnection();

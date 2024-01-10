@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerWithdrawTest {
+
     private ControllerWithdraw controller;
+
     @BeforeEach
     void setUp() {
         controller = new ControllerWithdraw();
@@ -19,13 +21,8 @@ class ControllerWithdrawTest {
     }
 
     @Test
-    public void testValidWithdrawAmount() {
-        assertTrue(controller.validateInput("50.25"));
-    }
-
-    @Test
     @DisplayName("Valid Withdraw Amount")
-    public void testValidWithdrawAmountt() {
+    public void testValidWithdrawAmount() {
         assertTrue(controller.validateInput("50.25"), "Expected valid withdrawal amount");
     }
 
@@ -64,6 +61,4 @@ class ControllerWithdrawTest {
     public void testEmptyWithdrawAmount() {
         assertFalse(controller.validateInput(""), "Expected empty input to be invalid");
     }
-
-
 }

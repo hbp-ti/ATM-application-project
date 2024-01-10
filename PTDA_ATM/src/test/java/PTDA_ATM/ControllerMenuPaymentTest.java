@@ -1,10 +1,7 @@
 package PTDA_ATM;
 
 import PTDA_ATM.ControllerMenuPayment;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ControllerMenuPaymentTest {
@@ -12,7 +9,7 @@ public class ControllerMenuPaymentTest {
     private ControllerMenuPayment controller;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         controller = new ControllerMenuPayment();
     }
 
@@ -22,24 +19,24 @@ public class ControllerMenuPaymentTest {
     }
 
     @Test
-    @DisplayName("Valid value test for setClientName")
-    public void testSetValidClientName() {
+    @DisplayName("Set Valid Client Name")
+    void testSetValidClientName() {
         String clientName = "John Doe";
         controller.setClientName(clientName);
         assertEquals(clientName, controller.getClientName(), "Failed to assign a valid name to the client");
     }
 
     @Test
-    @DisplayName("Null value test for setClientName")
-    public void testSetNullClientName() {
+    @DisplayName("Set Null Client Name")
+    void testSetNullClientName() {
         String clientName = null;
         controller.setClientName(clientName);
         assertNull(controller.getClientName(), "Failed to handle a null value for the client name");
     }
 
     @Test
-    @DisplayName("Client name update test")
-    public void testUpdateClientName() {
+    @DisplayName("Update Client Name")
+    void testUpdateClientName() {
         String initialName = "John Doe";
         String updatedName = "Jane Smith";
 
@@ -49,5 +46,4 @@ public class ControllerMenuPaymentTest {
         controller.setClientName(updatedName);
         assertEquals(updatedName, controller.getClientName(), "Failed to update the client name");
     }
-
 }
