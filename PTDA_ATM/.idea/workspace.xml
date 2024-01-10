@@ -5,35 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6faf0976-2b59-4273-abdb-11e79217a189" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerChangePINTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerChargePhoneTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerCheckBalanceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerDepositTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerFundTransferTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerMenuPaymentTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerMiniStatementTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerOptionsTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerServicePaymentTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerSignUpTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerWithdrawTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChangePIN.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChangePIN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerChargePhone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerDeposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerDeposit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerFundTransfer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerFundTransfer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenuPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerMenuPayment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerServicePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerServicePayment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerSignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerSignUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerTheStatePayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerTheStatePayment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerWithdraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/ControllerWithdraw.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PTDA_ATM/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PTDA_ATM/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/MainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerOptionsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerOptionsTest.java" afterDir="false" />
     </list>
     <list id="910dc2de-6e06-480e-a525-d03ca263df6c" name="Changes by goncalo farias" comment="" />
-    <list id="4c3eedf6-94a6-43da-a9fa-043c889b1eb4" name="Changes by rrodr" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/PTDA_ATM/ControllerTheStatePaymentTest.java" afterDir="false" />
-    </list>
+    <list id="4c3eedf6-94a6-43da-a9fa-043c889b1eb4" name="Changes by rrodr" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -117,6 +93,7 @@
     "JUnit.ControllerTheStatePaymentTest.validatePayment_MissingReference_ShouldReturnFalse.executor": "Run",
     "JUnit.ControllerTheStatePaymentTest.validatePayment_ValidDetails_ShouldR3turnTrue.executor": "Run",
     "JUnit.ControllerTheStatePaymentTest.validatePayment_ValidDetails_ShouldReturnTrue.executor": "Run",
+    "JUnit.ControllerWithdrawTest.executor": "Run",
     "JUnit.ControllerWithdrawTest.testEmptyWithdrawAmount.executor": "Run",
     "JUnit.ControllerWithdrawTest.testInvalidFormatWithdrawAmount.executor": "Run",
     "JUnit.ControllerWithdrawTest.testMultipleDecimalPointsWithdrawAmount.executor": "Run",
@@ -161,54 +138,9 @@
       <recent name="SQL" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ControllerChangePINTest">
+  <component name="RunManager" selected="JUnit.ControllerFundTransferTest">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="PTDA_ATM.Main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ControllerChangePINTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PTDA_ATM.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="PTDA_ATM.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="PTDA_ATM" />
-      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerChangePINTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ControllerChargePhoneTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PTDA_ATM.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="PTDA_ATM.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="PTDA_ATM" />
-      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerChargePhoneTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ControllerDepositTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="PTDA_ATM.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="PTDA_ATM.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="PTDA_ATM" />
-      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerDepositTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -228,7 +160,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ValidateInputTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ControllerMenuPaymentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="PTDA_ATM.test" />
       <extension name="coverage">
         <pattern>
@@ -237,26 +169,71 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="PTDA_ATM" />
-      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ValidateInputTest" />
+      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerMenuPaymentTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerOptionsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PTDA_ATM.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="PTDA_ATM.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="PTDA_ATM" />
+      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerOptionsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerServicePaymentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PTDA_ATM.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="PTDA_ATM.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="PTDA_ATM" />
+      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerServicePaymentTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ControllerSignUpTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="PTDA_ATM.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="PTDA_ATM.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="PTDA_ATM" />
+      <option name="MAIN_CLASS_NAME" value="PTDA_ATM.ControllerSignUpTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.ControllerChangePINTest" />
-      <item itemvalue="JUnit.ControllerChargePhoneTest" />
-      <item itemvalue="JUnit.ControllerDepositTest" />
+      <item itemvalue="JUnit.ControllerMenuPaymentTest" />
+      <item itemvalue="JUnit.ControllerOptionsTest" />
+      <item itemvalue="JUnit.ControllerServicePaymentTest" />
+      <item itemvalue="JUnit.ControllerSignUpTest" />
       <item itemvalue="JUnit.ControllerFundTransferTest" />
-      <item itemvalue="JUnit.ValidateInputTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ControllerChangePINTest" />
-        <item itemvalue="JUnit.ControllerChargePhoneTest" />
-        <item itemvalue="JUnit.ControllerDepositTest" />
         <item itemvalue="JUnit.ControllerFundTransferTest" />
-        <item itemvalue="JUnit.ValidateInputTest" />
+        <item itemvalue="JUnit.ControllerMenuPaymentTest" />
+        <item itemvalue="JUnit.ControllerOptionsTest" />
+        <item itemvalue="JUnit.ControllerServicePaymentTest" />
+        <item itemvalue="JUnit.ControllerSignUpTest" />
       </list>
     </recent_temporary>
   </component>
@@ -296,6 +273,7 @@
       <workItem from="1704843612267" duration="1120000" />
       <workItem from="1704844754863" duration="583000" />
       <workItem from="1704845379748" duration="2248000" />
+      <workItem from="1704847742997" duration="191000" />
     </task>
     <servers />
   </component>
