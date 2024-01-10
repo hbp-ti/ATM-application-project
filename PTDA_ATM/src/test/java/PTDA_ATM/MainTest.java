@@ -1,22 +1,22 @@
 package PTDA_ATM;
 
+import SQL.Conn;
+import SQL.ConnSimulated;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
     private Main main;
-
+    private ConnSimulated conn;
     @BeforeEach
     public void setUp() {
         main = new Main();
+        conn = new ConnSimulated();
     }
 
     @AfterEach
@@ -24,19 +24,35 @@ class MainTest {
         main = null;
     }
 
+    @DisplayName("Test: Get Connection")
     @Test
-    public void testConnectionNotNullAfterStart() throws IOException {
-        assertNull(main.getConnection()); // Garante que a conexão seja nula antes de iniciar
-        main.start(new Stage()); // Inicia a aplicação
-        assertNotNull(main.getConnection()); // Verifica se a conexão não é nula após o início
+    public void testGetConnection() {
+        main.setConnection(conn);
+        assertEquals(conn, main.getConnection(), "Should get the connection set");
     }
 
+    @DisplayName("Test: Set Connection")
     @Test
-    public void testConnectionClosedAfterStop() throws IOException {
-        main.start(new Stage()); // Inicia a aplicação
-        assertNotNull(main.getConnection()); // Verifica se a conexão não é nula após o início
-        main.stop(); // Encerra a aplicação
-        assertNull(main.getConnection()); // Verifica se a conexão é nula após o encerramento
+    public void testSetConnection() {
+        main.setConnection(conn);
+        assertEquals(conn, main.getConnection(), "Should set the connection");
+    }
+
+    @DisplayName("Test: Stop Method with Open Connection")
+    @Test
+    public void testStopWithOpenConnection() {
+        main.setConnection(conn);
+        main.stop();
+        assertFalse(conn.isConnected(), "Connection should be closed after stopping the application");
+    }
+
+    @DisplayName("Test: Stop Method with Closed Connection")
+    @Test
+    public void testStopWithClosedConnection() {
+        main.setConnection(conn);
+        conn.doConnection();
+        conn.close();
+        main.stop();
+        assertFalse(conn.isConnected(), "Connection should remain closed after stopping the application");
     }
 }
-

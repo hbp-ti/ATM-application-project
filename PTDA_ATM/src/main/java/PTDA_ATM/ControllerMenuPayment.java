@@ -136,6 +136,13 @@ public class ControllerMenuPayment {
     }
 
     /**
+     * Obtem o nome do cliente.
+     */
+    public String getClientName() {
+        return clientName;
+    }
+
+    /**
      * Alterna para a tela do menu principal.
      *
      * @param event O evento associado à ação.

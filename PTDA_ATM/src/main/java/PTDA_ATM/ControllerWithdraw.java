@@ -217,7 +217,7 @@ public class ControllerWithdraw {
      * @param withdrawAmount O valor do levantamento.
      * @return Verdadeiro se o valor do levantamento for válido, falso caso contrário.
      */
-    private boolean validateInput(String withdrawAmount) {
+    protected boolean validateInput(String withdrawAmount) {
         // Verifica se o valor do levantamento é um número float válido
         if (!withdrawAmount.matches("^\\d+(\\.\\d+)?$")) {
             return false;

@@ -303,7 +303,7 @@ public class ControllerServicePayment {
      * @param amount O valor do pagamento.
      * @return Verdadeiro se a entrada for válida, falso caso contrário.
      */
-    private boolean validateInput(String entity, String reference, String amount) {
+    protected boolean validateInput(String entity, String reference, String amount) {
         if (!entity.matches("^\\d{5}$")) {
             return false; // A entidade deve ter 5 dígitos numéricos
         }
@@ -324,7 +324,7 @@ public class ControllerServicePayment {
      *
      * @return Um mapa contendo informações de pagamento.
      */
-    private HashMap<String, Object> getHashMap() {
+    protected HashMap<String, Object> getHashMap() {
         Bills bills = new Bills();
         return bills.getPayment();
     }
@@ -337,7 +337,7 @@ public class ControllerServicePayment {
      * @param amount O valor do pagamento.
      * @return Verdadeiro se os detalhes do pagamento forem válidos, falso caso contrário.
      */
-    private boolean validatePayment(String entity, String reference, String amount) {
+    protected boolean validatePayment(String entity, String reference, String amount) {
         HashMap<String, Object> bill = getHashMap();
         boolean isEntityValid = false;
         boolean isValueValid = false;

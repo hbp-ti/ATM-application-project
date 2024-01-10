@@ -23,14 +23,22 @@ public class Main extends Application {
 
 
     /**
-     * Retrieves the connection object.
+     * Retorna um objeto do tipo conexao
      *
-     * @return The connection object.
+     * @return O objeto da conexao.
      */
     public Conn getConnection() {
         return connection;
     }
 
+    /**
+     * Define o objeto da conexao.
+     *
+     * @return O objeto da conexao.
+     */
+    public void setConnection(Conn connection) {
+        this.connection = connection;
+    }
 
     /**
      * O método start é chamado quando a aplicação é iniciada.

@@ -304,7 +304,7 @@ public class ControllerFundTransfer {
      * @param amount     Valor da transferência.
      * @return True se a entrada for válida, False caso contrário.
      */
-    private boolean validateInput(String targetAccount, String amount) {
+    protected boolean validateInput(String targetAccount, String amount) {
         // Valida se a conta de destino existe e o valor é um número float válido
         if (!targetAccount.matches("^\\d{20}$")) {
             return false; // O número da conta de destino deve ser um número de 20 dígitos

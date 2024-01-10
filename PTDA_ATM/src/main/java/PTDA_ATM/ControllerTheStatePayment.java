@@ -207,6 +207,8 @@ public class ControllerTheStatePayment {
         }
     }
 
+
+
     /**
      * Retorna ao menu principal.
      *
@@ -226,6 +228,14 @@ public class ControllerTheStatePayment {
         stage.show();
     }
 
+    /**
+     * Retrieves the client's account number.
+     *
+     * @return The client's account number.
+     */
+    public String getClientAccountNumber() {
+        return this.clientAccountNumber;
+    }
     /**
      * Realiza o pagamento das taxas estatais.
      *
@@ -293,7 +303,7 @@ public class ControllerTheStatePayment {
      * @param amount O valor do pagamento.
      * @return Verdadeiro se a entrada for válida, falso caso contrário.
      */
-    private boolean validateInput(String reference, String amount) {
+    protected boolean validateInput(String reference, String amount) {
         if (!reference.matches("^\\d{15}$")) {
             return false; // A referência deve ter 15 dígitos numéricos
         }
@@ -310,7 +320,7 @@ public class ControllerTheStatePayment {
      *
      * @return Um mapa contendo informações de pagamento.
      */
-    private HashMap<String, Object> getHashMap() {
+    protected HashMap<String, Object> getHashMap() {
         Bills bills = new Bills();
         return bills.getPayment();
     }
@@ -322,7 +332,7 @@ public class ControllerTheStatePayment {
      * @param amount O valor do pagamento.
      * @return Verdadeiro se os detalhes do pagamento forem válidos, falso caso contrário.
      */
-    private boolean validatePayment(String reference, String amount) {
+    protected boolean validatePayment(String reference, String amount) {
         HashMap<String, Object> bill = getHashMap();
 
         boolean isValueValid = false;

@@ -63,9 +63,17 @@ public class ControllerOptions {
      *
      * @param clientAccountNumber Número da conta do cliente.
      */
-    public void setClientAccountNumber(String clientAccountNumber) {
+    protected void setClientAccountNumber(String clientAccountNumber) {
         this.clientAccountNumber = clientAccountNumber;
         initialize();
+    }
+
+    /**
+     * Obtem o número da conta do cliente.
+     *
+     */
+    protected String getClientAccountNumber() {
+        return clientAccountNumber;
     }
 
     /**
@@ -86,4 +94,6 @@ public class ControllerOptions {
         stage.setScene(scene);
         stage.show();
     }
+
+
 }

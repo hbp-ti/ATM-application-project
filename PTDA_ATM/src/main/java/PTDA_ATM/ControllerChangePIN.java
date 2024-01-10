@@ -195,7 +195,7 @@ public class ControllerChangePIN {
      * @param newPIN2    A confirmação do novo PIN.
      * @return True se os PINs são válidos, False caso contrário.
      */
-    private boolean validatePINs(String currentPIN, String newPIN, String newPIN2) {
+    protected boolean validatePINs(String currentPIN, String newPIN, String newPIN2) {
         // Verifica se os PINs têm o formato correto (por exemplo, contêm apenas números)
         if (!currentPIN.matches("\\d{4}") || !newPIN.matches("\\d{4}") || !newPIN2.matches("\\d{4}")) {
             return false;

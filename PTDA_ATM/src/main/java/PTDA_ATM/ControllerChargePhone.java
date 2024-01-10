@@ -231,7 +231,7 @@ public class ControllerChargePhone {
      * @param amount      Valor a ser carregado.
      * @return True se a entrada for válida, False caso contrário.
      */
-    private boolean validateInput(String phoneNumber, String amount) {
+    protected boolean validateInput(String phoneNumber, String amount) {
         // Validate if the phone number exists and the amount is a valid float
         if (!phoneNumber.matches("^\\d{1,9}$")) {
             return false; // Phone number should have up to 9 digits

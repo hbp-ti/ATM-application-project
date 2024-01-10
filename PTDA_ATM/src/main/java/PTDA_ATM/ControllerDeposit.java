@@ -209,7 +209,7 @@ public class ControllerDeposit {
      * @param depositAmount Valor do depósito a ser validado.
      * @return True se a entrada for válida, False caso contrário.
      */
-    private boolean validateInput(String depositAmount) {
+    protected boolean validateInput(String depositAmount) {
         // Verifica se o valor do depósito é um número float válido
         if (!depositAmount.matches("^\\d+(\\.\\d+)?$")) {
             return false; // Não é um número float válido

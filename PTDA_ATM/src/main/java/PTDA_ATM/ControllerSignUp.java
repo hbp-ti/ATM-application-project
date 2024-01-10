@@ -491,7 +491,7 @@ public class ControllerSignUp implements Initializable {
      * @param email O endereço de e-mail a ser validado.
      * @return `true` se o formato do e-mail for válido, `false` caso contrário.
      */
-    private boolean isValidEmail(String email) {
+    protected boolean isValidEmail(String email) {
         // Método que valida o email
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
