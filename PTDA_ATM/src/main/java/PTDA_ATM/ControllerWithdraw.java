@@ -137,7 +137,10 @@ public class ControllerWithdraw {
             float withdrawalAmount = Float.parseFloat(amount.getText());
             float availableBalance = query.getAvailableBalance(clientAccountNumber);
 
-            if (withdrawalAmount > availableBalance) {
+            if (withdrawalAmount > 10000) {
+                labelValidacao.setText("Withdrawal amount exceeds the limit of 10000€");
+                applyValidationStyle();
+            } else if (withdrawalAmount > availableBalance) {
                 labelValidacao.setText("Insufficient funds");
                 applyValidationStyle();
             } else {
@@ -191,6 +194,7 @@ public class ControllerWithdraw {
             }
         }
     }
+
 
     /**
      * Transição para o menu principal.

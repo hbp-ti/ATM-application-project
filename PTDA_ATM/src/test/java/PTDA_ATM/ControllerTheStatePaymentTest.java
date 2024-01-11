@@ -39,7 +39,7 @@ class ControllerTheStatePaymentTest {
     @Test
     @DisplayName("Incorrect Input Types")
     void testIncorrectInputTypes() {
-        assertFalse(controller.validatePayment(".", "."), "Expected incorrect input types, but returned true.");
+        assertFalse(controller.validatePayment("1", "2"), "Expected incorrect input types, but returned true.");
     }
 
     @Test

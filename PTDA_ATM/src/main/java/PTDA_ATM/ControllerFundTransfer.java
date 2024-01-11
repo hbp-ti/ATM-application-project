@@ -137,9 +137,9 @@ public class ControllerFundTransfer {
      */
     public void transfer(ActionEvent event) throws IOException {
         String targetAccount = targetAccountNumber.getText();
-        String amount = transferAmount.getText();
+        String transferAmountInput = transferAmount.getText();
 
-        if (!validateInput(targetAccount, amount)) {
+        if (!validateInput(targetAccount, transferAmountInput)) {
             labelValidation.setText("Invalid input. Check and try again.");
             applyValidationStyle();
         } else {
@@ -149,72 +149,78 @@ public class ControllerFundTransfer {
                 return; // Retorna sem realizar a transferência
             }
 
-            float transferAmount = Float.parseFloat(amount);
+            float transferAmount = Float.parseFloat(transferAmountInput);
 
-            // Verifica se o valor da transferência é maior que o saldo disponível
-            float availableBalance = query.getAvailableBalance(sourceAccountNumber);
-            if (transferAmount > availableBalance) {
-                labelValidation.setText("Insufficient funds");
+            if (transferAmount > 10000) {
+                labelValidation.setText("Transfer amount exceeds the limit of 10000€");
                 applyValidationStyle();
             } else {
-                progressTransfer.setProgress(0.0);
-                Duration duration = Duration.seconds(3);
-                KeyFrame keyFrame = new KeyFrame(duration, new KeyValue(progressTransfer.progressProperty(), 1.0));
-                Timeline timeline = new Timeline(keyFrame);
-                timeline.setCycleCount(1);
-                timeline.play();
-                timeline.setOnFinished(e -> {
-                    boolean success = false;
-                    try {
-                        success = performFundTransfer(sourceAccountNumber, targetAccount, transferAmount);
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                // Restante da lógica permanece igual
+                float availableBalance = query.getAvailableBalance(sourceAccountNumber);
+                if (transferAmount > availableBalance) {
+                    labelValidation.setText("Insufficient funds");
+                    applyValidationStyle();
+                } else {
+                    progressTransfer.setProgress(0.0);
+                    Duration duration = Duration.seconds(3);
+                    KeyFrame keyFrame = new KeyFrame(duration, new KeyValue(progressTransfer.progressProperty(), 1.0));
+                    Timeline timeline = new Timeline(keyFrame);
+                    timeline.setCycleCount(1);
+                    timeline.play();
+                    timeline.setOnFinished(e -> {
+                        boolean success = false;
+                        try {
+                            success = performFundTransfer(sourceAccountNumber, targetAccount, transferAmount);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
 
-                    if (success) {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
-                        LocalDateTime now = LocalDateTime.now();
+                        if (success) {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                            LocalDateTime now = LocalDateTime.now();
 
-                        labelValidation.setText(amount + "€ has been withdrawn from your account!");
-                        labelValidation.setTextFill(Color.GREEN);
+                            labelValidation.setText(transferAmountInput + "€ has been withdrawn from your account!");
+                            labelValidation.setTextFill(Color.GREEN);
 
-                        String recipientEmail = query.getClientEmail(sourceAccountNumber);
-                        String subject = "Transfer";
-                        String message = "Subject: Transfer Notification\n" +
-                                "Dear "+query.getClientName(sourceAccountNumber)+",\n" +
-                                "We are pleased to inform you that a transfer of "+ amount +"€ has been successfully made from your account. This transfer was processed on "+ formatter.format(now) +".\n" +
-                                "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
-                                "Best regards,\n" +
-                                "ByteBank";
-                        sendEmail(recipientEmail, subject, message);
+                            String recipientEmail = query.getClientEmail(sourceAccountNumber);
+                            String subject = "Transfer";
+                            String message = "Subject: Transfer Notification\n" +
+                                    "Dear "+query.getClientName(sourceAccountNumber)+",\n" +
+                                    "We are pleased to inform you that a transfer of "+ transferAmountInput +"€ has been successfully made from your account. This transfer was processed on "+ formatter.format(now) +".\n" +
+                                    "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
+                                    "Best regards,\n" +
+                                    "ByteBank";
+                            sendEmail(recipientEmail, subject, message);
 
-                        // Não é necessário chamar movement novamente aqui
+                            // Não é necessário chamar movement novamente aqui
 
-                        String recipientEmailTarget = query.getClientEmail(targetAccount);
-                        String subjectTarget = "Transfer";
+                            String recipientEmailTarget = query.getClientEmail(targetAccount);
+                            String subjectTarget = "Transfer";
 
-                        String messageTarget = "Subject: Transfer Notification\n"+
-                                "Dear "+query.getClientName(targetAccount)+",\n" +
-                                "We are pleased to inform you that a transfer of "+ amount +"€ has been successfully made to your account. This transfer was processed on "+ formatter.format(now) +".\n" +
-                                "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
-                                "Best regards,\n" +
-                                "ByteBank";
-                        sendEmail(recipientEmailTarget, subjectTarget, messageTarget);
+                            String messageTarget = "Subject: Transfer Notification\n"+
+                                    "Dear "+query.getClientName(targetAccount)+",\n" +
+                                    "We are pleased to inform you that a transfer of "+ transferAmountInput +"€ has been successfully made to your account. This transfer was processed on "+ formatter.format(now) +".\n" +
+                                    "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
+                                    "Best regards,\n" +
+                                    "ByteBank";
+                            sendEmail(recipientEmailTarget, subjectTarget, messageTarget);
 
-                        PauseTransition pause = new PauseTransition(Duration.seconds(3));
-                        pause.setOnFinished(events -> {
-                            try {
-                                switchToMenu(event);
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
-                            }
-                        });
-                        pause.play();
-                    }
-                });
+                            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+                            pause.setOnFinished(events -> {
+                                try {
+                                    switchToMenu(event);
+                                } catch (IOException ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                            });
+                            pause.play();
+                        }
+                    });
+                }
             }
         }
     }
+
 
     /**
      * Executa a lógica de transferência de fundos no banco de dados.

@@ -138,51 +138,57 @@ public class ControllerDeposit {
             labelValidacao.setText("Invalid amount");
             applyValidationStyle();
         } else {
-            progressDeposit.setProgress(0.0);
-            Duration duration = Duration.seconds(3);
-            KeyFrame keyFrame = new KeyFrame(duration, new KeyValue(progressDeposit.progressProperty(), 1.0));
-            Timeline timeline = new Timeline(keyFrame);
-            timeline.setCycleCount(1);
-            timeline.play();
+            float depositAmount = Float.parseFloat(amount.getText());
 
-            timeline.setOnFinished(e -> {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
-                LocalDateTime now = LocalDateTime.now();
+            if (depositAmount > 10000) {
+                labelValidacao.setText("Deposit amount exceeds the limit of 10000€");
+                applyValidationStyle();
+            } else {
+                progressDeposit.setProgress(0.0);
+                Duration duration = Duration.seconds(3);
+                KeyFrame keyFrame = new KeyFrame(duration, new KeyValue(progressDeposit.progressProperty(), 1.0));
+                Timeline timeline = new Timeline(keyFrame);
+                timeline.setCycleCount(1);
+                timeline.play();
 
-                float depositAmount = Float.parseFloat(amount.getText());
+                timeline.setOnFinished(e -> {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
+                    LocalDateTime now = LocalDateTime.now();
 
-                try {
-                    query.movement(clientAccountNumber, "Credit", depositAmount, "Deposit");
-                    labelValidacao.setText(String.format("%.2f€ has been credited to your account!", depositAmount));
-                    labelValidacao.setTextFill(Color.GREEN);
+                    try {
+                        query.movement(clientAccountNumber, "Credit", depositAmount, "Deposit");
+                        labelValidacao.setText(String.format("%.2f€ has been credited to your account!", depositAmount));
+                        labelValidacao.setTextFill(Color.GREEN);
 
-                    String recipientEmail = query.getClientEmail(clientAccountNumber);
-                    String subject = "Deposit";
-                    String message = "Subject: Deposit Notification\n" +
-                            "Dear " + query.getClientName(clientAccountNumber) + ",\n" +
-                            "We are pleased to inform you that a deposit of " + String.format("%.2f€", depositAmount) +
-                            " has been successfully credited to your account. This deposit was processed on " +
-                            formatter.format(now) + " and is now available for your use.\n" +
-                            "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
-                            "Best regards,\n" +
-                            "ByteBank";
-                    sendEmail(recipientEmail, subject, message);
+                        String recipientEmail = query.getClientEmail(clientAccountNumber);
+                        String subject = "Deposit";
+                        String message = "Subject: Deposit Notification\n" +
+                                "Dear " + query.getClientName(clientAccountNumber) + ",\n" +
+                                "We are pleased to inform you that a deposit of " + String.format("%.2f€", depositAmount) +
+                                " has been successfully credited to your account. This deposit was processed on " +
+                                formatter.format(now) + " and is now available for your use.\n" +
+                                "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
+                                "Best regards,\n" +
+                                "ByteBank";
+                        sendEmail(recipientEmail, subject, message);
 
-                    PauseTransition pause = new PauseTransition(Duration.seconds(3));
-                    pause.setOnFinished(events -> {
-                        try {
-                            switchToMenu(event);
-                        } catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-                    });
-                    pause.play();
-                } catch (SQLException ex) {
-                    showError("Error saving the movement!");
-                }
-            });
+                        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+                        pause.setOnFinished(events -> {
+                            try {
+                                switchToMenu(event);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        });
+                        pause.play();
+                    } catch (SQLException ex) {
+                        showError("Error saving the movement!");
+                    }
+                });
+            }
         }
     }
+
 
     /**
      * Alterna para a tela de menu principal.

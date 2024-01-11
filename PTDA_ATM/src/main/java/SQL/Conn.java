@@ -56,7 +56,7 @@ public class Conn {
      * @param user     Nome de utilizador.
      * @param password Senha para autenticação.
      */
-    private void connect(String url, int port, String schema, String user, String password) {
+    public void connect(String url, int port, String schema, String user, String password) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             c = DriverManager.getConnection("jdbc:mysql://" + url + ":" + port + "/" + schema, user, password);

@@ -131,36 +131,39 @@ public class ControllerChargePhone {
      * @throws SQLException Exceção SQL.
      */
     public void chargePhone(ActionEvent event) throws SQLException {
-        String phoneNumberr = phoneNumber.getText();
-        String amountt = amount.getText();
+        String phoneNumberInput = phoneNumber.getText();
+        String chargeAmountInput = amount.getText();
 
-
-        if (!validateInput(phoneNumberr, amountt)) {
+        if (!validateInput(phoneNumberInput, chargeAmountInput)) {
             labelValidacao.setText("Invalid input. Check and try again.");
             applyValidationStyle();
         } else {
-            float chargeAmount = Float.parseFloat(amountt);
+            float chargeAmount = Float.parseFloat(chargeAmountInput);
 
             float availableBalance = query.getAvailableBalance(clientAccountNumber);
 
-            if (chargeAmount > availableBalance) {
+            if (chargeAmount > 10000) {
+                labelValidacao.setText("Charge amount exceeds the limit of 10000€");
+                applyValidationStyle();
+            } else if (chargeAmount > availableBalance) {
                 labelValidacao.setText("Insufficient funds");
                 applyValidationStyle();
             } else {
-                boolean success = performPhoneCharge(clientAccountNumber, phoneNumberr, chargeAmount);
+                // Restante da lógica permanece igual
+                boolean success = performPhoneCharge(clientAccountNumber, phoneNumberInput, chargeAmount);
 
                 if (success) {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyy-MM-dd HH:mm:ss");
                     LocalDateTime now = LocalDateTime.now();
 
-                    labelValidacao.setText(amountt + "€ has been charged to "+phoneNumberr+"!");
+                    labelValidacao.setText(chargeAmountInput + "€ has been charged to " + phoneNumberInput + "!");
                     labelValidacao.setTextFill(Color.GREEN);
 
                     String recipientEmail = query.getClientEmail(clientAccountNumber);
                     String subject = "Transfer";
                     String message = "Subject: Phone Credit Notification\n" +
                             "Dear " + query.getClientName(clientAccountNumber) + ",\n" +
-                            "We are pleased to inform you that a credit of " + amountt + "€ has been successfully loaded onto the phone: "+phoneNumberr+". This credit was processed on " + formatter.format(now) + ".\n" +
+                            "We are pleased to inform you that a credit of " + chargeAmountInput + "€ has been successfully loaded onto the phone: " + phoneNumberInput + ". This credit was processed on " + formatter.format(now) + ".\n" +
                             "Should you have any questions or need further clarification, please do not hesitate to reach out to us. We are here to assist you.\n" +
                             "Best regards,\n" +
                             "ByteBank";
@@ -179,9 +182,9 @@ public class ControllerChargePhone {
                     showError("Phone Charge unsuccessful. Check the phone number and try again.");
                 }
             }
-
         }
     }
+
 
     /**
      * Executa a lógica de carregamento do telefone.
