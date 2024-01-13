@@ -158,7 +158,7 @@ public class Query {
             try {
                 preparedStatement = connection.prepareStatement("INSERT INTO Movement (accountNumber, movementDate, movementType, movementValue, movementDescription) VALUES (?, NOW(), ?, ?, ?)");
                 preparedStatement.setString(1, clientAccountNumber);
-                preparedStatement.setString(2, type);  // ou qualquer valor padrão para movimentos de depósito
+                preparedStatement.setString(2, type);
                 preparedStatement.setFloat(3, value);
                 preparedStatement.setString(4, description);
 
@@ -612,7 +612,7 @@ public class Query {
      * @return True se o número de conta já existir; false, caso contrário.
      * @throws SQLException Exceção lançada se houver um problema durante a execução da consulta SQL.
      */
-    boolean isAccountNumberExists(String accountNumber) throws SQLException {
+    public boolean isAccountNumberExists(String accountNumber) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM BankAccount WHERE accountNumber = ?");
         preparedStatement.setString(1, accountNumber);
         ResultSet resultSet = preparedStatement.executeQuery();

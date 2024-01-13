@@ -108,7 +108,7 @@ public class ControllerSignUp implements Initializable {
     /**
      * Objeto para executar consultas no banco de dados.
      */
-    Query query = new Query();
+    private Query query = new Query();
 
     /**
      * Inicializa o controlador após o carregamento do arquivo FXML.
@@ -492,7 +492,7 @@ public class ControllerSignUp implements Initializable {
      * @return `true` se o formato do e-mail for válido, `false` caso contrário.
      */
     protected boolean isValidEmail(String email) {
-        // Método que valida o email
+
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
         Pattern pattern = Pattern.compile(emailRegex);

@@ -49,7 +49,7 @@ public class ControllerMenuPayment {
     /**
      * Objeto para executar consultas no banco de dados.
      */
-    private final Query query = new Query();
+    private Query query = new Query();
 
     /**
      * Objeto para criar sombra para os botões

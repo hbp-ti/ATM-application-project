@@ -33,7 +33,7 @@ public class ControllerOptions {
     /**
      * Objeto para executar consultas no banco de dados.
      */
-    private final Query query = new Query();
+    private Query query = new Query();
 
     /**
      * Objeto para criar sombra para os botões
@@ -63,7 +63,7 @@ public class ControllerOptions {
      *
      * @param clientAccountNumber Número da conta do cliente.
      */
-    protected void setClientAccountNumber(String clientAccountNumber) {
+    public void setClientAccountNumber(String clientAccountNumber) {
         this.clientAccountNumber = clientAccountNumber;
         initialize();
     }
@@ -72,7 +72,7 @@ public class ControllerOptions {
      * Obtem o número da conta do cliente.
      *
      */
-    protected String getClientAccountNumber() {
+    public String getClientAccountNumber() {
         return clientAccountNumber;
     }
 

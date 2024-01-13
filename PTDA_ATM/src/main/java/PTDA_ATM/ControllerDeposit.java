@@ -71,7 +71,7 @@ public class ControllerDeposit {
     /**
      * Objeto para executar consultas no banco de dados.
      */
-    private final Query query = new Query();
+    Query query = new Query();
 
     /**
      * Objeto para criar sombra para os botões

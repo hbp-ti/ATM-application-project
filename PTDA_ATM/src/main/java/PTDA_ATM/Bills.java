@@ -12,7 +12,7 @@ public class Bills {
      * Construtor padrão que inicializa as contas e serviços disponíveis.
      * As contas são mapeadas pelos seus números correspondentes.
      */
-    Bills() {
+        Bills() {
         bills.put("123456789", new Services("12345", 123.12));
         bills.put("123456789012345", new TheState(124.12));
 
