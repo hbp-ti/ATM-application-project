@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6faf0976-2b59-4273-abdb-11e79217a189" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Diagramas/DiagramaClasses_PTDA.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Diagramas/DiagramaClasses_PTDA.vpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="910dc2de-6e06-480e-a525-d03ca263df6c" name="Changes by goncalo farias" comment="" />
+    <list id="08aaa93c-aa47-4300-82f6-b506ac739337" name="Changes by rrodr" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -316,6 +316,7 @@
       <workItem from="1705408671070" duration="91000" />
       <workItem from="1705589279721" duration="440000" />
       <workItem from="1705591859409" duration="18000" />
+      <workItem from="1705592595824" duration="4573000" />
     </task>
     <servers />
   </component>
